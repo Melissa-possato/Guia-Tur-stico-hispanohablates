@@ -26,3 +26,4 @@ CREATE TABLE mapa (
     FOREIGN KEY (id_cadastro) REFERENCES cadastro(id_cadastro)
 );
 
+A
