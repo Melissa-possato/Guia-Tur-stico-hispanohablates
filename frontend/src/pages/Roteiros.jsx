@@ -45,7 +45,7 @@ function Roteiros() {
 
     try{
 
-      const res = await fetch("http://localhost:3000/roteiro");
+      const res = await fetch("http://localhost:5174/roteiro");
       const data = await res.json();
 
       setRoteiros(data);

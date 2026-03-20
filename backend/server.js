@@ -171,6 +171,10 @@ app.post("/roteiro", (req, res) => {
         res.json({ mensagem: "Roteiro criado!" });
 
     });
+    if (err) {
+        console.error("ERRO NO BANCO:", err.sqlMessage); // Isso vai te dizer exatamente qual coluna falhou
+        return res.status(500).json(err);
+    }
 
 });
 

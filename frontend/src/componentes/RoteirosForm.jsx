@@ -10,26 +10,21 @@ function RoteirosForm({ atualizar }) {
   const [preco, setPreco] = useState("");
 
   const criarRoteiro = async (e) => {
-
     e.preventDefault();
-
-    await fetch("http://localhost:3000/roteiro", {
-
+  
+    await fetch("http://localhost:5174/roteiro", { // 
       method: "POST",
-
-      headers: {
-        "Content-Type": "application/json"
-      },
-
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        id_cadastro: 1, // ADICIONADO: substitua pelo ID do usuário logado futuramente
         titulo,
         descricao,
         duracao_horas: duracao,
         dificuldade,
+        preco_estimado: preco,
         categoria,
-        preco_estimado: preco
+        avaliacao: 5 // ADICIONADO: valor padrão inicial
       })
-
     });
 
     setTitulo("");

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Circle, useMap } from "react-leaflet"; // Adicionamos Circle
 import L from "leaflet";
 import 'leaflet/dist/leaflet.css';
 
@@ -14,55 +14,78 @@ let DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
-// Este componente é essencial para mover a "câmera" do mapa
 function ChangeView({ center }) {
   const map = useMap();
   useEffect(() => {
-    map.setView(center, 15); // Aumentamos o zoom para 15 para ver melhor a rua
+    map.setView(center, 15);
   }, [center, map]);
   return null;
 }
 
 function Mapa() {
-  // Iniciamos com um valor padrão (ex: São Carlos)
   const [posicao, setPosicao] = useState([-22.0056, -47.8977]);
+  const [precisao, setPrecisao] = useState(0); // Estado para a margem de erro
 
-  useEffect(() => {
+  // Função para buscar a localização atual
+  const localizarUsuario = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          const { latitude, longitude } = position.coords;
-          console.log("Localização encontrada:", latitude, longitude);
+          const { latitude, longitude, accuracy } = position.coords;
           setPosicao([latitude, longitude]);
+          setPrecisao(accuracy); // Salva a margem de erro em metros
         },
-        (error) => {
-          console.error("Erro ao obter localização:", error);
-        },
-        {
-          enableHighAccuracy: true, // Tenta usar GPS em vez de apenas IP
-          timeout: 10000,           // Espera até 10 segundos
-          maximumAge: 0             // Não usa localização em cache
-        }
+        (error) => console.error("Erro:", error),
+        { enableHighAccuracy: true }
       );
     }
+  };
+
+  // Localiza automaticamente ao carregar a página pela primeira vez
+  useEffect(() => {
+    localizarUsuario();
   }, []);
 
   return (
-    <div style={{ height: "100vh", width: "100vw" }}> 
-      <MapContainer 
-        center={posicao} 
-        zoom={13} 
-        style={{ height: "100%", width: "100%" }}
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
+      
+      {/* Botão de Me Achar */}
+      <button 
+        onClick={localizarUsuario}
+        style={{ cursor: "pointer", borderRadius: "8px", border: "none", backgroundColor: "#007bff", color: "white", fontWeight: "bold" }}
       >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        📍 Me Achar
+      </button>
 
-        
-        
-        {/* ADICIONADO: O componente que força o mapa a se mover */}
-        <ChangeView center={posicao} />
-        
-        <Marker position={posicao}></Marker>
-      </MapContainer>
+      <div style={{ height: "80vh", width: "70vw", borderRadius: "15px", overflow: "hidden", boxShadow: "0 4px 12px rgba(0,0,0,0.2)" }}> 
+        <MapContainer 
+          center={posicao} 
+          zoom={13} 
+          style={{ height: "100%", width: "100%" }}
+        >
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          
+          <ChangeView center={posicao} />
+          
+          <Marker position={posicao} />
+
+          {/* Círculo de Margem de Erro */}
+          {precisao > 0 && (
+          <Circle 
+            center={posicao} 
+            // Aqui dizemos: "use a precisão real, mas no máximo 100 metros"
+            radius={Math.min(precisao, 100)} 
+            pathOptions={{ 
+              fillColor: '#3388ff', 
+              color: '#3388ff', 
+              weight: 1,       // Linha de borda mais fina
+              opacity: 0.5, 
+              fillOpacity: 0.15 
+              }} 
+            />
+          )}
+        </MapContainer>
+      </div>
     </div>
   );
 }
