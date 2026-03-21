@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [nomeUsuario, setNomeUsuario] = useState("");
@@ -11,7 +12,7 @@ function Login() {
 
     try {
       // ATENÇÃO: Mudamos para a porta 3000
-      const response = await fetch("http://localhost:51/login", {
+      const response = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -63,6 +64,9 @@ function Login() {
         />
         <button type="submit" style={{ width: "100%" }}>Entrar</button>
       </form>
+      <Link to={"/cadastrarU"}> Cadastrar </Link>      <br /><br />
+      <Link to={"/"}>Voltar para a página inicial</Link>
+
     </div>
   );
 }

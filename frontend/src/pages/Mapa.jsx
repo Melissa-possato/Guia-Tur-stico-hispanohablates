@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Circle, useMap } from "react-leaflet"; // Adicionamos Circle
 import L from "leaflet";
 import 'leaflet/dist/leaflet.css';
+import { Link } from "react-router-dom";
 
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -74,7 +75,7 @@ function Mapa() {
           <Circle 
             center={posicao} 
             // Aqui dizemos: "use a precisão real, mas no máximo 100 metros"
-            radius={Math.min(precisao, 100)} 
+            radius={Math.min(precisao, 200)} 
             pathOptions={{ 
               fillColor: '#3388ff', 
               color: '#3388ff', 
@@ -86,6 +87,9 @@ function Mapa() {
           )}
         </MapContainer>
       </div>
+      <br />
+       <Link to={"/"}>Voltar para a página inicial</Link>
+
     </div>
   );
 }

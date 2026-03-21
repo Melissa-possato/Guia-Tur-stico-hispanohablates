@@ -55,3 +55,5 @@ CREATE TABLE parada_roteiro (
     FOREIGN KEY (id_roteiro) REFERENCES roteiro(id_roteiro)
 );
 
+select * from login;
+

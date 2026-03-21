@@ -22,6 +22,7 @@ function App() {
           <Link to="/guiacultural">Guia Cultural</Link>
           <Link to="/roteiros">Roteiros</Link>
           <Link to="/eventos">Eventos</Link>
+            <Link to="/login">Login</Link>
         </nav>
       </header>
 
