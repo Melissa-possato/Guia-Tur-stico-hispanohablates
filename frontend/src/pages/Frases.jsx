@@ -51,7 +51,12 @@ function Frases() {
   const [categoriaAtiva, setCategoriaAtiva] = useState("Básico");
 
   // ainda vazio
-  const frases = [];
+  const frases = [
+    { categoria: "Restaurante", pt: "Quero um café", en: "I want a coffee" },
+    { categoria: "Restaurante", pt: "A conta, por favor", en: "The bill, please" },
+    { categoria: "Transporte", pt: "Onde fica a estação?", en: "Where is the station?" },
+    { categoria: "Transporte", pt: "Quanto custa a passagem?", en: "How much is the ticket?" }
+  ];
 
   const frasesFiltradas = frases.filter(
     (f) => f.categoria === categoriaAtiva
