@@ -6,16 +6,11 @@ use guiaTuristico;
 
 CREATE TABLE cadastro (
     id_cadastro INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) UNIQUE,
     nome_usuario VARCHAR(50) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE login (
-    id_login INT AUTO_INCREMENT PRIMARY KEY,
-    id_cadastro INT,
-    data_login DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_cadastro) REFERENCES cadastro(id_cadastro)
-);
 
 /*mapa*/
 
@@ -55,5 +50,5 @@ CREATE TABLE parada_roteiro (
     FOREIGN KEY (id_roteiro) REFERENCES roteiro(id_roteiro)
 );
 
-select * from login;
-
+insert into cadastro (nome_usuario, senha) values ("melissa", "123");
+select * from cadastro;
