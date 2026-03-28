@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // Importe o navigate para redirecionar se não houver token
 import RoteirosForm from "../componentes/RoteirosForm";
 
 function Roteiros() {
-
   const [roteiros, setRoteiros] = useState([]);
+  const navigate = useNavigate();
 
   // roteiros prontos
   const roteirosProntos = [
@@ -41,27 +42,45 @@ function Roteiros() {
   ];
 
   // buscar roteiros do banco
-  const carregarRoteiros = async () => {
+ const carregarRoteiros = async () => {
+    // 1. BUSCAMOS O TOKEN QUE SALVAMOS NO LOGIN
+    const token = localStorage.getItem("token");
 
-    try{
-
-      const res = await fetch("http://localhost:5173/roteiro");
-      const data = await res.json();
-
-      setRoteiros(data);
-
-    }catch{
-
-      setRoteiros([]);
-
+    // OPCIONAL: Se não tiver token, nem tenta buscar e manda pro login
+    if (!token) {
+      navigate("/login");
+      return;
     }
 
+    try {
+      // 2. CORRIGIMOS A URL (Porta 3000 do Node)
+      const res = await fetch("http://localhost:3000/roteiro", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          // 3. ENVIAMOS O TOKEN PARA O MIDDLEWARE VALIDAR
+          "x-access-token": token 
+        }
+      });
+
+      // 4. SE O TOKEN FOR INVÁLIDO (ERRO 401 ou 403), DESLOGA O USUÁRIO
+      if (res.status === 401 || res.status === 403) {
+        localStorage.removeItem("token");
+        navigate("/login");
+        return;
+      }
+
+      const data = await res.json();
+      setRoteiros(data);
+
+    } catch (error) {
+      console.error("Erro ao carregar roteiros:", error);
+      setRoteiros([]);
+    }
   };
 
   useEffect(() => {
-
     carregarRoteiros();
-
   }, []);
 
   return (

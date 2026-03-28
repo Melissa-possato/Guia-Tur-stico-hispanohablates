@@ -7,11 +7,10 @@ function Login() {
   const [senha, setSenha] = useState("");
   const navigate = useNavigate();
 
-  const fazerLogin = async (e) => {
+const fazerLogin = async (e) => {
     e.preventDefault();
 
     try {
-      // ATENÇÃO: Mudamos para a porta 3000
       const response = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -21,26 +20,28 @@ function Login() {
         }),
       });
 
-      if (!response.ok) {
-        alert("Usuário ou senha incorretos.");
-        return;
-      }
-
       const data = await response.json();
 
-      if (data.login) {
-        alert("Bem-vindo(a)!");
-        // Guardamos o ID do usuário para usar nos Roteiros
+      if (response.ok && data.login) {
+        alert(`Bem-Vindo(a) ${nomeUsuario}`);
+        
+        localStorage.setItem("token", data.token); 
+        
         localStorage.setItem("usuarioId", data.usuario.id_cadastro);
-        navigate("/roteiros"); // Mude para a rota da sua página principal
+        
+        navigate("/"); 
       } else {
-        alert("Falha no login.");
+        alert("Falha no login: " + (data.mensagem || "Usuário ou senha incorretos"));
       }
     } catch (error) {
       console.error("Erro ao conectar:", error);
       alert("Servidor desligado ou erro na rede.");
     }
-  };
+
+  }; 
+  
+    
+  
 
   return (
     <div style={{ padding: "20px", maxWidth: "300px", margin: "0 auto" }}>
@@ -64,6 +65,7 @@ function Login() {
         />
         <button type="submit" style={{ width: "100%" }}>Entrar</button>
       </form>
+
       <Link to={"/cadastrarU"}> Cadastrar </Link>      <br /><br />
       <Link to={"/"}>Voltar para a página inicial</Link>
 
