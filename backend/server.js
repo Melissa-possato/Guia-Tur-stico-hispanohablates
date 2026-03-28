@@ -2,6 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const db = require("./db");
 
+const jwt = require('jsonwebtoken');
+const authMiddleware = require('./middleware/authMiddleware'); 
+const SECRET = "MINHA_CHAVE_SECRETA_123";
+
 const app = express();
 
 app.use(cors());
@@ -12,24 +16,25 @@ app.use(express.json());
  */
 
 app.post("/cadastro", (req, res) => {
+    const { nome_usuario, email, senha } = req.body;
 
-    const { nome_usuario, senha } = req.body;
+    console.log(`Tentativa de cadastro: ${nome_usuario} - ${email}`);
+    const sql = "INSERT INTO cadastro (nome_usuario, email, senha) VALUES (?, ?, ?)";
 
-    const sql = `
-        INSERT INTO cadastro (nome_usuario, senha)
-        VALUES (?, ?)
-    `;
-
-    db.query(sql, [nome_usuario, senha], (err, result) => {
-
+    db.query(sql, [nome_usuario, email, senha], (err, result) => {
         if (err) {
-            return res.status(500).json(err);
+            console.error("ERRO NO BANCO:", err.sqlMessage);
+            
+
+            if (err.code === 'ER_DUP_ENTRY') {
+                return res.status(400).json({ message: "Usuário ou E-mail já cadastrados!" });
+            }
+
+            return res.status(500).json({ message: "Erro ao salvar no banco", detalhes: err.sqlMessage });
         }
 
-        res.json({ mensagem: "Usuário cadastrado!" });
-
+        res.json({ message: "Usuário cadastrado com sucesso!" });
     });
-
 });
 
 app.get("/cadastro", (req, res) => {
@@ -53,65 +58,40 @@ app.get("/cadastro", (req, res) => {
  */
 
 app.post("/login", (req, res) => {
-
     const { nome_usuario, senha } = req.body;
-
-    const sql = `
-        SELECT * FROM cadastro
-        WHERE nome_usuario = ? AND senha = ?
-    `;
+    const sql = "SELECT * FROM cadastro WHERE nome_usuario = ? AND senha = ?";
 
     db.query(sql, [nome_usuario, senha], (err, result) => {
-
-        if (err) {
-            return res.status(500).json(err);
-        }
+        if (err) return res.status(500).json(err);
 
         if (result.length > 0) {
-
             const id = result[0].id_cadastro;
+            
+            // Criamos o token que expira em 1 hora
+            const token = jwt.sign({ id }, SECRET, { expiresIn: 3600 });
 
-            db.query(
-                "INSERT INTO login (id_cadastro) VALUES (?)",
-                [id]
-            );
-
-            res.json({ login: true, usuario: result[0] });
-
+            return res.json({ login: true, token: token, usuario: result[0] });
         } else {
-
-            res.json({ login: false });
-
+            res.json({ login: false, mensagem: "Usuário ou senha incorretos" });
         }
-
     });
-
 });
 
 /* 
    MAPA
  */
 
-app.post("/mapa", (req, res) => {
+// Exemplo: Rota de mapa protegida
+app.post("/mapa", authMiddleware, (req, res) => {
+    // Agora você tem acesso ao id do usuário logado via req.userId
+    const { nome_local, latitude, longitude } = req.body;
+    const id_cadastro = req.userId; 
 
-    const { id_cadastro, nome_local, latitude, longitude } = req.body;
-
-    const sql = `
-        INSERT INTO mapa
-        (id_cadastro, nome_local, latitude, longitude)
-        VALUES (?, ?, ?, ?)
-    `;
-
+    const sql = "INSERT INTO mapa (id_cadastro, nome_local, latitude, longitude) VALUES (?, ?, ?, ?)";
     db.query(sql, [id_cadastro, nome_local, latitude, longitude], (err, result) => {
-
-        if (err) {
-            return res.status(500).json(err);
-        }
-
-        res.json({ mensagem: "Local salvo!" });
-
+        if (err) return res.status(500).json(err);
+        res.json({ mensagem: "Local salvo com segurança!" });
     });
-
 });
 
 app.get("/mapa", (req, res) => {

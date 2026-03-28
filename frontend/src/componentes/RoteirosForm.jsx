@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 function RoteirosForm({ atualizar }) {
-
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
   const [duracao, setDuracao] = useState("");
@@ -11,99 +10,61 @@ function RoteirosForm({ atualizar }) {
 
   const criarRoteiro = async (e) => {
     e.preventDefault();
-  
-    await fetch("http://localhost:5173/roteiro", { // 
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id_cadastro: 1, // ADICIONADO: substitua pelo ID do usuário logado futuramente
-        titulo,
-        descricao,
-        duracao_horas: duracao,
-        dificuldade,
-        preco_estimado: preco,
-        categoria,
-        avaliacao: 5 // ADICIONADO: valor padrão inicial
-      })
-    });
 
-    setTitulo("");
-    setDescricao("");
-    setDuracao("");
-    setDificuldade("");
-    setCategoria("");
-    setPreco("");
+    // 1. BUSCAMOS OS DADOS REAIS DO USUÁRIO LOGADO
+    const token = localStorage.getItem("token");
+    const idUsuarioLogado = localStorage.getItem("usuarioId");
 
-    atualizar();
+    try {
+      // 2. CORRIGIMOS A URL PARA A PORTA 3000
+      await fetch("http://localhost:3000/roteiro", { 
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          // 3. ENVIAMOS O TOKEN NO CABEÇALHO
+          "x-access-token": token 
+        },
+        body: JSON.stringify({
+          id_cadastro: idUsuarioLogado, // USANDO O ID REAL DO STORAGE
+          titulo,
+          descricao,
+          duracao_horas: duracao,
+          dificuldade,
+          preco_estimado: preco,
+          categoria,
+          avaliacao: 5 
+        })
+      });
 
+      // Limpa os campos após o sucesso
+      setTitulo("");
+      setDescricao("");
+      setDuracao("");
+      setDificuldade("");
+      setCategoria("");
+      setPreco("");
+
+      atualizar(); // Atualiza a lista na tela principal
+
+    } catch (error) {
+      console.error("Erro ao criar roteiro:", error);
+      alert("Erro ao conectar com o servidor.");
+    }
   };
 
   return (
-
-    <form onSubmit={criarRoteiro}>
-
+    <form onSubmit={criarRoteiro} style={{ marginBottom: "20px", border: "1px solid #eee", padding: "15px" }}>
       <h2>Criar novo roteiro</h2>
-
-      <input
-        type="text"
-        placeholder="Título"
-        value={titulo}
-        onChange={(e) => setTitulo(e.target.value)}
-      />
-
-      <br/>
-
-      <input
-        type="text"
-        placeholder="Descrição"
-        value={descricao}
-        onChange={(e) => setDescricao(e.target.value)}
-      />
-
-      <br/>
-
-      <input
-        type="number"
-        placeholder="Duração (horas)"
-        value={duracao}
-        onChange={(e) => setDuracao(e.target.value)}
-      />
-
-      <br/>
-
-      <input
-        type="text"
-        placeholder="Dificuldade"
-        value={dificuldade}
-        onChange={(e) => setDificuldade(e.target.value)}
-      />
-
-      <br/>
-
-      <input
-        type="text"
-        placeholder="Categoria"
-        value={categoria}
-        onChange={(e) => setCategoria(e.target.value)}
-      />
-
-      <br/>
-
-      <input
-        type="text"
-        placeholder="Preço estimado"
-        value={preco}
-        onChange={(e) => setPreco(e.target.value)}
-      />
-
-      <br/>
-
+      {/* Seus inputs continuam iguais... */}
+      <input type="text" placeholder="Título" value={titulo} onChange={(e) => setTitulo(e.target.value)} /><br/>
+      <input type="text" placeholder="Descrição" value={descricao} onChange={(e) => setDescricao(e.target.value)} /><br/>
+      <input type="number" placeholder="Duração (horas)" value={duracao} onChange={(e) => setDuracao(e.target.value)} /><br/>
+      <input type="text" placeholder="Dificuldade" value={dificuldade} onChange={(e) => setDificuldade(e.target.value)} /><br/>
+      <input type="text" placeholder="Categoria" value={categoria} onChange={(e) => setCategoria(e.target.value)} /><br/>
+      <input type="text" placeholder="Preço estimado" value={preco} onChange={(e) => setPreco(e.target.value)} /><br/>
       <button type="submit">Criar roteiro</button>
-
     </form>
-
   );
-
 }
 
 export default RoteirosForm;
