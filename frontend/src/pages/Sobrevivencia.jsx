@@ -136,3 +136,4 @@ function Sobrevivencia() {
     </div>
   );
 }
+export default Sobrevivencia;
