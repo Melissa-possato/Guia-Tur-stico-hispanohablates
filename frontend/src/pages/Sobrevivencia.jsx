@@ -136,5 +136,8 @@ function Sobrevivencia() {
     </div>
   );
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> d17e6ad4aa2ccd4a9f1fe6a032b7be800e5f85b3
 export default Sobrevivencia;
