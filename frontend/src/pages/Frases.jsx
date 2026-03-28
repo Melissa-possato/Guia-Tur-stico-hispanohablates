@@ -1,18 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import "../App.css";
 
 function BotaoCategoria({ nome, ativo, onClick }) {
   return (
     <button
       onClick={onClick}
-      style={{
-        padding: "8px 14px",
-        borderRadius: "20px",
-        border: "1px solid #ccc",
-        background: ativo ? "#22c55e" : "#f3f4f6",
-        color: ativo ? "white" : "#333",
-        cursor: "pointer",
-      }}
+      className={`botao-categoria ${ativo ? "ativo" : ""}`}
     >
       {nome}
     </button>
@@ -21,20 +15,23 @@ function BotaoCategoria({ nome, ativo, onClick }) {
 
 function CardFrase({ pt, en }) {
   return (
-    <div style={{ border: "1px solid #e5e7eb", borderRadius: "12px", padding: "12px", marginBottom: "10px" }}>
+    <div className="card-frase">
       <h3>{pt}</h3>
-      <p style={{ color: "gray" }}>{en}</p>
+      <p>{en}</p>
+
     </div>
   );
 }
 
 function BancoPalavras({ palavras }) {
   return (
-    <div style={{ marginTop: "20px" }}>
+    <div className="banco">
       <h3>Banco de palavras</h3>
       <ul>
         {palavras.map((p, i) => (
-          <li key={i}><strong>{p.pt}</strong> - {p.en}</li>
+          <li key={i}>
+            <strong>{p.pt}</strong> - {p.en}
+          </li>
         ))}
       </ul>
     </div>
@@ -43,13 +40,17 @@ function BancoPalavras({ palavras }) {
 
 function Passos({ passos }) {
   return (
-    <div>
+    <div className="passos">
       <h3>Passo a passo</h3>
-      <ol>
+
+      <ul className="lista-passos">
         {passos.map((p, i) => (
-          <li key={i}>{p}</li>
+          <li key={i} className="item-passo">
+            <div className="numero-passo">{i + 1}</div>
+            <div className="texto-passo">{p}</div>
+          </li>
         ))}
-      </ol>
+      </ul>
     </div>
   );
 }
@@ -62,10 +63,8 @@ function Frases() {
     Compras: {
       passos: [
         "Entrar no supermercado e pegar um carrinho ou uma cesta (Entrar al supermercado y tomar un carrito o una canasta)",
-        "Procurar os produtos nos corredores (Buscar los productos en los pasillos)",
-        "Pedir ajuda a um funcionário se precisar (Preguntar a un empleado si necesita ayuda)",
-        "Escolher os produtos e verificar os preços (Elegir los productos y revisar los precios)",
-        "Ir ao caixa para pagar (Ir a la caja para pagar)",
+        "Procurar os produtos nos corredores (Buscar los productos en los pasillos)", "Pedir ajuda a um funcionário se precisar (Preguntar a un empleado si necesita ayuda)",
+        "Escolher os produtos e verificar os preços (Elegir los productos y revisar los precios)", "Ir ao caixa para pagar (Ir a la caja para pagar)",
         "Pagar em dinheiro ou cartão (Pagar en efectivo o con tarjeta)",
         "Receber o recibo e as sacolas (Recibir el recibo y las bolsas)"
       ],
@@ -76,8 +75,8 @@ function Frases() {
         { pt: "Em qual corredor fica?", en: "¿En qué pasillo está?" },
         { pt: "Essas maçãs estão em promoção?", en: "¿Estas manzanas están en promoción?" },
         { pt: "Vou pagar no débito", en: "Voy a pagar con débito" },
-        { pt: "Precisa de sacola?", en: "¿Necesita bolsa?" }
-      ],
+        { pt: "Precisa de sacola?", en: "¿Necesita bolsa?" }],
+
       palavras: [
         { pt: "supermercado", en: "supermercado" },
         { pt: "carrinho", en: "carrito" },
@@ -91,8 +90,7 @@ function Frases() {
         { pt: "caixa", en: "caja" },
         { pt: "sacola", en: "bolsa" },
         { pt: "dinheiro", en: "efectivo" },
-        { pt: "cartão", en: "tarjeta" }
-      ]
+        { pt: "cartão", en: "tarjeta" }]
     },
 
     Banco: {
@@ -103,8 +101,8 @@ function Frases() {
         "Informar dados pessoais (Informar datos personales)",
         "Escolher o tipo de conta (Elegir el tipo de cuenta)",
         "Criar senha (Crear una contraseña)",
-        "Confirmar abertura da conta (Confirmar la apertura de la cuenta)"
-      ],
+        "Confirmar abertura da conta (Confirmar la apertura de la cuenta)"],
+
       frases: [
         { pt: "Quero abrir uma conta", en: "Quiero abrir una cuenta" },
         { pt: "Você já é cliente do banco?", en: "¿Ya es cliente del banco?" },
@@ -113,8 +111,8 @@ function Frases() {
         { pt: "Pode me informar seu telefone?", en: "¿Puede decirme su teléfono?" },
         { pt: "Qual é a diferença?", en: "¿Cuál es la diferencia?" },
         { pt: "Prefiro conta corrente", en: "Prefiero cuenta corriente" },
-        { pt: "Agora vamos criar sua senha", en: "Ahora vamos a crear su contraseña" }
-      ],
+        { pt: "Agora vamos criar sua senha", en: "Ahora vamos a crear su contraseña" }],
+
       palavras: [
         { pt: "banco", en: "banco" },
         { pt: "conta bancária", en: "cuenta bancaria" },
@@ -129,9 +127,8 @@ function Frases() {
         { pt: "agência", en: "sucursal" },
         { pt: "saque", en: "retiro" },
         { pt: "depósito", en: "depósito" },
-        { pt: "transferência", en: "transferencia" }
-      ]
-        },
+        { pt: "transferência", en: "transferencia" }]
+    },
 
     Escola: {
       passos: [
@@ -139,8 +136,8 @@ function Frases() {
         "Informar o curso desejado (Informar el curso deseado)",
         "Entregar os documentos (Entregar los documentos)",
         "Preencher a ficha de inscrição (Llenar el formulario de inscripción)",
-        "Confirmar a matrícula (Confirmar la matrícula)"
-      ],
+        "Confirmar a matrícula (Confirmar la matrícula)"],
+
       frases: [
         { pt: "Quero fazer matrícula em um curso", en: "Quiero matricularme en un curso" },
         { pt: "Qual curso você deseja?", en: "¿Qué curso desea?" },
@@ -148,24 +145,17 @@ function Frases() {
         { pt: "É a primeira vez", en: "Es mi primera vez" },
         { pt: "Preciso dos seus documentos", en: "Necesito sus documentos" },
         { pt: "Onde eu entrego depois?", en: "¿Dónde lo entrego después?" },
-        { pt: "Já preenchi tudo", en: "Ya lo completé" },
-        { pt: "Seja bem-vindo ao curso", en: "¡Bienvenido al curso!" }
-      ],
+        { pt: "Já preenchi tudo", en: "Ya lo completé" }, { pt: "Seja bem-vindo ao curso", en: "¡Bienvenido al curso!" }],
+
       palavras: [
         { pt: "matrícula", en: "matrícula" },
         { pt: "inscrição", en: "inscripción" },
-        { pt: "curso", en: "curso" },
-        { pt: "aluno", en: "alumno" },
-        { pt: "secretaria", en: "secretaría" },
-        { pt: "escola", en: "escuela" },
-        { pt: "faculdade", en: "facultad" },
-        { pt: "universidade", en: "universidad" },
-        { pt: "formulário", en: "formulario" },
-        { pt: "documentos", en: "documentos" },
-        { pt: "histórico escolar", en: "historial académico" },
-        { pt: "calendário escolar", en: "calendario escolar" }
-      ]
-        },
+        { pt: "curso", en: "curso" }, { pt: "aluno", en: "alumno" },
+        { pt: "secretaria", en: "secretaría" }, { pt: "escola", en: "escuela" },
+        { pt: "faculdade", en: "facultad" }, { pt: "universidade", en: "universidad" },
+        { pt: "formulário", en: "formulario" }, { pt: "documentos", en: "documentos" },
+        { pt: "histórico escolar", en: "historial académico" }, { pt: "calendário escolar", en: "calendario escolar" }]
+    },
 
     Saúde: {
       passos: [
@@ -173,8 +163,8 @@ function Frases() {
         "Confirmar o horário da consulta (Confirmar la hora de la cita)",
         "Aguardar na sala de espera (Esperar en la sala de espera)",
         "Explicar os sintomas ao médico (Explicar los síntomas al médico)",
-        "Receber receita ou orientação (Recibir receta o indicaciones)"
-      ],
+        "Receber receita ou orientação (Recibir receta o indicaciones)"],
+
       frases: [
         { pt: "Qual é o seu nome?", en: "¿Cuál es su nombre?" },
         { pt: "Tenho consulta às 10 horas", en: "Tengo una cita a las 10" },
@@ -183,8 +173,8 @@ function Frases() {
         { pt: "O que você está sentindo?", en: "¿Qué está sintiendo?" },
         { pt: "Estou com dor de garganta e febre", en: "Tengo dolor de garganta y fiebre" },
         { pt: "Há quantos dias você está assim?", en: "¿Desde hace cuántos días?" },
-        { pt: "Você precisa tomar este remédio", en: "Necesita tomar este medicamento" }
-      ],
+        { pt: "Você precisa tomar este remédio", en: "Necesita tomar este medicamento" }],
+
       palavras: [
         { pt: "médico", en: "médico" },
         { pt: "consulta", en: "consulta" },
@@ -198,18 +188,17 @@ function Frases() {
         { pt: "receita médica", en: "receta médica" },
         { pt: "exame", en: "examen" },
         { pt: "hospital", en: "hospital" },
-        { pt: "clínica", en: "clínica" }
-      ]
-        },
+        { pt: "clínica", en: "clínica" }]
+    },
 
-    Moradia: {
+    Moradia:
+    {
       passos: [
         "Procurar imóvel disponível (Buscar un inmueble disponible)",
         "Perguntar o valor do aluguel (Preguntar el valor del alquiler)",
-        "Marcar visita (Programar una visita)",
-        "Enviar documentos (Enviar documentos)",
-        "Assinar contrato (Firmar el contrato)"
-      ],
+        "Marcar visita (Programar una visita)", "Enviar documentos (Enviar documentos)",
+        "Assinar contrato (Firmar el contrato)"],
+
       frases: [
         { pt: "Esta casa está disponível para aluguel?", en: "¿Esta casa está disponible para alquiler?" },
         { pt: "Qual é o valor do aluguel?", en: "¿Cuál es el valor del alquiler?" },
@@ -218,32 +207,34 @@ function Frases() {
         { pt: "Posso visitar o imóvel?", en: "¿Puedo visitar la casa?" },
         { pt: "Gostei da casa", en: "Me gustó la casa" },
         { pt: "O que preciso para alugar?", en: "¿Qué necesito para alquilar?" },
-        { pt: "Vou enviar os documentos", en: "Voy a enviar los documentos" }
-      ],
-      palavras: [
-        { pt: "aluguel", en: "alquiler" },
-        { pt: "casa", en: "casa" },
-        { pt: "apartamento", en: "apartamento" },
-        { pt: "contrato", en: "contrato" },
-        { pt: "corretor", en: "agente inmobiliario" },
-        { pt: "imobiliária", en: "inmobiliaria" },
-        { pt: "depósito", en: "depósito" },
-        { pt: "fiador", en: "garante" },
-        { pt: "condomínio", en: "condominio" },
-        { pt: "visita", en: "visita" },
-        { pt: "chave", en: "llave" },
-        { pt: "aluguel mensal", en: "alquiler mensual" }
-      ]
+        { pt: "Vou enviar os documentos", en: "Voy a enviar los documentos" }],
+
+      palavras: [{ pt: "aluguel", en: "alquiler" },
+      { pt: "casa", en: "casa" },
+      { pt: "apartamento", en: "apartamento" },
+      { pt: "contrato", en: "contrato" },
+      { pt: "corretor", en: "agente inmobiliario" },
+      { pt: "imobiliária", en: "inmobiliaria" },
+      { pt: "depósito", en: "depósito" }, { pt: "fiador", en: "garante" },
+      { pt: "condomínio", en: "condominio" }, { pt: "visita", en: "visita" },
+      { pt: "chave", en: "llave" },
+      { pt: "aluguel mensal", en: "alquiler mensual" }]
     }
   };
-
   const atual = dados[categoriaAtiva];
 
   return (
-    <div style={{ padding: "20px", maxWidth: "700px", margin: "0 auto" }}>
-      <h1>Aprenda expressões - {categoriaAtiva}</h1>
+    <div className="container">
+      <h1 className="titulo">Frases Úteis</h1>
+      <p className="subtitulo">
+        Aprenda expressões essenciais para se comunicar durante sua viagem
+      </p>
 
-      <div style={{ marginBottom: "20px" }}>
+      <div className="dica">
+        💡 Dica: Clique nos ícones para interagir com as frases.
+      </div>
+
+      <div className="botoes">
         {categorias.map((cat) => (
           <BotaoCategoria
             key={cat}
@@ -264,9 +255,15 @@ function Frases() {
       <BancoPalavras palavras={atual.palavras} />
 
       <hr style={{ margin: "20px 0" }} />
-      <Link to="/">Voltar</Link>
+      <Link to="/" className="botao-voltar">
+        ← Voltar
+      </Link>
     </div>
+
+
   );
 }
+
+
 
 export default Frases;

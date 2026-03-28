@@ -123,7 +123,7 @@ function Sobrevivencia() {
        <div style={{ border: "1px solid #ccc", padding: "15px", borderRadius: "10px", width: "100%", marginTop: "20px" }}>
             <h3>Información Útil</h3>
             <ul>
-                El código de área de la ciudad es (11)
+                El código de área de la ciudad es (16)
                 Para llamar desde el exterior, use el código +55
                 Wi-Fi público disponible en plazas y centros culturales
                 Tensión eléctrica: 110V/220V - verifique antes de usar aparatos
@@ -136,3 +136,5 @@ function Sobrevivencia() {
     </div>
   );
 }
+
+export default Sobrevivencia;
