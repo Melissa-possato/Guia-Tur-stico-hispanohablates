@@ -157,7 +157,7 @@ function App() {
           <div>
             <h3>Contato</h3>
             <p>contato@guiaturistico.com</p>
-            <p>+55 (11) 1234-5678</p>
+            <p>+55 (16) 1234-5678</p>
           </div>
 
         </div>
