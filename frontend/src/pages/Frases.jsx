@@ -224,45 +224,44 @@ function Frases() {
   const atual = dados[categoriaAtiva];
 
   return (
-    <div className="container">
-      <h1 className="titulo">Frases Úteis</h1>
-      <p className="subtitulo">
-        Aprenda expressões essenciais para se comunicar durante sua viagem
-      </p>
+    <section className="secao-frases">
+      <div className="overlay">
+        <div className="container">
+          <h1 className="titulo">Frases Úteis</h1>
 
-      <div className="dica">
-        💡 Dica: Clique nos ícones para interagir com as frases.
+          <p className="subtitulo">
+            Aprenda expressões essenciais para se comunicar durante sua viagem
+          </p>
+
+          <div className="botoes">
+            {categorias.map((cat) => (
+              <BotaoCategoria
+                key={cat}
+                nome={cat}
+                ativo={categoriaAtiva === cat}
+                onClick={() => setCategoriaAtiva(cat)}
+              />
+            ))}
+          </div>
+
+          <Passos passos={atual.passos} />
+
+          <h3 style={{ marginTop: "20px", color: "white" }}>Frases</h3>
+          {atual.frases.map((f, i) => (
+            <CardFrase key={i} pt={f.pt} en={f.en} />
+          ))}
+
+          <BancoPalavras palavras={atual.palavras} />
+
+          <hr style={{ margin: "20px 0" }} />
+          <Link to="/" className="botao-voltar">
+            ← Voltar
+          </Link>
+        </div>
       </div>
-
-      <div className="botoes">
-        {categorias.map((cat) => (
-          <BotaoCategoria
-            key={cat}
-            nome={cat}
-            ativo={categoriaAtiva === cat}
-            onClick={() => setCategoriaAtiva(cat)}
-          />
-        ))}
-      </div>
-
-      <Passos passos={atual.passos} />
-
-      <h3 style={{ marginTop: "20px" }}>Frases</h3>
-      {atual.frases.map((f, i) => (
-        <CardFrase key={i} pt={f.pt} en={f.en} />
-      ))}
-
-      <BancoPalavras palavras={atual.palavras} />
-
-      <hr style={{ margin: "20px 0" }} />
-      <Link to="/" className="botao-voltar">
-        ← Voltar
-      </Link>
-    </div>
-
-
+    </section>
   );
-}
+};
 
 
 
