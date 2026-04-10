@@ -8,13 +8,35 @@ import { FaComments } from "react-icons/fa";
 import { FaLandmark } from "react-icons/fa";
 import { FaRoute } from "react-icons/fa";
 import { FaCalendarAlt } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import {  FaUserCircle } from "react-icons/fa"; // Adicionado ícone de usuário
 
 function App() {
+  const [usuario, setUsuario] = useState(null);
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const nomeSalvo = localStorage.getItem("nomeUsuario");
+
+    if (token && nomeSalvo) {
+
+      setUsuario({ nome: nomeSalvo });
+    }
+  }, []);
+
+  const fazerLogout = () => {
+    localStorage.clear(); 
+    setUsuario(null); 
+    navigate("/"); 
+  };
   return (
     <>
       {/* NAVBAR */}
       <header className="navbar">
-        <h2 className="icon green"> <FaMapMarkedAlt size={30} />  Guia Turístico</h2>
+        <h2 className="icon green"> <FaMapMarkedAlt />  Guia Turístico</h2>
         <nav>
           <Link to="/mapa">Mapa</Link>
           <Link to="/sobrevivencia">Sobrevivência</Link>
@@ -22,7 +44,14 @@ function App() {
           <Link to="/guiacultural">Guia Cultural</Link>
           <Link to="/roteiros">Roteiros</Link>
           <Link to="/eventos">Eventos</Link>
-            <Link to="/login">Login</Link>
+            {usuario ? (
+              <button onClick={() => navigate("/login")}>
+                <FaUserCircle  color="black" />
+              </button>
+          ) : (
+           
+            <Link to="/login" className="login-btn">Login</Link>
+          )}
         </nav>
       </header>
 
@@ -41,7 +70,7 @@ function App() {
       <section className="cards-section">
         <h2>Tudo que Você Precisa em Um Só Lugar</h2>
         <p>
-          Ferramentas e recursos para tornar sua viagem mais fácil, segura e enriquecedora.
+          Ferramentas e recursos para tornar sua estadia mais fácil, segura e enriquecedora.
         </p>
 
         <div className="cards-container">
@@ -122,14 +151,23 @@ function App() {
         <div className="info-card">
           <h3>Horário de Funcionamento</h3>
           <p>
-            A maioria dos museus fecha às segundas-feiras. Planeje sua visita com antecedência.
+            O comércio local funciona de Segunda a Sexta, das 9h às 18h. 
+          </p>
+          <p>
+            Aos finais de semana: <br />
+            Sábado: 9h - 12h <br />
+            Domingo: Maioria dos estabelecimentos estão fechados
           </p>
         </div>
 
         <div className="info-card">
           <h3>Transporte Local</h3>
           <p>
-            O transporte público funciona das 5h às 23h. Considere táxis ou aplicativos para horários noturnos.
+            O transporte público funciona das 5:20 às 22:35 Horário de Brasília. <br />
+            Aos finais de semana e feriado muitas linhas são reduzidas ou fazem horários diferentes <br />
+            Fique Alerta ao site www.soutransporte.com.br ou ao aplicativo SOU São Carlos <br />
+             Considere táxis ou aplicativos para horários noturnos. <br />
+             Telefone Use Taxi: (16) 33
           </p>
         </div>
       </section>

@@ -353,22 +353,14 @@ a:hover {
 /* Título */
 .titulo {
   margin-bottom: 8px;
+  color: #ffffff;
 }
 
 .subtitulo {
-  color: #6b7280;
+  color: #ffffff;
   margin-bottom: 16px;
 }
 
-/* Caixa de dica */
-.dica {
-  background: #dcfce7;
-  color: #166534;
-  padding: 10px 14px;
-  border-radius: 10px;
-  margin-bottom: 16px;
-  font-size: 14px;
-}
 
 /* Botões de categoria */
 .botoes {
@@ -414,6 +406,7 @@ a:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 14px rgba(0,0,0,0.08);
   border-color: #d1d5db;
+
 }
 
 /* Título */
@@ -421,13 +414,13 @@ a:hover {
   margin: 0;
   font-size: 16px;
   font-weight: 600;
-  color: #111827;
+  color: #1b5c25;
 }
 
 /* Tradução */
 .card-frase p {
   margin-top: 4px;
-  color: #6b7280;
+  color: #22c237;
   font-size: 14px;
 }
 
@@ -438,12 +431,14 @@ a:hover {
   height: 1px;
   background: #f3f4f6;
   margin-top: 12px;
+
 }
 
 
 /* Banco de palavras */
 .banco {
   margin-top: 20px;
+   color: #2ba731;
 }
 
 /* Seção passo a passo */
@@ -454,7 +449,7 @@ a:hover {
 .passos h3 {
   margin-bottom: 10px;
   font-size: 18px;
-  color: #111827;
+  color: #ffffff;
 }
 
 /* Lista */
@@ -498,7 +493,7 @@ a:hover {
 /* Texto do passo */
 .texto-passo {
   font-size: 14px;
-  color: #374151;
+  color: #122e16;
 }
 
 /* Banco de palavras */
@@ -552,4 +547,120 @@ a:hover {
 /* Clique */
 .botao-voltar:active {
   transform: scale(0.97);
+}
+
+
+.secao-frases {
+   background: url("/shutterstock_1532724938.jpg.webp") center/cover no-repeat;
+  background-attachment: fixed;
+
+  min-height: 100vh;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.6);
+  min-height: 100vh;
+
+  padding: 40px 0;
+}
+
+
+/*SOBREVIVENCIA*/
+
+/* FUNDO IGUAL AO FRASES */
+.secao-sobrevivencia {
+  background: url("/shutterstock_1532724938.jpg.webp") center/cover no-repeat;
+  background-attachment: fixed;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 40px 0;
+}
+
+/* TEXTO */
+.secao-sobrevivencia .container {
+  color: rgb(255, 255, 255);
+}
+
+/* ALERTA */
+.alerta {
+  background: #ffe5e5;
+  border-left: 5px solid red;
+  padding: 15px;
+  border-radius: 8px;
+  color: #900;
+  margin: 20px 0;
+}
+
+/* GRID CONTATOS */
+.grid-contatos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+/* CARD CONTATO */
+.card-contato {
+  background: #fff;
+  color: #333;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.card-contato p {
+  color: red;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* DICAS */
+.grid-dicas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.card-dica {
+  background: #fff;
+  color: #0e5f23;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.card-dica ul {
+  padding-left: 20px;
+}
+
+.card-dica li {
+  margin-bottom: 8px;
+}
+
+/* LOCAIS */
+.grid-locais {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.card-local {
+  background: #fff;
+  color: #063f10;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.card-local .telefone {
+  color: green;
+  font-weight: bold;
+}
+
+/* INFO FINAL */
+.info-util {
+  background: #fff;
+  color: #29993c;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
 }
