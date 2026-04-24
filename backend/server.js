@@ -114,7 +114,23 @@ app.get("/mapa", (req, res) => {
    ROTEIROS
  */
 
-app.post("/roteiro", authMiddleware, (req, res) => {
+   app.get("/roteiro", authMiddleware, (req, res) => {
+
+    const sql = `SELECT * FROM roteiro`;
+
+    db.query(sql, (err, result) => {
+
+        if (err) {
+            console.error("ERRO NO BANCO:", err.sqlMessage);
+            return res.status(500).json(err);
+        }
+
+        res.json(result); 
+
+    });
+
+});
+app.post("/cadastrarRoteiro", authMiddleware, (req, res) => {
 
     const {
         titulo,
@@ -126,7 +142,7 @@ app.post("/roteiro", authMiddleware, (req, res) => {
         avaliacao
     } = req.body;
 
-    const id_cadastro = req.userId; // 🔥 vem do token
+    const id_cadastro = req.userId; 
 
     const sql = `
         INSERT INTO roteiro

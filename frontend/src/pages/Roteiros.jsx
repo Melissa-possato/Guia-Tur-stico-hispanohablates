@@ -5,35 +5,7 @@ function Roteiros() {
   const [roteiros, setRoteiros] = useState([]);
   const navigate = useNavigate();
 
-  const roteirosProntos = [
-    {
-      id_roteiro: "p1",
-      titulo: "Roteiro Natureza",
-      descricao: "Passeio pelos parques mais bonitos de São Carlos.",
-      duracao_horas: 3,
-      dificuldade: "Fácil",
-      categoria: "Natureza",
-      preco_estimado: "Grátis"
-    },
-    {
-      id_roteiro: "p2",
-      titulo: "Roteiro Cultural",
-      descricao: "Conheça museus e pontos históricos da cidade.",
-      duracao_horas: 2,
-      dificuldade: "Fácil",
-      categoria: "Cultura",
-      preco_estimado: "R$10"
-    },
-    {
-      id_roteiro: "p3",
-      titulo: "Roteiro Universitário",
-      descricao: "Explore os famosos campus universitários da cidade.",
-      duracao_horas: 2,
-      dificuldade: "Fácil",
-      categoria: "Educação",
-      preco_estimado: "Grátis"
-    }
-  ];
+  
 
   const carregarRoteiros = async () => {
     const token = localStorage.getItem("token");
@@ -48,7 +20,7 @@ function Roteiros() {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "x-access-token": token
+          "Authorization": `Bearer ${token}`
         }
       });
 
@@ -77,13 +49,13 @@ function Roteiros() {
       <h1>Roteiros Turísticos</h1>
 
       {/* 🔥 BOTÃO NOVO */}
-      <button onClick={() => navigate("cadastrarRoteiro")}>
+      <button onClick={() => navigate("/cadastrarRoteiro")}>
         + Criar novo roteiro
       </button>
 
       <h2>Roteiros disponíveis</h2>
 
-      {[...roteirosProntos, ...roteiros].map((r) => (
+      {[ ...roteiros].map((r) => (
         <div key={r.id_roteiro} style={{
           border:"1px solid #ccc",
           padding:"10px",

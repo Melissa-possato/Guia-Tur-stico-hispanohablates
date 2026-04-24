@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 
 function cadastrarRoteiro() {
   const [form, setForm] = useState({
@@ -30,7 +30,7 @@ function cadastrarRoteiro() {
     setErro("");
 
     try {
-      await axios.post("http://localhost:3000/roteiro", form, {
+      await axios.post("http://localhost:3000/cadastrarRoteiro", form, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`
         }
@@ -59,7 +59,7 @@ function cadastrarRoteiro() {
     <div className="container-roteiro">
       <h2>Criar Novo Roteiro</h2>
 
-      <form onSubmit={handleSubmit} className="form-roteiro">
+      <form onSubmit={handleSubmit} className="form-roteiro"> <br />
 
         <input
           type="text"
@@ -69,6 +69,7 @@ function cadastrarRoteiro() {
           onChange={handleChange}
           required
         />
+        <br />
 
         <textarea
           name="descricao"
@@ -76,6 +77,7 @@ function cadastrarRoteiro() {
           value={form.descricao}
           onChange={handleChange}
         />
+        <br />
 
         <input
           type="number"
@@ -84,6 +86,7 @@ function cadastrarRoteiro() {
           value={form.duracao_horas}
           onChange={handleChange}
         />
+        <br />
 
         <select
           name="dificuldade"
@@ -94,6 +97,7 @@ function cadastrarRoteiro() {
           <option value="Médio">Médio</option>
           <option value="Difícil">Difícil</option>
         </select>
+        <br />
 
         <input
           type="number"
@@ -103,6 +107,7 @@ function cadastrarRoteiro() {
           value={form.preco_estimado}
           onChange={handleChange}
         />
+        <br />
 
         <input
           type="text"
@@ -111,6 +116,7 @@ function cadastrarRoteiro() {
           value={form.categoria}
           onChange={handleChange}
         />
+        <br />
 
         <input
           type="number"
@@ -121,6 +127,7 @@ function cadastrarRoteiro() {
           value={form.avaliacao}
           onChange={handleChange}
         />
+        <br />
 
         <button type="submit">Criar Roteiro</button>
 
@@ -128,6 +135,8 @@ function cadastrarRoteiro() {
 
       {mensagem && <p className="sucesso">{mensagem}</p>}
       {erro && <p className="erro">{erro}</p>}
+      <br /><br />
+      <Link to={"/"}> Ir para pagina inicial</Link>
     </div>
   );
 }
