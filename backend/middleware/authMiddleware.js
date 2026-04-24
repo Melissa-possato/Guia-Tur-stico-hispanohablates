@@ -1,20 +1,21 @@
 const jwt = require('jsonwebtoken');
 
-const SECRET = "MINHA_CHAVE_SECRETA_123"; // No futuro, use um arquivo .env
+const SECRET = "MINHA_CHAVE_SECRETA_123";
 
 module.exports = (req, res, next) => {
-    const token = req.headers['x-access-token'];
+    const authHeader = req.headers.authorization;
 
-    if (!token) {
-        return res.status(401).json({ auth: false, message: 'Nenhum token fornecido.' });
+    if (!authHeader) {
+        return res.status(401).json({ auth: false, message: 'Token não fornecido.' });
     }
+
+    const token = authHeader.split(" ")[1]; // Bearer TOKEN
 
     jwt.verify(token, SECRET, (err, decoded) => {
         if (err) {
-            return res.status(500).json({ auth: false, message: 'Falha ao autenticar o token.' });
+            return res.status(403).json({ auth: false, message: 'Token inválido.' });
         }
 
-        // Se estiver tudo ok, salva o id para uso posterior e segue em frente
         req.userId = decoded.id;
         next();
     });

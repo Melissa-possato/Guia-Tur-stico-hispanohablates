@@ -114,10 +114,9 @@ app.get("/mapa", (req, res) => {
    ROTEIROS
  */
 
-app.post("/roteiro", (req, res) => {
+app.post("/roteiro", authMiddleware, (req, res) => {
 
     const {
-        id_cadastro,
         titulo,
         descricao,
         duracao_horas,
@@ -126,6 +125,8 @@ app.post("/roteiro", (req, res) => {
         categoria,
         avaliacao
     } = req.body;
+
+    const id_cadastro = req.userId; // 🔥 vem do token
 
     const sql = `
         INSERT INTO roteiro
@@ -145,33 +146,16 @@ app.post("/roteiro", (req, res) => {
     ], (err, result) => {
 
         if (err) {
+            console.error("ERRO NO BANCO:", err.sqlMessage);
             return res.status(500).json(err);
         }
 
-        res.json({ mensagem: "Roteiro criado!" });
+        res.json({
+            mensagem: "Roteiro criado!",
+            id_roteiro: result.insertId
+        });
 
     });
-    if (err) {
-        console.error("ERRO NO BANCO:", err.sqlMessage); // Isso vai te dizer exatamente qual coluna falhou
-        return res.status(500).json(err);
-    }
-
-});
-
-app.get("/roteiro", (req, res) => {
-
-    const sql = "SELECT * FROM roteiro";
-
-    db.query(sql, (err, result) => {
-
-        if (err) {
-            return res.status(500).json(err);
-        }
-
-        res.json(result);
-
-    });
-
 });
 
 /* 

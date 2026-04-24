@@ -12,6 +12,7 @@ import Sobrevivencia from "./pages/Sobrevivencia";
 import Login from "./pages/Login";
 import Roteiros from "./pages/Roteiros";
 import CadastrarUsuario from "./componentes/CadastrarUsuario.jsx"
+import CadastrarRoteiro from "./componentes/CadastrarRoteiro.jsx";
 
 
 
@@ -34,6 +35,8 @@ const router = createBrowserRouter([
   { path: "frases", element: <Frases /> },
   { path: "login", element: <Login /> },
   { path: "cadastrarU", element: <CadastrarUsuario /> },
+  { path: "cadastrarRoteiro", element: <CadastrarRoteiro /> },
+
 
 ]);
 
