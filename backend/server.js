@@ -4,6 +4,7 @@ const db = require("./db");
 
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('./middleware/authMiddleware'); 
+const conexao = require("./db");
 const SECRET = "MINHA_CHAVE_SECRETA_123";
 
 const app = express();
@@ -67,7 +68,6 @@ app.post("/login", (req, res) => {
         if (result.length > 0) {
             const id = result[0].id_cadastro;
             
-            // Criamos o token que expira em 1 hora
             const token = jwt.sign({ id }, SECRET, { expiresIn: 3600 });
 
             return res.json({ login: true, token: token, usuario: result[0] });
@@ -77,13 +77,38 @@ app.post("/login", (req, res) => {
     });
 });
 
+app.put("/update/:id", (req, res) => {
+    const { id } = req.params;
+    const { email, nome_usuario, senha } = req.body;
+  
+    console.log("Dados recebidos:", req.body);
+  
+    const sql = `
+      UPDATE cadastro 
+      SET email = ?, nome_usuario = ?, senha = ?
+      WHERE id_cadastro = ?
+    `;
+  
+    conexao.query(
+      sql,
+      [email, nome_usuario, senha, id],
+      (err, result) => {
+        if (err) {
+          console.error("Erro MySQL:", err);
+          return res.status(500).json({ error: err.message });
+        }
+  
+        res.json({ message: "Dados atualizados com sucesso!" });
+      }
+    );
+  });
+
 /* 
    MAPA
  */
 
-// Exemplo: Rota de mapa protegida
+
 app.post("/mapa", authMiddleware, (req, res) => {
-    // Agora você tem acesso ao id do usuário logado via req.userId
     const { nome_local, latitude, longitude } = req.body;
     const id_cadastro = req.userId; 
 
@@ -238,6 +263,6 @@ app.get("/parada/:id", (req, res) => {
 
 
 
-app.listen(3000, () => {
-    console.log("Servidor rodando na porta 3000");
+app.listen(5000, () => {
+    console.log("Servidor rodando na porta 5000");
 });

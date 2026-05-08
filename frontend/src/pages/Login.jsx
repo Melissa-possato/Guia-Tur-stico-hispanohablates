@@ -62,7 +62,7 @@ function Login() {
           <p>📍 São Carlos, SP</p>
           
           <button 
-            onClick={() => navigate("/atualizar-dados")} 
+            onClick={() => navigate("/update")} 
             style={{ marginRight: "10px", padding: "10px", cursor: "pointer" }}
           >
             Atualizar Meus Dados
