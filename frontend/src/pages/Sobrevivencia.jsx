@@ -39,19 +39,21 @@ function Sobrevivencia() {
   return (
     <section className="secao-sobrevivencia">
       <div className="overlay">
-        <div className="container">
+        <div className="cultural-container">
+        {/* TOPO */}
+        <div className="cultural-header">
+          <h1>Modo Supervivência</h1>
+          <p>
+            Informações essenciais para sua segurança e bem-estar          </p>
+        </div>
+        <div className="container"></div>
 
-          <h1 className="titulo">Modo Supervivência</h1>
-          <p className="subtitulo">
-            Informações essenciais para sua segurança e bem-estar
-          </p>
-
-          <div className="alerta">
-            <strong>⚠️ Em caso de emergência</strong>
+          <div className="section-title">
+            ⚠️ Em caso de emergência
             <p>Mantenha a calma e ligue para os números abaixo.</p>
           </div>
 
-          <h2>Contatos de Emergência</h2>
+          <h2> Contatos de Emergência</h2>
           <div className="grid-contatos">
             <CardContato titulo="Polícia" numero="190" />
             <CardContato titulo="Bombeiros" numero="193" />

@@ -4,10 +4,9 @@ import "../App.css";
 function GuiaCultural() {
   return (
     <div className="cultural-bg">
-      {/* FUNDO */}
+      {/* 👈 FUNDO AQUI */}
 
       <div className="cultural-container">
-
         {/* TOPO */}
         <div className="cultural-header">
           <h1>Guía Cultural - São Carlos/SP</h1>
@@ -23,8 +22,7 @@ function GuiaCultural() {
         <h2 className="section-title">Aspectos Culturales</h2>
 
         <div className="cards-grid">
-
-          <div className="card">
+          <div className="cardCultural">
             <h3>Historia</h3>
             <ul>
               <li>São Carlos fue fundada en 1857</li>
@@ -34,7 +32,7 @@ function GuiaCultural() {
             </ul>
           </div>
 
-          <div className="card">
+          <div className="cardCultural">
             <h3>Costumbres Locales</h3>
             <ul>
               <li>Fuerte vida universitaria</li>
@@ -44,7 +42,7 @@ function GuiaCultural() {
             </ul>
           </div>
 
-          <div className="card">
+          <div className="cardCultural">
             <h3>Gastronomía</h3>
             <ul>
               <li>Pastel con jugo de caña</li>
@@ -54,7 +52,7 @@ function GuiaCultural() {
             </ul>
           </div>
 
-          <div className="card">
+          <div className="cardCultural">
             <h3>Arte y Música</h3>
             <ul>
               <li>Festival "Chorando Sem Parar"</li>
@@ -64,7 +62,7 @@ function GuiaCultural() {
             </ul>
           </div>
 
-          <div className="card">
+          <div className="cardCultural">
             <h3>Festividades</h3>
             <ul>
               <li>Fiesta de las Naciones</li>
@@ -74,48 +72,55 @@ function GuiaCultural() {
             </ul>
           </div>
 
-          <div className="card">
+          <div className="cardCultural">
             <h3>Etiqueta Social</h3>
             <ul>
-              <li>Respete filas y espacios públicos</li>
-              <li>Sea cordial con los habitantes</li>
-              <li>Ambiente universitario informal</li>
-              <li>Valore los espacios culturales</li>
+              <ul>Respete filas y espacios públicos</ul>
+              <ul>Sea cordial con los habitantes</ul>
+              <ul>Ambiente universitario informal</ul>
+              <ul>Valore los espacios culturales</ul>
             </ul>
           </div>
-
         </div>
 
         {/* INFORMAÇÕES ESSENCIAIS */}
         <h2 className="section-title">Información Esencial</h2>
 
         <div className="info-grid">
-
           <div className="info-card">
             <h3>Idioma</h3>
-            <p>El portugués es el idioma oficial. El inglés se entiende en algunos lugares.</p>
+            <p>
+              El portugués es el idioma oficial. El inglés se entiende en
+              algunos lugares.
+            </p>
           </div>
 
           <div className="info-card">
             <h3>Clima</h3>
-            <p>Clima tropical de altitud, con veranos cálidos e inviernos suaves.</p>
+            <p>
+              Clima tropical de altitud, con veranos cálidos e inviernos
+              suaves.
+            </p>
           </div>
 
           <div className="info-card">
             <h3>Lugares Culturales</h3>
-            <p>USP, UFSCar, SESC, Teatro Municipal y museos científicos.</p>
+            <p>
+              USP, UFSCar, SESC, Teatro Municipal y museos científicos.
+            </p>
           </div>
 
           <div className="info-card">
             <h3>Vida Universitaria</h3>
-            <p>Gran presencia de estudiantes, eventos, fiestas y actividades culturales.</p>
+            <p>
+              Gran presencia de estudiantes, eventos, fiestas y actividades
+              culturales.
+            </p>
           </div>
-
         </div>
 
         {/* FAÇA / EVITE */}
         <div className="tips-container">
-
           <div className="tips do">
             <h2>✔ Haz</h2>
             <ul>
@@ -135,15 +140,15 @@ function GuiaCultural() {
               <li>Ignorar la cultura local</li>
             </ul>
           </div>
-
         </div>
 
         {/* CONSELHO FINAL */}
         <div className="final-tip">
           <h2>Consejo Cultural</h2>
           <p>
-            La mejor forma de conocer São Carlos es vivir su ambiente universitario,
-            participar en eventos culturales y explorar su gastronomía.
+            La mejor forma de conocer São Carlos es vivir su ambiente
+            universitario, participar en eventos culturales y explorar su
+            gastronomía.
           </p>
         </div>
 
@@ -151,7 +156,6 @@ function GuiaCultural() {
         <Link to="/" className="back-btn">
           Volver al inicio
         </Link>
-
       </div>
     </div>
   );
