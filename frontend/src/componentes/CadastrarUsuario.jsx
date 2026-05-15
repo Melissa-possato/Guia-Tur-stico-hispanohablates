@@ -11,7 +11,7 @@ function Cadastro() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/cadastro", {
+      const response = await fetch("http://localhost:5000/cadastro", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

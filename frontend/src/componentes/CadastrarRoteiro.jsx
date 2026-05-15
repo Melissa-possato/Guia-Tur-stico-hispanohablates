@@ -30,7 +30,7 @@ function cadastrarRoteiro() {
     setErro("");
 
     try {
-      await axios.post("http://localhost:3000/cadastrarRoteiro", form, {
+      await axios.post("http://localhost:5000/cadastrarRoteiro", form, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`
         }

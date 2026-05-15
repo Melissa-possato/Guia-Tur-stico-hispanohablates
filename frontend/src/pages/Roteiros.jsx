@@ -16,7 +16,7 @@ function Roteiros() {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/roteiro", {
+      const res = await fetch("http://localhost:5000/roteiro", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +48,6 @@ function Roteiros() {
 
       <h1>Roteiros Turísticos</h1>
 
-      {/* 🔥 BOTÃO NOVO */}
       <button onClick={() => navigate("/cadastrarRoteiro")}>
         + Criar novo roteiro
       </button>
