@@ -34,7 +34,6 @@ function App() {
 
   return (
     <>
-      {/* NAVBAR */}
       <header className="navbar">
         <h2 className="icon green">
           <FaMapMarkedAlt />
@@ -70,7 +69,9 @@ function App() {
             Seu guia completo com mapas, dicas culturais, frases úteis e muito mais.
           </p>
 
-          <button>Começar a Explorar →</button>
+          <button >
+          < Link to="/mapa">Começar a Explorar →</Link>
+          </button>
         </div>
       </section>
 

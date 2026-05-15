@@ -199,6 +199,38 @@ app.post("/cadastrarRoteiro", authMiddleware, (req, res) => {
     });
 });
 
+app.delete("/roteiro/:id", authMiddleware, (req, res) => {
+
+    const { id } = req.params;
+
+    const id_cadastro = req.userId;
+
+    const sql = `
+        DELETE FROM roteiro
+        WHERE id_roteiro = ?
+        AND id_cadastro = ?
+    `;
+
+    db.query(sql, [id, id_cadastro], (err, result) => {
+
+        if (err) {
+            console.error("ERRO AO EXCLUIR:", err.sqlMessage);
+            return res.status(500).json(err);
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({
+                mensagem: "Roteiro não encontrado ou sem permissão"
+            });
+        }
+
+        res.json({
+            mensagem: "Roteiro excluído com sucesso!"
+        });
+
+    });
+
+});
 /* 
    PARADAS DO ROTEIRO
  */

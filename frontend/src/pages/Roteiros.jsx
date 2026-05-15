@@ -38,6 +38,43 @@ function Roteiros() {
       setRoteiros([]);
     }
   };
+  const excluirRoteiro = async (id) => {
+
+    const confirmar = window.confirm(
+      "Deseja realmente excluir este roteiro?"
+    );
+
+    if (!confirmar) return;
+
+    const token = localStorage.getItem("token");
+
+    try {
+
+      const res = await fetch(
+        `http://localhost:5000/roteiro/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        }
+      );
+
+      const data = await res.json();
+
+      alert(data.mensagem);
+
+      // remove da tela sem recarregar
+      setRoteiros((prev) =>
+        prev.filter((r) => r.id_roteiro !== id)
+      );
+
+    } catch (error) {
+
+      console.error("Erro ao excluir roteiro:", error);
+
+    }
+  };
 
   useEffect(() => {
     carregarRoteiros();
@@ -67,6 +104,19 @@ function Roteiros() {
           <p>Dificuldade: {r.dificuldade}</p>
           <p>Categoria: {r.categoria}</p>
           <p>Preço estimado: {r.preco_estimado}</p>
+          <button
+            onClick={() => excluirRoteiro(r.id_roteiro)}
+            style={{
+              backgroundColor: "red",
+              color: "white",
+              border: "none",
+              padding: "8px 12px",
+              borderRadius: "5px",
+              cursor: "pointer"
+            }}
+          >
+            Excluir roteiro
+          </button>
         </div>
       ))}
 
