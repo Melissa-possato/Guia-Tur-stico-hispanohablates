@@ -87,7 +87,7 @@ function GuiaCultural() {
         <h2 className="section-title">Información Esencial</h2>
 
         <div className="info-grid">
-          <div className="info-card">
+          <div className="info-card2">
             <h3>Idioma</h3>
             <p>
               El portugués es el idioma oficial. El inglés se entiende en
@@ -95,7 +95,7 @@ function GuiaCultural() {
             </p>
           </div>
 
-          <div className="info-card">
+          <div className="info-card2">
             <h3>Clima</h3>
             <p>
               Clima tropical de altitud, con veranos cálidos e inviernos
@@ -103,14 +103,14 @@ function GuiaCultural() {
             </p>
           </div>
 
-          <div className="info-card">
+          <div className="info-card2">
             <h3>Lugares Culturales</h3>
             <p>
               USP, UFSCar, SESC, Teatro Municipal y museos científicos.
             </p>
           </div>
 
-          <div className="info-card">
+          <div className="info-card2">
             <h3>Vida Universitaria</h3>
             <p>
               Gran presencia de estudiantes, eventos, fiestas y actividades
@@ -119,10 +119,11 @@ function GuiaCultural() {
           </div>
         </div>
 
-        {/* FAÇA / EVITE */}
-        <div className="tips-container">
-          <div className="tips do">
+        <div className="dicas-culturais">
+
+          <div className="bloco-dicaHAZ">
             <h2>✔ Haz</h2>
+
             <ul>
               <li>Visita el SESC</li>
               <li>Conoce la USP y UFSCar</li>
@@ -131,8 +132,9 @@ function GuiaCultural() {
             </ul>
           </div>
 
-          <div className="tips dont">
-            <h2>✖ Evita</h2>
+          <div className="bloco-dicaEVITA">
+            <h2>✘ Evita</h2>
+
             <ul>
               <li>Tirar basura en áreas verdes</li>
               <li>Hacer ruido por la noche</li>
@@ -140,10 +142,11 @@ function GuiaCultural() {
               <li>Ignorar la cultura local</li>
             </ul>
           </div>
+
         </div>
 
         {/* CONSELHO FINAL */}
-        <div className="final-tip">
+        <div className="conselho-cultural">
           <h2>Consejo Cultural</h2>
           <p>
             La mejor forma de conocer São Carlos es vivir su ambiente
@@ -152,13 +155,15 @@ function GuiaCultural() {
           </p>
         </div>
 
-        {/* BOTÃO */}
-        <Link to="/" className="back-btn">
-          Volver al inicio
-        </Link>
+          {/* BOTÃO */}
+          <Link to="/" className="botao-voltar">
+            ← Voltar
+          </Link>
       </div>
     </div>
   );
 }
+
+
 
 export default GuiaCultural;
