@@ -231,70 +231,76 @@ app.delete("/roteiro/:id", authMiddleware, (req, res) => {
     });
 
 });
-/* 
-   PARADAS DO ROTEIRO
- */
 
-app.post("/parada", (req, res) => {
+app.get("/frases", async (req, res) => {
 
-    const {
-        id_roteiro,
-        horario,
-        nome_local,
-        descricao,
-        duracao,
-        dica
-    } = req.body;
+    try {
 
-    const sql = `
-        INSERT INTO parada_roteiro
-        (id_roteiro, horario, nome_local, descricao, duracao, dica)
-        VALUES (?, ?, ?, ?, ?, ?)
-    `;
+        const categorias = await queryPromise(
+            "SELECT * FROM categoria_frase"
+        );
 
-    db.query(sql, [
-        id_roteiro,
-        horario,
-        nome_local,
-        descricao,
-        duracao,
-        dica
-    ], (err, result) => {
+        let resultado = {};
 
-        if (err) {
-            return res.status(500).json(err);
+        for (const categoria of categorias) {
+
+            const frases = await queryPromise(`
+                SELECT pt, es
+                FROM frase
+                WHERE id_categoria = ?
+            `, [categoria.id_categoria]);
+
+            const palavras = await queryPromise(`
+                SELECT pt, es
+                FROM palavra
+                WHERE id_categoria = ?
+            `, [categoria.id_categoria]);
+
+            const passos = await queryPromise(`
+                SELECT descricao
+                FROM passo
+                WHERE id_categoria = ?
+                ORDER BY ordem_passo
+            `, [categoria.id_categoria]);
+
+            resultado[categoria.nome] = {
+                frases,
+                palavras,
+                passos: passos.map(p => p.descricao)
+            };
         }
 
-        res.json({ mensagem: "Parada adicionada!" });
+        res.json(resultado);
 
-    });
+    } catch (erro) {
 
-});
+        console.error("ERRO COMPLETO:", erro);
 
-app.get("/parada/:id", (req, res) => {
-
-    const { id } = req.params;
-
-    const sql = `
-        SELECT * FROM parada_roteiro
-        WHERE id_roteiro = ?
-    `;
-
-    db.query(sql, [id], (err, result) => {
-
-        if (err) {
-            return res.status(500).json(err);
-        }
-
-        res.json(result);
-
-    });
-
+        res.status(500).json({
+            erro: erro.message
+        });
+    }
 });
 
 
+function queryPromise(sql, valores = []) {
 
+    return new Promise((resolve, reject) => {
 
+        conexao.query(sql, valores, (err, results) => {
+
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results);
+            }
+
+        });
+
+    });
+
+}
 app.listen(5000, () => {
     console.log("Servidor rodando na porta 5000");
+    
 });

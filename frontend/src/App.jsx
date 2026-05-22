@@ -43,7 +43,7 @@ function App() {
         <nav>
           <Link to="/mapa">Mapa</Link>
           <Link to="/sobrevivencia">Sobrevivência</Link>
-          <Link to="/frases">Frases</Link>
+          <Link to="/frases">Frases Úteis</Link>
           <Link to="/guiacultural">Guia Cultural</Link>
           <Link to="/roteiros">Roteiros</Link>
           <Link to="/eventos">Eventos</Link>
