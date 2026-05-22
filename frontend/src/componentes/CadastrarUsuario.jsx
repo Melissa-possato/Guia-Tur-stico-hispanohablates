@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
+import "../App.css";
+import { Link } from "react-router-dom";
 
 function Cadastro() {
   const [nomeUsuario, setNomeUsuario] = useState("");
@@ -26,7 +28,7 @@ function Cadastro() {
       const data = await response.json();
 
       if (response.ok) {
-        alert("Usuário cadastrado com sucesso!");
+        alert("¡Cuenta creada con éxito!");
         
         navigate("/login"); 
       } else {
@@ -35,51 +37,77 @@ function Cadastro() {
 
     } catch (error) {
       console.error(error);
-      alert("Erro ao conectar com o servidor");
+      alert("Error al conectar con el servidor");
     }
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Cadastro de Usuário</h2>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Nome de usuário"
-          value={nomeUsuario}
-          onChange={(e) => setNomeUsuario(e.target.value)}
-          required
-        />
-        <br /><br />
-        <input
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <br /><br />
-
-        <input
-          type="password"
-          placeholder="Senha"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-          required
-        />
-        <br /><br />
-
-        {/* Removido o onClick daqui, o onSubmit do form já resolve */}
-        <button type="submit">
-          Cadastrar
-        </button>
-      </form>
-
-      <p>
-        Já tem conta? <button onClick={() => navigate("/login")} style={{ background: 'none', border: 'none', color: 'blue', cursor: 'pointer', textDecoration: 'underline' }}>Fazer login</button>
-      </p>
+    <div className="login-bg">
+  
+      <div className="login-container">
+  
+        <div className="login-card">
+  
+          <h2>Crear Cuenta</h2>
+  
+          <p className="login-subtitulo">
+            Regístrate para acceder a las funciones del guía turístico.
+          </p>
+  
+          <form onSubmit={handleSubmit} className="login-form">
+  
+            <input
+              type="text"
+              placeholder="Nombre de usuario"
+              value={nomeUsuario}
+              onChange={(e) => setNomeUsuario(e.target.value)}
+              required
+            />
+  
+            <input
+              type="email"
+              placeholder="Correo electrónico"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+  
+            <input
+              type="password"
+              placeholder="Contraseña"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              required
+            />
+  
+            <button type="submit">
+              Crear Cuenta
+            </button>
+  
+          </form>
+  
+          <p className="cadastro-texto">
+            ¿Ya tienes cuenta?
+          </p>
+  
+          <button
+            onClick={() => navigate("/login")}
+            className="btn-cadastro"
+          >
+            Iniciar Sesión
+          </button>
+  
+          <Link to="/" className="botao-voltar">
+            ← Volver al inicio
+          </Link>
+  
+        </div>
+  
+      </div>
+  
     </div>
+  
   );
 }
 
