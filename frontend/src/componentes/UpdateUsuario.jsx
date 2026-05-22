@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../App.css";
 
 function UpdateUsuario() {
   const navigate = useNavigate();
@@ -31,13 +32,13 @@ function UpdateUsuario() {
         const data = await response.json();
         
         if (response.ok) {
-          alert("Dados atualizados com sucesso!");
+          alert("¡Datos actualizados con éxito!");
           if (formData.nome_usuario) {
             localStorage.setItem("nomeUsuario", formData.nome_usuario);
           }
           navigate("/login");
         } else {
-          alert(data.error || "Erro ao atualizar dados.");
+          alert(data.error || "Error al actualizar los datos.");
         }
       } else {
         // Se cair aqui, o servidor mandou um erro em texto/HTML (como o erro 500)
@@ -51,36 +52,70 @@ function UpdateUsuario() {
     }
   };
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Atualizar Meus Dados</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="nome_usuario"
-          placeholder="Novo nome de usuário"
-          value={formData.nome_usuario}
-          onChange={handleChange}
-        /><br /><br />
-        <input
-          type="email"
-          name="email"
-          placeholder="Novo email"
-          value={formData.email}
-          onChange={handleChange}
-        /><br /><br />
-        <input
-          type="password"
-          name="senha"
-          placeholder="Nova senha"
-          value={formData.senha}
-          onChange={handleChange}
-        /><br /><br />
-        <button type="submit">Salvar Alterações</button>
-      </form>
-      <br />
-      <button onClick={() => navigate("/login")}>Voltar</button>
+
+    <div className="login-bg">
+  
+      <div className="login-container">
+  
+        <div className="login-card">
+  
+          <h2>Actualizar Cuenta</h2>
+  
+          <p className="login-subtitulo">
+            Actualiza tus datos personales de forma segura.
+          </p>
+  
+          <form
+            onSubmit={handleSubmit}
+            className="login-form"
+          >
+  
+            <input
+              type="text"
+              name="nome_usuario"
+              placeholder="Nuevo nombre de usuario"
+              value={formData.nome_usuario}
+              onChange={handleChange}
+            />
+  
+            <input
+              type="email"
+              name="email"
+              placeholder="Nuevo correo electrónico"
+              value={formData.email}
+              onChange={handleChange}
+            />
+  
+            <input
+              type="password"
+              name="senha"
+              placeholder="Nueva contraseña"
+              value={formData.senha}
+              onChange={handleChange}
+            />
+  
+            <button type="submit">
+              Guardar Cambios
+            </button>
+  
+          </form>
+  
+          <button
+            onClick={() => navigate("/login")}
+            className="btn-cadastro"
+            style={{ marginTop: "20px" }}
+          >
+            Volver
+          </button>
+  
+        </div>
+  
+      </div>
+  
     </div>
+  
   );
 }
 
 export default UpdateUsuario;
+
