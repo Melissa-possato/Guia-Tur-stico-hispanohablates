@@ -150,80 +150,148 @@ function Mapa() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Mapa Interativo - São Carlos</h1>
-
-      <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
-        <input
-          type="text"
-          placeholder="Buscar qualquer lugar..."
-          value={busca}
-          onChange={(e) => setBusca(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && buscarLugar()}
-          style={{ flex: 1, padding: "10px", borderRadius: "8px" }}
-        />
-        <button onClick={buscarLugar}>🔍 Buscar</button>
-        <button onClick={buscarLocalizacaoAtual}>📍 Minha Localização</button>
-      </div>
-
-      {/* Categorias com funcionalidade */}
-      <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
-        {["Todos", "Universidade", "Cultura", "Parque"].map((cat) => (
-          <button 
-            key={cat} 
-            onClick={() => setFiltro(cat)}
-            style={{ fontWeight: filtro === cat ? "bold" : "normal" }}
-          >
-            {cat === "Todos" ? "Todos" : cat + "s"}
+    <div className="mapa-bg">
+  
+      <div className="mapa-container">
+  
+        <div className="mapa-header">
+          <h1>Mapa Interactivo</h1>
+          <p>
+            Explora São Carlos y encuentra universidades,
+            cultura, parques y lugares importantes.
+          </p>
+        </div>
+  
+        {/* BUSCA */}
+  
+        <div className="busca-container">
+  
+          <input
+            type="text"
+            placeholder="Buscar cualquier lugar..."
+            value={busca}
+            onChange={(e) => setBusca(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && buscarLugar()}
+            className="input-busca"
+          />
+  
+          <button onClick={buscarLugar} className="botao-busca">
+            🔍 Buscar
           </button>
-        ))}
-      </div>
-
-      <div style={{ height: "60vh", width: "100%", borderRadius: "12px", overflow: "hidden", marginBottom: "20px" }}>
-        <MapContainer center={posicao} zoom={13} style={{ height: "100%", width: "100%" }}>
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          <ChangeView center={posicao} />
-
-          {/* Marcador da sua posição ou busca atual */}
-          <Marker position={posicao}>
-            <Popup>Você está aqui / Lugar pesquisado 📍</Popup>
-          </Marker>
-
-          {/* Marcadores dos lugares salvos com ícones personalizados */}
-          {lugaresFiltrados.map((lugar, index) => (
-            <Marker 
-              key={index} 
-              position={lugar.posicao} 
-              icon={iconMap[lugar.type] || DefaultIcon}
+  
+          <button
+            onClick={buscarLocalizacaoAtual}
+            className="botao-localizacao"
+          >
+            📍 Mi ubicación
+          </button>
+  
+        </div>
+  
+        {/* FILTROS */}
+  
+        <div className="filtros-container">
+  
+          {["Todos", "Universidade", "Cultura", "Parque"].map((cat) => (
+  
+            <button
+              key={cat}
+              onClick={() => setFiltro(cat)}
+              className={`filtro-btn ${
+                filtro === cat ? "ativo" : ""
+              }`}
             >
+              {cat === "Todos" ? "Todos" : cat + "s"}
+            </button>
+  
+          ))}
+  
+        </div>
+  
+        {/* MAPA */}
+  
+        <div className="mapa-wrapper">
+  
+          <MapContainer
+            center={posicao}
+            zoom={13}
+            className="mapa-leaflet"
+          >
+  
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+  
+            <ChangeView center={posicao} />
+  
+            <Marker position={posicao}>
               <Popup>
-                <strong>{lugar.nome}</strong><br />
-                {lugar.descricao}
+                Você está aqui / Lugar pesquisado 📍
               </Popup>
             </Marker>
-          ))}
-
-          {precisao > 0 && (
-            <Circle 
-              center={posicao} 
-              radius={Math.min(precisao, 200)} 
-              pathOptions={{ fillColor: "#3388ff", color: "#3388ff", weight: 1, opacity: 0.5, fillOpacity: 0.15 }} 
-            />
-          )}
-        </MapContainer>
-      </div>
-
-      <h2>Lugares em destaque ({filtro})</h2>
-      {lugaresFiltrados.map((lugar, index) => (
-        <div key={index} style={{ border: "1px solid #ccc", padding: "15px", borderRadius: "10px", marginBottom: "10px" }}>
-          <h3>{lugar.nome}</h3>
-          <p><strong>Categoria:</strong> {lugar.categoria}</p>
-          <p>{lugar.descricao}</p>
+  
+            {lugaresFiltrados.map((lugar, index) => (
+              <Marker
+                key={index}
+                position={lugar.posicao}
+                icon={iconMap[lugar.type] || DefaultIcon}
+              >
+                <Popup>
+                  <strong>{lugar.nome}</strong>
+                  <br />
+                  {lugar.descricao}
+                </Popup>
+              </Marker>
+            ))}
+  
+            {precisao > 0 && (
+              <Circle
+                center={posicao}
+                radius={Math.min(precisao, 200)}
+                pathOptions={{
+                  fillColor: "#22c55e",
+                  color: "#22c55e",
+                  weight: 1,
+                  opacity: 0.5,
+                  fillOpacity: 0.15
+                }}
+              />
+            )}
+  
+          </MapContainer>
+  
         </div>
-      ))}
-
-      <br />
-      <Link to="/">Voltar para a página inicial</Link>
+  
+        {/* LUGARES */}
+  
+        <h2 className="titulo-lugares">
+          Lugares en destaque ({filtro})
+        </h2>
+  
+        <div className="lugares-grid">
+  
+          {lugaresFiltrados.map((lugar, index) => (
+  
+            <div key={index} className="lugar-card">
+  
+              <h3>{lugar.nome}</h3>
+  
+              <span className="categoria">
+                {lugar.categoria}
+              </span>
+  
+              <p>{lugar.descricao}</p>
+  
+            </div>
+  
+          ))}
+  
+        </div>
+  
+        <Link to="/" className="botao-voltar">
+          ← Volver al inicio
+        </Link>
+  
+      </div>
+  
     </div>
   );
 }
