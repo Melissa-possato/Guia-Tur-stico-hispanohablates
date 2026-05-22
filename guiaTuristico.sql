@@ -50,5 +50,5 @@ CREATE TABLE parada_roteiro (
     FOREIGN KEY (id_roteiro) REFERENCES roteiro(id_roteiro)
 );
 
-insert into cadastro (nome_usuario, senha) values ("melissa", "123");
+insert into cadastro (nome_usuario, senha) values ("teste", "123");
 select * from cadastro;
