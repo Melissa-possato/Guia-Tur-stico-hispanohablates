@@ -421,60 +421,6 @@ a:hover {
   padding: 40px 0;
 }
 
-/* MODO SOBREVIVÊNCIA */
-.secao-sobrevivencia {
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.507), rgba(0, 0, 0, 0.555)),
-    url("/shutterstock_1532724938.jpg.webp");
-
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  min-height: 100vh;
-}
-
-.secao-sobrevivencia .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 25px;
-  color: white;
-}
-
-.grid-contatos {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
-}
-
-.card-contato {
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 20px;
-  padding: 28px;
-  text-align: center;
-  transition: 0.3s ease;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.35);
-}
-
-.card-contato:hover {
-  transform: translateY(-6px);
-  background: rgba(255,255,255,0.18);
-}
-
-.grid-dicas {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
-  margin-top: 20px;
-}
-
-.grid-locais {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
-  margin-top: 20px;
-}
 
 /* GUIA CULTURAL */
 .cultural-bg {
@@ -598,4 +544,246 @@ a:hover {
   .section-title {
     font-size: 28px;
   }
+}
+
+/* =========================
+   MODO SOBREVIVÊNCIA
+========================= */
+
+.secao-sobrevivencia {
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.253), rgba(0, 0, 0, 0.342)),
+    url("/shutterstock_1532724938.jpg.webp");
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.secao-sobrevivencia .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 25px 60px;
+  color: white;
+  position: relative;
+  z-index: 2;
+}
+
+/* TÍTULO */
+
+.secao-sobrevivencia h1 {
+  font-size: 64px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.secao-sobrevivencia .subtitulo {
+  font-size: 18px;
+  color: #d1d5db;
+  margin-bottom: 35px;
+}
+
+/* ALERTA */
+
+.alerta-emergencia {
+  background: rgba(255,255,255,0.08);
+  border-left: 5px solid #facc15;
+  padding: 18px 22px;
+  border-radius: 16px;
+  margin-bottom: 35px;
+  backdrop-filter: blur(10px);
+}
+
+.alerta-emergencia h3 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.alerta-emergencia p {
+  color: #f3f4f6;
+  line-height: 1.6;
+}
+
+/* TÍTULOS DAS SEÇÕES */
+
+.titulo-secao {
+  font-size: 38px;
+  font-weight: 700;
+  margin-top: 50px;
+  margin-bottom: 25px;
+  border-left: 5px solid #22c55e;
+  padding-left: 15px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+/* =========================
+   CONTATOS
+========================= */
+
+.grid-contatos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+.card-contato {
+  background: rgba(255,255,255,0.10);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 22px;
+  padding: 30px;
+  text-align: center;
+  transition: 0.3s ease;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+}
+
+.card-contato:hover {
+  transform: translateY(-6px);
+  background: rgba(255,255,255,0.15);
+}
+
+.card-contato .icone {
+  font-size: 28px;
+  margin-bottom: 14px;
+}
+
+.card-contato h4 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.card-contato p {
+  font-size: 22px;
+  color: #facc15;
+  font-weight: bold;
+}
+
+/* =========================
+   DICAS
+========================= */
+
+.grid-dicas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.card-dica {
+  background: rgba(255,255,255,0.10);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 22px;
+  padding: 25px;
+  transition: 0.3s ease;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+}
+
+.card-dica:hover {
+  transform: translateY(-6px);
+  background: rgba(255,255,255,0.15);
+}
+
+.card-dica h3 {
+  font-size: 26px;
+  margin-bottom: 18px;
+}
+
+.card-dica ul {
+  padding-left: 20px;
+}
+
+.card-dica li {
+  margin-bottom: 12px;
+  line-height: 1.7;
+  color: #f3f4f6;
+}
+
+/* =========================
+   LOCAIS IMPORTANTES
+========================= */
+
+.grid-locais {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.local-card {
+  background: rgba(255,255,255,0.10);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 22px;
+  padding: 25px;
+  transition: 0.3s ease;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+}
+
+.local-card:hover {
+  transform: translateY(-6px);
+  background: rgba(255,255,255,0.15);
+}
+
+.local-card h3 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.local-card p {
+  margin-bottom: 10px;
+  line-height: 1.7;
+  color: #f3f4f6;
+}
+
+/* =========================
+   INFORMAÇÕES ÚTEIS
+========================= */
+
+.info-util {
+  margin-top: 45px;
+  background: rgba(255,255,255,0.10);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 22px;
+  padding: 30px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+}
+
+.info-util h2 {
+  margin-bottom: 20px;
+  font-size: 32px;
+}
+
+.info-util ul {
+  padding-left: 20px;
+}
+
+.info-util li {
+  margin-bottom: 12px;
+  line-height: 1.7;
+}
+
+/* =========================
+   BOTÃO VOLTAR
+========================= */
+
+.botao-voltar {
+  display: inline-block;
+  margin-top: 40px;
+  padding: 14px 28px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s ease;
+  box-shadow: 0 5px 15px rgba(34,197,94,0.35);
+}
+
+.botao-voltar:hover {
+  transform: scale(1.05);
 }
