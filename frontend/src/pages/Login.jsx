@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import "../App.css";
 
 function Login() {
   const [nomeUsuario, setNomeUsuario] = useState("");
@@ -55,57 +56,116 @@ function Login() {
   if (usuarioLogado) {
 
     return (
-      <div style={{ padding: "20px", textAlign: "center" }}>
-        <h2>Minha Conta</h2>
-        <div style={{ border: "1px solid #ccc", padding: "20px", borderRadius: "10px", display: "inline-block" }}>
-          <p><strong>Usuário:</strong> {usuarioLogado.nome}</p>
-          <p>📍 São Carlos, SP</p>
-          
-          <button 
-            onClick={() => navigate("/update")} 
-            style={{ marginRight: "10px", padding: "10px", cursor: "pointer" }}
-          >
-            Atualizar Meus Dados
-          </button>
-
-          <button 
-            onClick={fazerLogout} 
-            style={{ backgroundColor: "#ff4d4d", color: "white", padding: "10px", border: "none", borderRadius: "5px", cursor: "pointer" }}
-          >
-            Sair da Conta
-          </button>
+  
+      <div className="login-bg">
+  
+        <div className="conta-container">
+  
+          <h2>Mi Cuenta</h2>
+  
+          <div className="conta-card">
+  
+            <div className="avatar">
+              👤
+            </div>
+  
+            <p>
+              <strong>Usuario:</strong> {usuarioLogado.nome}
+            </p>
+  
+            <p>📍 São Carlos, SP</p>
+  
+            <div className="conta-botoes">
+  
+              <button
+                onClick={() => navigate("/update")}
+                className="btn-update"
+              >
+                Actualizar Datos
+              </button>
+  
+              <button
+                onClick={fazerLogout}
+                className="btn-logout"
+              >
+                Salir
+              </button>
+  
+            </div>
+  
+          </div>
+  
+          <Link to="/" className="botao-voltar">
+            ← Volver al inicio
+          </Link>
+  
         </div>
-        <br /><br />
-        <button onClick={() => navigate("/")}>Ir para página inicial</button>
+  
       </div>
+  
     );
   }
 
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Login</h2>
-      <form onSubmit={fazerLogin}>
-        <input 
-          type="text" 
-          placeholder="Nome de usuário" 
-          value={nomeUsuario} 
-          onChange={(e) => setNomeUsuario(e.target.value)} 
-          required 
-        /><br /><br />
-        <input 
-          type="password" 
-          placeholder="Senha" 
-          value={senha} 
-          onChange={(e) => setSenha(e.target.value)} 
-          required 
-        /><br /><br />
-        <button type="submit">Entrar</button>
-      </form>
-      <p>Não tem conta? <button onClick={() => navigate("/cadastrarU")}>Cadastre-se</button></p>
-      <br />
-      <Link to={"/"}> Ir para pagina inicial</Link>
+
+    <div className="login-bg">
+  
+      <div className="login-container">
+  
+        <div className="login-card">
+  
+          <h2>Iniciar Sesión</h2>
+  
+          <p className="login-subtitulo">
+            Accede a tu cuenta para explorar São Carlos.
+          </p>
+  
+          <form onSubmit={fazerLogin} className="login-form">
+  
+            <input
+              type="text"
+              placeholder="Nombre de usuario"
+              value={nomeUsuario}
+              onChange={(e) => setNomeUsuario(e.target.value)}
+              required
+            />
+  
+            <input
+              type="password"
+              placeholder="Contraseña"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              required
+            />
+  
+            <button type="submit">
+              Entrar
+            </button>
+  
+          </form>
+  
+          <p className="cadastro-texto">
+            ¿No tienes cuenta?
+          </p>
+  
+          <button
+            onClick={() => navigate("/cadastrarU")}
+            className="btn-cadastro"
+          >
+            Crear Cuenta
+          </button>
+  
+          <Link to="/" className="botao-voltar">
+            ← Volver al inicio
+          </Link>
+  
+        </div>
+  
+      </div>
+  
     </div>
+  
   );
 }
 
