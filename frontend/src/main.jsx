@@ -1,8 +1,12 @@
 
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import './index.css'
-import App from './App.jsx'
+
+import "./index.css";
+
+import App from "./App.jsx";
+
+
 import Erro from "./pages/Erro";
 import Mapa from "./pages/Mapa";
 import GuiaCultural from "./pages/GuiaCultural";
@@ -11,36 +15,38 @@ import Frases from "./pages/Frases";
 import Sobrevivencia from "./pages/Sobrevivencia";
 import Login from "./pages/Login";
 import Roteiros from "./pages/Roteiros";
-import CadastrarUsuario from "./componentes/CadastrarUsuario.jsx"
+
+import CadastrarUsuario from "./componentes/CadastrarUsuario.jsx";
 import CadastrarRoteiro from "./componentes/CadastrarRoteiro.jsx";
-import UpdateUsuario from "./componentes/UpdateUsuario.jsx"
-
-
+import UpdateUsuario from "./componentes/UpdateUsuario.jsx";
+import Layout from "./pages/Layout.jsx";
 
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
 
-
 const router = createBrowserRouter([
-
-  { path: "/", element: <App />,
+  {
+    path: "/",
+    element: <Layout />,
     errorElement: <Erro />,
-  },
-  { path: "mapa", element: <Mapa /> },
-  { path: "guiacultural", element: <GuiaCultural /> },
-  { path: "sobrevivencia", element: <Sobrevivencia /> },
-  { path: "eventos", element: <Eventos /> },
-  { path: "roteiros", element: <Roteiros /> },
-  { path: "frases", element: <Frases /> },
-  { path: "login", element: <Login /> },
-  { path: "cadastrarU", element: <CadastrarUsuario /> },
-  { path: "cadastrarRoteiro", element: <CadastrarRoteiro /> },
-  { path: "update", element: <UpdateUsuario /> },
 
+    children: [
+      { index: true, element: <App /> },
 
-
+      { path: "mapa", element: <Mapa /> },
+      { path: "guiacultural", element: <GuiaCultural /> },
+      { path: "sobrevivencia", element: <Sobrevivencia /> },
+      { path: "eventos", element: <Eventos /> },
+      { path: "roteiros", element: <Roteiros /> },
+      { path: "frases", element: <Frases /> },
+      { path: "login", element: <Login /> },
+      { path: "cadastrarU", element: <CadastrarUsuario /> },
+      { path: "cadastrarRoteiro", element: <CadastrarRoteiro /> },
+      { path: "update", element: <UpdateUsuario /> },
+    ]
+  }
 ]);
 
 createRoot(document.getElementById("root")).render(
@@ -48,4 +54,3 @@ createRoot(document.getElementById("root")).render(
     <RouterProvider router={router} />
   </StrictMode>
 );
-
