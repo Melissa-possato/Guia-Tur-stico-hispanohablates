@@ -94,10 +94,28 @@ INSERT INTO palavra (id_categoria, pt, es) VALUES
 (1, 'dinheiro', 'efectivo'),
 (1, 'cartão', 'tarjeta');
 
+INSERT INTO frase (id_categoria, pt, es) VALUES
+(1, 'Bom dia! Você pode me ajudar?', 'Buenos días ¿Puede ayudarme?'),
+(1, 'O que você está procurando?', '¿Qué está buscando?'),
+(1, 'Estou procurando arroz integral', 'Estoy buscando arroz integral'),
+(1, 'Em qual corredor fica?', '¿En qué pasillo está?'),
+(1, 'Essas maçãs estão em promoção?', '¿Estas manzanas están en promoción?'),
+(1, 'Vou pagar no débito', 'Voy a pagar con débito'),
+(1, 'Precisa de sacola?', '¿Necesita bolsa?');
+
 
 
 
 /*BANCO*/
+INSERT INTO passo (id_categoria, descricao, ordem_passo)
+VALUES
+(2, 'Cumprimentar o atendente (Saludar al empleado)', 1),
+(2, 'Dizer que deseja abrir uma conta (Decir que quiere abrir una cuenta)', 2),
+(2, 'Entregar documentos (Entregar los documentos)', 3),
+(2, 'Informar dados pessoais (Informar datos personales)', 4),
+(2, 'Escolher o tipo de conta (Elegir el tipo de cuenta)', 5),
+(2, 'Criar senha (Crear una contraseña)', 6),
+(2, 'Confirmar abertura da conta (Confirmar la apertura de la cuenta)', 7);
 INSERT INTO frase (id_categoria, pt, es) VALUES
 (2, 'Quero abrir uma conta', 'Quiero abrir una cuenta'),
 (2, 'Você já é cliente do banco?', '¿Ya es cliente del banco?'),
@@ -111,35 +129,35 @@ INSERT INTO frase (id_categoria, pt, es) VALUES
 
 INSERT INTO passo (id_categoria, descricao, ordem_passo)
 VALUES
-(2, 'Cumprimentar o atendente (Saludar al empleado)', 1),
+(1, 'Cumprimentar o atendente (Saludar al empleado)', 1),
 
-(2,'Dizer que deseja abrir uma conta (Decir que quiere abrir una cuenta)', 2),
+(1,'Dizer que deseja abrir uma conta (Decir que quiere abrir una cuenta)', 2),
 
-(2,   'Entregar documentos (Entregar los documentos)', 3),
+(1,   'Entregar documentos (Entregar los documentos)', 3),
 
-(2, '"Informar dados pessoais (Informar datos personales)', 4),
+(1, '"Informar dados pessoais (Informar datos personales)', 4),
 
-(2, 'Escolher o tipo de conta (Elegir el tipo de cuenta)', 5),
+(1, 'Escolher o tipo de conta (Elegir el tipo de cuenta)', 5),
 
-(2, 'Criar senha (Crear una contraseña)', 6),
+(1, 'Criar senha (Crear una contraseña)', 6),
 
-(2, 'Confirmar abertura da conta (Confirmar la apertura de la cuenta)', 7);
+(1, 'Confirmar abertura da conta (Confirmar la apertura de la cuenta)', 7);
 
 INSERT INTO palavra (id_categoria, pt, es) VALUES
-(1, 'banco', 'banco'),
-(1, 'conta bancária', 'cuenta bancaria'),
-(1, 'conta corrente', 'cuenta corriente'),
-(1, 'conta poupança', 'cuenta de ahorro'),
-(1, 'cartão', 'tarjeta'),
-(1, 'senha', 'contraseña'),
-(1, 'aplicativo do banco', 'aplicación del banco'),
-(1, 'comprovante de endereço', 'comprobante de domicilio'),
-(1, 'RG', 'documento de identidad'),
-(1, 'CPF', 'número de identificación'),
-(1, 'agência', 'sucursal'),
-(1, 'saque', 'retiro'),
-(1, 'depósito', 'depósito'),
-(1, 'transferência', 'transferencia');
+(2, 'banco', 'banco'),
+(2, 'conta bancária', 'cuenta bancaria'),
+(3, 'conta corrente', 'cuenta corriente'),
+(2, 'conta poupança', 'cuenta de ahorro'),
+(2, 'cartão', 'tarjeta'),
+(2, 'senha', 'contraseña'),
+(2, 'aplicativo do banco', 'aplicación del banco'),
+(2, 'comprovante de endereço', 'comprobante de domicilio'),
+(2, 'RG', 'documento de identidad'),
+(2, 'CPF', 'número de identificación'),
+(2, 'agência', 'sucursal'),
+(2, 'saque', 'retiro'),
+(2, 'depósito', 'depósito'),
+(2, 'transferência', 'transferencia');
 
 
 
