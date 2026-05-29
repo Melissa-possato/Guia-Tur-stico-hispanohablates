@@ -1,216 +1,210 @@
-import { useState } from 'react'
 import { Link } from "react-router-dom";
+
 import "./App.css";
 import "./index.css";
-import { FaMapMarkedAlt } from "react-icons/fa";
-import { FaShieldAlt } from "react-icons/fa";
-import { FaComments } from "react-icons/fa";
-import { FaLandmark } from "react-icons/fa";
-import { FaRoute } from "react-icons/fa";
-import { FaCalendarAlt } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import { FaUserCircle } from "react-icons/fa"; // Adicionado ícone de usuário
+
+import {
+  FaMapMarkedAlt,
+  FaShieldAlt,
+  FaComments,
+  FaLandmark,
+  FaRoute,
+  FaCalendarAlt
+} from "react-icons/fa";
 
 function App() {
 
-  const [usuario, setUsuario] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const nomeSalvo = localStorage.getItem("nomeUsuario");
-
-    if (token && nomeSalvo) {
-      setUsuario({ nome: nomeSalvo });
-    }
-  }, []);
-
-  const fazerLogout = () => {
-    localStorage.clear();
-    setUsuario(null);
-    navigate("/");
-  };
-
   return (
     <>
-      <header className="navbar">
-        <h2 className="icon green">
-          <FaMapMarkedAlt />
-          Guia Turístico
-        </h2>
-
-        <nav>
-          <Link to="/mapa">Mapa</Link>
-          <Link to="/sobrevivencia">Sobrevivência</Link>
-          <Link to="/frases">Frases Úteis</Link>
-          <Link to="/guiacultural">Guia Cultural</Link>
-          <Link to="/roteiros">Roteiros</Link>
-          <Link to="/eventos">Eventos</Link>
-
-          {usuario ? (
-            <button onClick={() => navigate("/login")}>
-              <FaUserCircle color="black" />
-            </button>
-          ) : (
-            <Link to="/login" className="login-btn">
-              Login
-            </Link>
-          )}
-        </nav>
-      </header>
-
       {/* HERO */}
       <section className="hero">
+
         <div className="hero-text">
+
           <h1>Explore a Cidade com Confiança</h1>
 
           <p>
-            Seu guia completo com mapas, dicas culturais, frases úteis e muito mais.
+            Seu guia completo com mapas, dicas culturais,
+            frases úteis e muito mais.
           </p>
 
-          <button >
-          < Link to="/mapa">Começar a Explorar →</Link>
+          <button>
+            Começar a Explorar →
           </button>
+
         </div>
+
       </section>
 
-      {/* SEÇÃO CARDS */}
+      {/* CARDS */}
       <section className="cards-section">
-        <h2>Tudo que Você Precisa em Um Só Lugar</h2>
+
+        <h2>
+          Tudo que Você Precisa em Um Só Lugar
+        </h2>
 
         <p>
-          Ferramentas e recursos para tornar sua estadia mais fácil, segura e enriquecedora.
+          Ferramentas e recursos para tornar sua estadia
+          mais fácil, segura e enriquecedora.
         </p>
 
         <div className="cards-container">
 
-          {/* CARD 1 */}
           <Link to="/mapa" className="card">
+
             <div className="icon green">
               <FaMapMarkedAlt size={30} />
             </div>
 
             <h3>Mapa da Cidade</h3>
 
-            <p>Explore os principais pontos turísticos.</p>
+            <p>
+              Explore os principais pontos turísticos.
+            </p>
 
-            <span className="explore">Explorar →</span>
+            <span className="explore">
+              Explorar →
+            </span>
+
           </Link>
 
-          {/* CARD 2 */}
           <Link to="/sobrevivencia" className="card">
+
             <div className="icon red">
               <FaShieldAlt size={30} />
             </div>
 
             <h3>Modo Sobrevivência</h3>
 
-            <p>Dicas essenciais de segurança.</p>
+            <p>
+              Dicas essenciais de segurança.
+            </p>
 
-            <span className="explore">Explorar →</span>
+            <span className="explore">
+              Explorar →
+            </span>
+
           </Link>
 
-          {/* CARD 3 */}
-          <Link to="/Frases" className="card">
+          <Link to="/frases" className="card">
+
             <div className="icon green">
               <FaComments size={30} />
             </div>
 
             <h3>Frases Úteis</h3>
 
-            <p>Aprenda expressões importantes.</p>
+            <p>
+              Aprenda expressões importantes.
+            </p>
 
-            <span className="explore">Explorar →</span>
+            <span className="explore">
+              Explorar →
+            </span>
+
           </Link>
 
-          {/* CARD 4 */}
-          <Link to="/GuiaCultural" className="card">
+          <Link to="/guiacultural" className="card">
+
             <div className="icon purple">
               <FaLandmark size={30} />
             </div>
 
             <h3>Guia Cultural</h3>
 
-            <p>Conheça costumes e tradições locais.</p>
+            <p>
+              Conheça costumes e tradições locais.
+            </p>
 
-            <span className="explore">Explorar →</span>
+            <span className="explore">
+              Explorar →
+            </span>
+
           </Link>
 
-          {/* CARD 5 */}
-          <Link to="/Roteiros" className="card">
+          <Link to="/roteiros" className="card">
+
             <div className="icon orange">
               <FaRoute size={30} />
             </div>
 
             <h3>Roteiros</h3>
 
-            <p>Planeje sua viagem com roteiros prontos.</p>
+            <p>
+              Planeje sua viagem com roteiros prontos.
+            </p>
 
-            <span className="explore">Explorar →</span>
+            <span className="explore">
+              Explorar →
+            </span>
+
           </Link>
 
-          {/* CARD 6 */}
-          <Link to="/Eventos" className="card">
+          <Link to="/eventos" className="card">
+
             <div className="icon pink">
               <FaCalendarAlt size={30} />
             </div>
 
             <h3>Eventos</h3>
 
-            <p>Descubra eventos acontecendo na cidade.</p>
+            <p>
+              Descubra eventos acontecendo na cidade.
+            </p>
 
-            <span className="explore">Explorar →</span>
+            <span className="explore">
+              Explorar →
+            </span>
+
           </Link>
 
         </div>
+
       </section>
 
-      {/* SEÇÃO DE DICAS */}
+      {/* INFO */}
       <section className="info-section">
 
         <div className="info-card">
+
           <h3>Dica Rápida</h3>
 
           <p>
-            Sempre tenha um mapa offline disponível. Baixe as áreas que você planeja visitar antes de sair.
+            Sempre tenha um mapa offline disponível.
+            Baixe as áreas antes de sair.
           </p>
+
         </div>
 
         <div className="info-card">
+
           <h3>Horário de Funcionamento</h3>
 
           <p>
-            O comércio local funciona de Segunda a Sexta, das 9h às 18h.
+            O comércio funciona das 9h às 18h.
           </p>
 
           <p>
-            Aos finais de semana:
-            <br />
-
             Sábado: 9h - 12h
             <br />
-
-            Domingo: Maioria dos estabelecimentos estão fechados
+            Domingo: maioria fechada
           </p>
+
         </div>
 
         <div className="info-card">
+
           <h3>Transporte Local</h3>
 
           <p>
-            O transporte público funciona das 5:20 às 22:35 Horário de Brasília.
-            <br />
-
-            Aos finais de semana e feriado muitas linhas são reduzidas ou fazem horários diferentes
-            <br />
-
-            Fique Alerta ao site www.soutransporte.com.br ou ao aplicativo SOU São Carlos
-            <br />
-
-            Considere táxis ou aplicativos para horários noturnos.
-            <br />
+            O transporte público funciona
+            das 5:20 às 22:35.
           </p>
+
+          <p>
+            Aos finais de semana muitos horários mudam.
+          </p>
+
         </div>
 
       </section>
@@ -221,38 +215,51 @@ function App() {
         <div className="footer-container">
 
           <div>
+
             <h3>Guia Turístico</h3>
 
             <p>
-              Seu companheiro perfeito para explorar a cidade com confiança e estilo.
+              Seu companheiro perfeito para explorar
+              a cidade com confiança.
             </p>
+
           </div>
 
           <div>
+
             <h3>Links Rápidos</h3>
 
             <Link to="/mapa">Mapa</Link>
             <br />
 
-            <Link to="/sobrevivencia">Modo Sobrevivência</Link>
+            <Link to="/sobrevivencia">
+              Modo Sobrevivência
+            </Link>
+
             <br />
 
-            <Link to="/eventos">Eventos</Link>
+            <Link to="/eventos">
+              Eventos
+            </Link>
+
           </div>
 
           <div>
+
             <h3>Feito por:</h3>
 
             <p>Ana Luiza Alteia</p>
             <p>Emily Miglior</p>
             <p>Duda Giamlourenço</p>
             <p>Melissa Possato</p>
+
           </div>
 
         </div>
 
         <div className="footer-bottom">
-          © 2026 Guia Turístico. Todos os direitos reservados.
+          © 2026 Guia Turístico.
+          Todos os direitos reservados.
         </div>
 
       </footer>
