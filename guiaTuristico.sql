@@ -255,12 +255,156 @@ INSERT INTO frase (id_categoria, pt, es) VALUES
 (5, 'O que preciso para alugar?', '¿Qué necesito para alquilar?'),
 (5, 'Vou enviar os documentos', 'Voy a enviar los documentos');
 
+CREATE TABLE evento (
+    id_evento INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255),
+    data_evento VARCHAR(100),
+    horario TIME,
+    local_evento VARCHAR(255),
+    categoria VARCHAR(100),
+    mes VARCHAR(50)
+);
+/* =========================
+   MARÇO
+========================= */
+
+INSERT INTO evento 
+(titulo, data_evento, horario, local_evento, categoria, mes)
+VALUES
+('Carnaval de São Carlos', '1 a 8 de Março', '19:00:00', 'Centro de São Carlos', 'Cultura', 'Março'),
+
+('Desfile das Escolas de Samba', 'Março', '20:00:00', 'Passarela do Samba', 'Música', 'Março'),
+
+('Comemoração do Mês da Mulher', '8 de Março', '14:00:00', 'Câmara Municipal', 'Social', 'Março');
+
+
+/* =========================
+   ABRIL
+========================= */
+
+INSERT INTO evento 
+(titulo, data_evento, horario, local_evento, categoria, mes)
+VALUES
+('GP Extreme Damha de Triathlon', '1 a 3 de Abril', '08:00:00', 'Parque Damha', 'Esportes', 'Abril'),
+
+('8ª Festa do Milho de Água Vermelha', '9 e 10 de Abril', '18:00:00', 'Água Vermelha', 'Gastronomia', 'Abril'),
+
+('45ª Festa do Clima', '29 Abril a 1 Maio', '17:00:00', 'Centro', 'Cultura', 'Abril');
+
+
+/* =========================
+   MAIO
+========================= */
+
+INSERT INTO evento 
+(titulo, data_evento, horario, local_evento, categoria, mes)
+VALUES
+('Virada Cultural', '14 e 15 de Maio', '18:00:00', 'Centro Cultural', 'Arte', 'Maio'),
+
+('4º Matsuri', '7 e 8 de Maio', '16:00:00', 'São Carlos', 'Cultura', 'Maio'),
+
+('11ª Semana Pró Casa do Pinhal', '23 a 29 de Maio', '10:00:00', 'Casa do Pinhal', 'História', 'Maio');
+
+
+/* =========================
+   JUNHO
+========================= */
+
+INSERT INTO evento 
+(titulo, data_evento, horario, local_evento, categoria, mes)
+VALUES
+('Festival Viola de Todos os Cantos', '4 de Junho', '19:00:00', 'Teatro Municipal', 'Música', 'Junho'),
+
+('Arraiá do Santa Felícia', '17 e 18 de Junho', '18:00:00', 'Santa Felícia', 'Festa Junina', 'Junho'),
+
+('Feira da Sucata e Barganha', '19 de Junho', '09:00:00', 'USP/UFSCar', 'Feira', 'Junho');
+
+
+/* =========================
+   JULHO
+========================= */
+
+INSERT INTO evento 
+(titulo, data_evento, horario, local_evento, categoria, mes)
+VALUES
+('Rock na Estação', '1 e 2 de Julho', '20:00:00', 'Estação Cultura', 'Rock', 'Julho'),
+
+('Parada do Orgulho LGBT', '3 de Julho', '14:00:00', 'Centro', 'Diversidade', 'Julho'),
+
+('Festa da Laranja com Açúcar', '15 a 17 de Julho', '18:00:00', 'Santa Eudóxia', 'Cultura', 'Julho');
+
+
+/* =========================
+   AGOSTO
+========================= */
+
+INSERT INTO evento 
+(titulo, data_evento, horario, local_evento, categoria, mes)
+VALUES
+('Encontro Frateschi de Ferreomodelismo', '20 de Agosto', '10:00:00', 'Estação Cultura', 'Exposição', 'Agosto'),
+
+('Feriado Municipal Aparecidinha', '15 de Agosto', '09:00:00', 'Paróquia Aparecidinha', 'Religioso', 'Agosto'),
+
+('Comemoração da Cultura da Paz', '28 de Agosto', '19:00:00', 'Teatro Municipal', 'Música', 'Agosto');
+
+
+/* =========================
+   SETEMBRO
+========================= */
+
+INSERT INTO evento 
+(titulo, data_evento, horario, local_evento, categoria, mes)
+VALUES
+('Dia da Pátria', '7 de Setembro', '08:00:00', 'Centro', 'Cívico', 'Setembro'),
+
+('TUSCA', '15 a 18 de Setembro', '10:00:00', 'USP e UFSCar', 'Universitário', 'Setembro'),
+
+('Aracy em Festa', '24 e 25 de Setembro', '17:00:00', 'Cidade Aracy', 'Cultura', 'Setembro');
+
+
+/* =========================
+   OUTUBRO
+========================= */
+
+INSERT INTO evento 
+(titulo, data_evento, horario, local_evento, categoria, mes)
+VALUES
+('Estação Leitura', 'Outubro', '09:00:00', 'Estação Cultura', 'Literatura', 'Outubro'),
+
+('Festival MUSA', '21 a 23 de Outubro', '19:00:00', 'Teatro Municipal', 'Música', 'Outubro'),
+
+('Mostra de Ciência e Tecnologia', '25 a 29 de Outubro', '14:00:00', 'São Carlos', 'Tecnologia', 'Outubro');
+
+
+/* =========================
+   NOVEMBRO
+========================= */
+
+INSERT INTO evento 
+(titulo, data_evento, horario, local_evento, categoria, mes)
+VALUES
+('Aniversário de São Carlos', '4 de Novembro', '09:00:00', 'Centro', 'Cívico', 'Novembro'),
+
+('Festival Audiovisual', '9 de Novembro', '18:00:00', 'SESC', 'Cinema', 'Novembro'),
+
+('Sanca Hip Hop', '26 e 27 de Novembro', '16:00:00', 'Centro Cultural', 'Hip Hop', 'Novembro');
+
+
+/* =========================
+   DEZEMBRO
+========================= */
+
+INSERT INTO evento 
+(titulo, data_evento, horario, local_evento, categoria, mes)
+VALUES
+('Cantatas de Natal', 'Dezembro', '19:00:00', 'Centro', 'Natal', 'Dezembro'),
+
+('Decoração Natalina', 'Dezembro', '18:00:00', 'Praças da Cidade', 'Natal', 'Dezembro'),
+
+('Festival Chorando Sem Parar', 'Dezembro', '20:00:00', 'Teatro Municipal', 'Música', 'Dezembro');
+
 
 show tables;
-SELECT * FROM categoria_frase;
-select * from palavra;
-insert into cadastro (nome_usuario, senha) values ("teste", "123");
-select * from cadastro;
 SELECT * FROM categoria_frase;
 select * from palavra;
 insert into cadastro (nome_usuario, senha) values ("teste", "123");
