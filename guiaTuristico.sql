@@ -175,6 +175,22 @@ INSERT INTO palavra (id_categoria, pt, es) VALUES
 (3, 'documentos', 'documentos'),
 (3, 'histórico escolar', 'historial académico'),
 (3, 'calendário escolar', 'calendario escolar');
+INSERT INTO passo (id_categoria, descricao, ordem_passo) VALUES
+(3, 'Ir à secretaria da instituição (Ir a la secretaría de la institución)', 1),
+(3, 'Informar o curso desejado (Informar el curso deseado)', 2),
+(3, 'Entregar os documentos (Entregar los documentos)', 3),
+(3, 'Preencher a ficha de inscrição (Llenar el formulario de inscripción)', 4),
+(3, 'Confirmar a matrícula (Confirmar la matrícula)', 5);
+INSERT INTO frase (id_categoria, pt, es) VALUES
+(3, 'Quero fazer matrícula em um curso', 'Quiero matricularme en un curso'),
+(3, 'Qual curso você deseja?', '¿Qué curso desea?'),
+(3, 'Quero o curso técnico em informática', 'Quiero el curso técnico en informática'),
+(3, 'É a primeira vez', 'Es mi primera vez'),
+(3, 'Preciso dos seus documentos', 'Necesito sus documentos'),
+(3, 'Onde eu entrego depois?', '¿Dónde lo entrego después?'),
+(3, 'Já preenchi tudo', 'Ya lo completé'),
+(3, 'Seja bem-vindo ao curso', '¡Bienvenido al curso!');
+
 
 
 
@@ -192,6 +208,21 @@ INSERT INTO palavra (id_categoria, pt, es) VALUES
 (4, 'exame', 'examen'),
 (4, 'hospital', 'hospital'),
 (4, 'clínica', 'clínica');
+INSERT INTO passo (id_categoria, descricao, ordem_passo) VALUES
+(4, 'Informar o nome na recepção (Informar el nombre en la recepción)', 1),
+(4, 'Confirmar o horário da consulta (Confirmar la hora de la cita)', 2),
+(4, 'Aguardar na sala de espera (Esperar en la sala de espera)', 3),
+(4, 'Explicar os sintomas ao médico (Explicar los síntomas al médico)', 4),
+(4, 'Receber receita ou orientação (Recibir receta o indicaciones)', 5);
+INSERT INTO frase (id_categoria, pt, es) VALUES
+(4, 'Qual é o seu nome?', '¿Cuál es su nombre?'),
+(4, 'Tenho consulta às 10 horas', 'Tengo una cita a las 10'),
+(4, 'Você tem consulta marcada?', '¿Tiene una cita?'),
+(4, 'Pode aguardar na sala de espera', 'Puede esperar en la sala de espera'),
+(4, 'O que você está sentindo?', '¿Qué está sintiendo?'),
+(4, 'Estou com dor de garganta e febre', 'Tengo dolor de garganta y fiebre'),
+(4, 'Há quantos dias você está assim?', '¿Desde hace cuántos días?'),
+(4, 'Você precisa tomar este remédio', 'Necesita tomar este medicamento');
 
 
 
@@ -208,9 +239,28 @@ INSERT INTO palavra (id_categoria, pt, es) VALUES
 (5, 'visita', 'visita'),
 (5, 'chave', 'llave'),
 (5, 'aluguel mensal', 'alquiler mensual');
+INSERT INTO passo (id_categoria, descricao, ordem_passo) VALUES
+(5, 'Procurar imóvel disponível (Buscar un inmueble disponible)', 1),
+(5, 'Perguntar o valor do aluguel (Preguntar el valor del alquiler)', 2),
+(5, 'Marcar visita (Programar una visita)', 3),
+(5, 'Enviar documentos (Enviar documentos)', 4),
+(5, 'Assinar contrato (Firmar el contrato)', 5);
+INSERT INTO frase (id_categoria, pt, es) VALUES
+(5, 'Esta casa está disponível para aluguel?', '¿Esta casa está disponible para alquiler?'),
+(5, 'Qual é o valor do aluguel?', '¿Cuál es el valor del alquiler?'),
+(5, 'O valor inclui condomínio?', '¿El valor incluye el condominio?'),
+(5, 'Quantos quartos a casa tem?', '¿Cuántas habitaciones tiene la casa?'),
+(5, 'Posso visitar o imóvel?', '¿Puedo visitar la casa?'),
+(5, 'Gostei da casa', 'Me gustó la casa'),
+(5, 'O que preciso para alugar?', '¿Qué necesito para alquilar?'),
+(5, 'Vou enviar os documentos', 'Voy a enviar los documentos');
 
 
 show tables;
+SELECT * FROM categoria_frase;
+select * from palavra;
+insert into cadastro (nome_usuario, senha) values ("teste", "123");
+select * from cadastro;
 SELECT * FROM categoria_frase;
 select * from palavra;
 insert into cadastro (nome_usuario, senha) values ("teste", "123");
