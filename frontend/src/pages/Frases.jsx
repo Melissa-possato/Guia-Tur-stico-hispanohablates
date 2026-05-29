@@ -37,10 +37,64 @@ function BancoPalavras({ palavras }) {
       </ul>
     </div>
   );
-}
 
+};
+function Passos({ passos = [], idCategoria }) {
 
-function Passos({ passos = [] }) {
+  console.log("ID RECEBIDO:", idCategoria);
+
+  async function adicionarPasso() {
+
+    if (!idCategoria) {
+      alert("Categoria inválida");
+      return;
+    }
+
+    const descricao = prompt("Digite o novo passo:");
+
+    if (!descricao) return;
+
+    try {
+
+      console.log({
+        id_categoria: idCategoria,
+        descricao,
+        ordem_passo: passos.length + 1
+      });
+
+      const resposta = await fetch(
+        "http://localhost:5000/adicionarPasso",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            id_categoria: idCategoria,
+            descricao,
+            ordem_passo: passos.length + 1
+          })
+        }
+      );
+
+      const dados = await resposta.json();
+
+      console.log(dados);
+
+      alert(dados.mensagem || dados.erro);
+
+      window.location.reload();
+
+    } catch (erro) {
+
+      console.log(erro);
+
+      alert("Erro ao adicionar passo");
+
+    }
+  }
 
   return (
 
@@ -68,12 +122,17 @@ function Passos({ passos = [] }) {
 
       </ul>
 
+      <button
+        onClick={adicionarPasso}
+        className="botao-votar"
+      >
+        Adicionar Passo
+      </button>
+
     </div>
 
   );
-
 }
-
 
 
 function Frases() {
@@ -118,49 +177,54 @@ function Frases() {
   }
 
   const categorias = Object.keys(dados);
-
   const atual = dados[categoriaAtiva];
 
+
   return (
-    <section className="secao-frases">
 
-      <div className="overlay">
 
-        <div className="container">
-
-          <h1 className="titulo">
-            Frases Úteis
-          </h1>
-
-          <p className="subtitulo">
-            Aprenda expressões essenciais para se comunicar durante sua viagem
-          </p>
-
-          <div className="botoes">
-
-            {categorias.map((cat) => (
-
-              <BotaoCategoria
-                key={cat}
-                nome={cat}
-                ativo={categoriaAtiva === cat}
-                onClick={() => setCategoriaAtiva(cat)}
-              />
-
-            ))}
-
-          </div>
-
-          <Passos passos={atual.passos} />
-
-          <h3
-            style={{
-              marginTop: "20px",
-              color: "white"
-            }}
-          >
-            Frases
-          </h3>
+      <section className="secao-frases">
+    
+        <div className="overlay">
+    
+          <div className="container">
+    
+            <h1 className="titulo">
+              Frases Úteis
+            </h1>
+    
+            <p className="subtitulo">
+              Aprenda expressões essenciais para se comunicar durante sua viagem
+            </p>
+    
+            <div className="botoes">
+    
+              {categorias.map((cat) => (
+    
+                <BotaoCategoria
+                  key={cat}
+                  nome={cat}
+                  ativo={categoriaAtiva === cat}
+                  onClick={() => setCategoriaAtiva(cat)}
+                />
+    
+              ))}
+    
+            </div>
+    
+            <Passos
+              passos={atual?.passos || []}
+              idCategoria={atual?.id_categoria}
+            />
+    
+            <h3
+              style={{
+                marginTop: "20px",
+                color: "white"
+              }}
+            >
+              Frases
+            </h3>
 
           {atual?.frases?.map((f, i) => (
 

@@ -264,6 +264,7 @@ app.get("/frases", async (req, res) => {
             `, [categoria.id_categoria]);
 
             resultado[categoria.nome] = {
+                id_categoria: categoria.id_categoria,
                 frases,
                 palavras,
                 passos: passos.map(p => p.descricao)
@@ -281,6 +282,62 @@ app.get("/frases", async (req, res) => {
         });
     }
 });
+app.post("/adicionarPasso", (req, res) => {
+
+    const {
+        id_categoria,
+        descricao,
+        ordem_passo
+    } = req.body;
+
+    console.log(req.body);
+
+    if (
+        !id_categoria ||
+        !descricao ||
+        !ordem_passo
+    ) {
+
+        return res.status(400).json({
+            erro: "Dados inválidos"
+        });
+
+    }
+
+    const sql = `
+        INSERT INTO passo
+        (id_categoria, descricao, ordem_passo)
+        VALUES (?, ?, ?)
+    `;
+
+    db.query(
+        sql,
+        [id_categoria, descricao, ordem_passo],
+        (erro, resultado) => {
+
+            if (erro) {
+
+                console.log("ERRO MYSQL:");
+                console.log(erro);
+
+                return res.status(500).json({
+                    erro: "Erro ao adicionar passo"
+                });
+
+            }
+
+            console.log("PASSO INSERIDO");
+
+            res.status(201).json({
+                mensagem: "Passo adicionado com sucesso",
+                id: resultado.insertId
+            });
+
+        }
+    );
+
+});
+
 
 
 function queryPromise(sql, valores = []) {
