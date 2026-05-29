@@ -357,6 +357,90 @@ function queryPromise(sql, valores = []) {
     });
 
 }
+
+app.delete("/passo/:id", (req, res) => {
+
+    const { id } = req.params;
+
+    const sql = `
+        DELETE FROM passo
+        WHERE id_passo = ?
+    `;
+
+    db.query(sql, [id], (erro) => {
+
+        if (erro) {
+
+            return res.status(500).json({
+                erro: "Erro ao excluir passo"
+            });
+
+        }
+
+        res.json({
+            mensagem: "Passo excluído com sucesso"
+        });
+
+    });
+
+});
+app.put("/passo/:id", (req, res) => {
+
+    const { id } = req.params;
+
+    const { descricao } = req.body;
+
+    const sql = `
+        UPDATE passo
+        SET descricao = ?
+        WHERE id_passo = ?
+    `;
+
+    db.query(sql, [descricao, id], (erro) => {
+
+        if (erro) {
+
+            return res.status(500).json({
+                erro: "Erro ao editar passo"
+            });
+
+        }
+
+        res.json({
+            mensagem: "Passo atualizado"
+        });
+
+    });
+
+});
+
+app.delete("/frase/:id", (req, res) => {
+
+    const { id } = req.params;
+
+    const sql = `
+        DELETE FROM frase
+        WHERE id_frase = ?
+    `;
+
+    db.query(sql, [id], (erro) => {
+
+        if (erro) {
+
+            return res.status(500).json({
+                erro: "Erro ao excluir passo"
+            });
+
+        }
+
+        res.json({
+            mensagem: "Frase excluída com sucesso"
+        });
+
+    });
+
+});
+
 app.get("/eventos", (req, res) => {
 
     const sql = "SELECT * FROM evento";

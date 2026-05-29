@@ -38,10 +38,7 @@ function BancoPalavras({ palavras }) {
     </div>
   );
 
-};
-function Passos({ passos = [], idCategoria }) {
-
-  console.log("ID RECEBIDO:", idCategoria);
+};function Passos({ passos = [], idCategoria }) {
 
   async function adicionarPasso() {
 
@@ -55,12 +52,6 @@ function Passos({ passos = [], idCategoria }) {
     if (!descricao) return;
 
     try {
-
-      console.log({
-        id_categoria: idCategoria,
-        descricao,
-        ordem_passo: passos.length + 1
-      });
 
       const resposta = await fetch(
         "http://localhost:5000/adicionarPasso",
@@ -81,8 +72,6 @@ function Passos({ passos = [], idCategoria }) {
 
       const dados = await resposta.json();
 
-      console.log(dados);
-
       alert(dados.mensagem || dados.erro);
 
       window.location.reload();
@@ -92,6 +81,75 @@ function Passos({ passos = [], idCategoria }) {
       console.log(erro);
 
       alert("Erro ao adicionar passo");
+
+    }
+  }
+
+  async function excluirPasso(id) {
+
+    console.log("ID PARA EXCLUIR:", id);
+  
+    try {
+  
+      const resposta = await fetch(
+        `http://localhost:5000/passo/${id}`,
+        {
+          method: "DELETE"
+        }
+      );
+  
+      const dados = await resposta.json();
+  
+      alert(dados.mensagem || dados.erro);
+  
+      window.location.reload();
+  
+    } catch (erro) {
+  
+      console.log(erro);
+  
+      alert("Erro ao excluir passo");
+  
+    }
+  }
+
+  async function editarPasso(id, textoAtual) {
+
+    const novaDescricao = prompt(
+      "Editar passo:",
+      textoAtual
+    );
+
+    if (!novaDescricao) return;
+
+    try {
+
+      const resposta = await fetch(
+        `http://localhost:5000/passo/${id}`,
+        {
+          method: "PUT",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            descricao: novaDescricao
+          })
+        }
+      );
+
+      const dados = await resposta.json();
+
+      alert(dados.mensagem || dados.erro);
+
+      window.location.reload();
+
+    } catch (erro) {
+
+      console.log(erro);
+
+      alert("Erro ao editar passo");
 
     }
   }
@@ -106,14 +164,43 @@ function Passos({ passos = [], idCategoria }) {
 
         {passos.map((p, i) => (
 
-          <li key={i} className="item-passo">
+        
+        <li key={p.id_passo || i} className="item-passo">
+
 
             <div className="numero-passo">
               {i + 1}
             </div>
-
             <div className="texto-passo">
-              {p}
+              {p.descricao}
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                gap: "10px"
+              }}
+            >
+
+              <button
+                onClick={() =>
+                  editarPasso(
+                    p.id_passo,
+                    p.descricao
+                  )
+                }
+              >
+                ✏️
+              </button>
+
+              <button
+                onClick={() =>
+                  excluirPasso(p.id_passo)
+                }
+              >
+                ❌
+              </button>
+
             </div>
 
           </li>
@@ -133,7 +220,6 @@ function Passos({ passos = [], idCategoria }) {
 
   );
 }
-
 
 function Frases() {
 
@@ -167,6 +253,34 @@ function Frases() {
       });
 
   }, []);
+
+  async function excluirFrase(id) {
+
+    console.log("ID PARA EXCLUIR:", id);
+  
+    try {
+  
+      const resposta = await fetch(
+        `http://localhost:5000/frase/${id}`,
+        {
+          method: "DELETE"
+        }
+      );
+  
+      const dados = await resposta.json();
+  
+      alert(dados.mensagem || dados.erro);
+  
+      window.location.reload();
+  
+    } catch (erro) {
+  
+      console.log(erro);
+  
+      alert("Erro ao excluir Frase");
+  
+    }
+  }
 
   if (carregando) {
     return <h1>Carregando...</h1>;
@@ -228,11 +342,22 @@ function Frases() {
 
           {atual?.frases?.map((f, i) => (
 
+      <div>
             <CardFrase
               key={i}
               pt={f.pt}
               en={f.es}
-            />
+              />
+    
+              <button
+                onClick={() =>
+                  excluirFrase(id_frase)
+                }
+              >
+                ❌
+              </button>
+
+          </div>
 
           ))}
 
