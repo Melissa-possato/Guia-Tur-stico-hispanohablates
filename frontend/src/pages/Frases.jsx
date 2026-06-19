@@ -31,7 +31,7 @@ function BancoPalavras({ palavras }) {
       <ul>
         {palavras.map((p, i) => (
           <li key={i}>
-            <strong>{p.pt}</strong> - {p.es}
+            <strong>{p.pt}</strong> - {p.en}
           </li>
         ))}
       </ul>
@@ -172,7 +172,7 @@ function BancoPalavras({ palavras }) {
               {i + 1}
             </div>
             <div className="texto-passo">
-              {p.descricao}
+              {p}
             </div>
 
             <div
@@ -342,22 +342,38 @@ function Frases() {
 
           {atual?.frases?.map((f, i) => (
 
-      <div>
-            <CardFrase
+        <div 
+        style={{
+          display: "flex",
+          gap: "10px"
+        }}
+        >
+          <CardFrase
               key={i}
               pt={f.pt}
               en={f.es}
               />
     
-              <button
+            <button
                 onClick={() =>
-                  excluirFrase(id_frase)
+                  editarPasso(
+                    p.id_passo,
+                    p.descricao
+                  )
+                }
+              >
+                ✏️
+            </button>
+
+            <button
+                onClick={() =>
+                  excluirPasso(p.id_passo)
                 }
               >
                 ❌
-              </button>
+            </button>
 
-          </div>
+        </div>
 
           ))}
 
