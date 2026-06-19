@@ -38,7 +38,9 @@ function BancoPalavras({ palavras }) {
     </div>
   );
 
-};function Passos({ passos = [], idCategoria }) {
+};
+
+function Passos({ passos = [], idCategoria }) {
 
   async function adicionarPasso() {
 
@@ -84,35 +86,40 @@ function BancoPalavras({ palavras }) {
 
     }
   }
-
-  async function excluirPasso(id) {
-
-    console.log("ID PARA EXCLUIR:", id);
+  
+  async function excluirPasso(index) {
+    if (index === undefined || index === null) {
+      console.error("Index inválido:", index);
+      alert("Passo inválido");
+      return;
+    }
+  
+    console.log("INDEX PARA EXCLUIR:", index);
   
     try {
-  
       const resposta = await fetch(
-        `http://localhost:5000/passo/${id}`,
+        `http://localhost:5000/passo/${index}`,
         {
-          method: "DELETE"
+          method: "DELETE",
         }
       );
   
       const dados = await resposta.json();
   
-      alert(dados.mensagem || dados.erro);
+      if (!resposta.ok) {
+        alert(dados.erro || "Erro ao excluir passo");
+        return;
+      }
+  
+      alert(dados.mensagem || "Passo excluído com sucesso");
   
       window.location.reload();
   
     } catch (erro) {
-  
-      console.log(erro);
-  
+      console.error("Erro na requisição DELETE:", erro);
       alert("Erro ao excluir passo");
-  
     }
   }
-
   async function editarPasso(id, textoAtual) {
 
     const novaDescricao = prompt(
@@ -169,7 +176,7 @@ function BancoPalavras({ palavras }) {
 
 
             <div className="numero-passo">
-              {i + 1}
+              {i}
             </div>
             <div className="texto-passo">
               {p}
@@ -185,7 +192,7 @@ function BancoPalavras({ palavras }) {
               <button
                 onClick={() =>
                   editarPasso(
-                    p.id_passo,
+                    i,
                     p.descricao
                   )
                 }
@@ -195,9 +202,10 @@ function BancoPalavras({ palavras }) {
 
               <button
                 onClick={() =>
-                  excluirPasso(p.id_passo)
+                  excluirPasso(i)
+                  
                 }
-              >
+              > 
                 ❌
               </button>
 
@@ -221,7 +229,7 @@ function BancoPalavras({ palavras }) {
   );
 }
 
-function Frases() {
+function Frases(idCategoria ) {
 
   const [dados, setDados] = useState({});
   const [categoriaAtiva, setCategoriaAtiva] = useState("");
@@ -253,6 +261,52 @@ function Frases() {
       });
 
   }, []);
+
+  async function adicionarFrase() {
+
+    if (!idCategoria) {
+      alert("Categoria inválida");
+      return;
+    }
+
+    const pt = prompt("Digite o nova frase em português:");
+    const es = prompt("Digite o nova frase em espanhol:");
+
+    if (!pt || !es) return;
+
+    try {
+
+      const resposta = await fetch(
+        "http://localhost:5000/adicionarFrase",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            id_categoria: idCategoria,
+            pt,
+            es
+          })
+        }
+      );
+
+      const dados = await resposta.json();
+
+      alert(dados.mensagem || dados.erro);
+
+      window.location.reload();
+
+    } catch (erro) {
+
+      console.log(erro);
+
+      alert("Erro ao adicionar frase");
+
+    }
+  }
 
   async function excluirFrase(id) {
 
@@ -340,42 +394,35 @@ function Frases() {
               Frases
             </h3>
 
-          {atual?.frases?.map((f, i) => (
-
-        <div 
-        style={{
-          display: "flex",
-          gap: "10px"
-        }}
-        >
-          <CardFrase
-              key={i}
-              pt={f.pt}
-              en={f.es}
-              />
-    
-            <button
-                onClick={() =>
-                  editarPasso(
-                    p.id_passo,
-                    p.descricao
-                  )
-                }
+            {atual?.frases?.map((f, i) => (
+              <div
+                key={f.id_frase || i}
+                style={{ display: "flex", gap: "10px" }}
               >
-                ✏️
+                <CardFrase 
+                  pt={f.pt} 
+                  en={f.es} />
+
+                <button
+                  onClick={() => editarFrase(f.id_frase, f.es)}
+                >
+                  ✏️
+                </button>
+
+                <button
+                  onClick={() => excluirFrase(f.id_frase)}
+                >
+                  ❌
+                </button>
+              </div>
+            ))}
+          <button
+              onClick={adicionarFrase}
+              className="botao-votar"
+            >
+              Adicionar Frase
             </button>
-
-            <button
-                onClick={() =>
-                  excluirPasso(p.id_passo)
-                }
-              >
-                ❌
-            </button>
-
-        </div>
-
-          ))}
+  
 
           <BancoPalavras palavras={atual?.palavras || []} />
 

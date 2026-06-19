@@ -282,6 +282,36 @@ app.get("/frases", async (req, res) => {
         });
     }
 });
+app.put("/frase/:id", (req, res) => {
+
+    const { id } = req.params;
+
+    const { descricao } = req.body;
+
+    const sql = `
+        UPDATE frase
+        SET descricao = ?
+        WHERE id_frase = ?
+    `;
+
+    db.query(sql, [descricao, id], (erro) => {
+
+        if (erro) {
+
+            return res.status(500).json({
+                erro: "Erro ao editar passo"
+            });
+
+        }
+
+        res.json({
+            mensagem: "Frase atualizado"
+        });
+
+    });
+
+});
+
 app.post("/adicionarPasso", (req, res) => {
 
     const {
@@ -359,31 +389,27 @@ function queryPromise(sql, valores = []) {
 }
 
 app.delete("/passo/:id", (req, res) => {
-
     const { id } = req.params;
-
+  
     const sql = `
-        DELETE FROM passo
-        WHERE id_passo = ?
+      DELETE FROM passo
+      WHERE id_passo = ?
     `;
-
+  
     db.query(sql, [id], (erro) => {
-
-        if (erro) {
-
-            return res.status(500).json({
-                erro: "Erro ao excluir passo"
-            });
-
-        }
-
-        res.json({
-            mensagem: "Passo excluído com sucesso"
+      if (erro) {
+        return res.status(500).json({
+          erro: "Erro ao excluir passo"
         });
-
+      }
+  
+      res.json({
+        mensagem: "Passo excluído com sucesso"
+      });
     });
+  });
 
-});
+  
 app.put("/passo/:id", (req, res) => {
 
     const { id } = req.params;
@@ -413,6 +439,64 @@ app.put("/passo/:id", (req, res) => {
     });
 
 });
+
+app.post("/adicionarFrase", (req, res) => {
+
+    const {
+        id_categoria,
+        pt,
+        es,
+    } = req.body;
+
+    console.log(req.body);
+
+    if (
+        !id_categoria ||
+        !pt ||
+        !es
+    ) {
+
+        return res.status(400).json({
+            erro: "Dados inválidos"
+        });
+
+    }
+
+    const sql = `
+        INSERT INTO frase
+        (id_categoria, pt, es)
+        VALUES (?, ?, ?)
+    `;
+
+    db.query(
+        sql,
+        [id_categoria, pt, es],
+        (erro, resultado) => {
+
+            if (erro) {
+
+                console.log("ERRO MYSQL:");
+                console.log(erro);
+
+                return res.status(500).json({
+                    erro: "Erro ao adicionar frase"
+                });
+
+            }
+
+            console.log("Frase Inserida");
+
+            res.status(201).json({
+                mensagem: "Frase adicionada com sucesso",
+                id: resultado.insertId
+            });
+
+        }
+    );
+
+});
+
+
 
 app.delete("/frase/:id", (req, res) => {
 

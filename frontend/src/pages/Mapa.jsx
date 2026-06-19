@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 
-// --- Configuração de Ícones ---
+
 let DefaultIcon = L.icon({
   iconUrl: icon,
   shadowUrl: iconShadow,
@@ -51,7 +51,7 @@ const iconMap = {
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-// --- Componente para atualizar a visão do mapa ---
+
 function ChangeView({ center }) {
   const map = useMap();
   useEffect(() => {
@@ -64,7 +64,7 @@ function Mapa() {
   const [posicao, setPosicao] = useState([-22.0056, -47.8977]);
   const [precisao, setPrecisao] = useState(0);
   const [busca, setBusca] = useState("");
-  const [filtro, setFiltro] = useState("Todos"); // Novo estado para filtros
+  const [filtro, setFiltro] = useState("Todos"); 
 
   const lugares = [
     {
@@ -97,7 +97,7 @@ function Mapa() {
     }
   ];
 
-  // Lógica de filtragem (Busca + Botões de Categoria)
+
   const lugaresFiltrados = lugares.filter((lugar) => {
     const correspondeBusca = lugar.nome.toLowerCase().includes(busca.toLowerCase());
     const correspondeFiltro = filtro === "Todos" || lugar.categoria === filtro;
@@ -113,7 +113,7 @@ function Mapa() {
           setPrecisao(accuracy);
         },
         (error) => console.error("Erro ao localizar:", error),
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        { enableHighAccuracy: true, timeout: 30000, maximumAge: 0 }
       );
       return () => navigator.geolocation.clearWatch(watchId);
     }
@@ -123,11 +123,20 @@ function Mapa() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude, accuracy } = position.coords;
+  
+        console.log("Localização:", latitude, longitude);
+  
         setPosicao([latitude, longitude]);
         setPrecisao(accuracy);
       },
-      (error) => console.error("Erro:", error),
-      { enableHighAccuracy: true }
+      (error) => {
+        console.error("Erro de geolocalização:", error);
+      },
+      {
+        enableHighAccuracy: false,
+        timeout: 30000,
+        maximumAge: 60000,
+      }
     );
   };
 
@@ -161,8 +170,7 @@ function Mapa() {
             cultura, parques y lugares importantes.
           </p>
         </div>
-  
-        {/* BUSCA */}
+
   
         <div className="busca-container">
   
@@ -188,7 +196,7 @@ function Mapa() {
   
         </div>
   
-        {/* FILTROS */}
+
   
         <div className="filtros-container">
   
@@ -208,7 +216,7 @@ function Mapa() {
   
         </div>
   
-        {/* MAPA */}
+
   
         <div className="mapa-wrapper">
   
@@ -260,7 +268,7 @@ function Mapa() {
   
         </div>
   
-        {/* LUGARES */}
+
   
         <h2 className="titulo-lugares">
           Lugares en destaque ({filtro})
