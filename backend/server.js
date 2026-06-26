@@ -245,7 +245,7 @@ app.get("/frases", async (req, res) => {
         for (const categoria of categorias) {
 
             const frases = await queryPromise(`
-                SELECT pt, es
+                SELECT id_frase, pt, es
                 FROM frase
                 WHERE id_categoria = ?
             `, [categoria.id_categoria]);
@@ -257,7 +257,7 @@ app.get("/frases", async (req, res) => {
             `, [categoria.id_categoria]);
 
             const passos = await queryPromise(`
-                SELECT descricao
+                SELECT  id_passo, descricao
                 FROM passo
                 WHERE id_categoria = ?
                 ORDER BY ordem_passo
@@ -267,7 +267,7 @@ app.get("/frases", async (req, res) => {
                 id_categoria: categoria.id_categoria,
                 frases,
                 palavras,
-                passos: passos.map(p => p.descricao)
+                passos
             };
         }
 

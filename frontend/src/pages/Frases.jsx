@@ -93,7 +93,7 @@ function Passos({ passos = [], idCategoria }) {
       alert("Passo inválido");
       return;
     }
-  
+
     console.log("INDEX PARA EXCLUIR:", index);
   
     try {
@@ -161,6 +161,7 @@ function Passos({ passos = [], idCategoria }) {
     }
   }
 
+
   return (
 
     <div className="passos">
@@ -169,17 +170,15 @@ function Passos({ passos = [], idCategoria }) {
 
       <ul className="lista-passos">
 
-        {passos.map((p, i) => (
-
-        
-        <li key={p.id_passo || i} className="item-passo">
+      {passos.map((p, i) => (
+        <li key={p.id_passo} className="item-passo">
 
 
             <div className="numero-passo">
-              {i}
+              {i+1}
             </div>
             <div className="texto-passo">
-              {p}
+              {p.descricao}
             </div>
 
             <div
@@ -189,26 +188,13 @@ function Passos({ passos = [], idCategoria }) {
               }}
             >
 
-              <button
-                onClick={() =>
-                  editarPasso(
-                    i,
-                    p.descricao
-                  )
-                }
-              >
-                ✏️
-              </button>
+          <button onClick={() => editarPasso(p.id_passo, p.descricao)}>
+            ✏️
+          </button>
 
-              <button
-                onClick={() =>
-                  excluirPasso(i)
-                  
-                }
-              > 
-                ❌
-              </button>
-
+          <button onClick={() => excluirPasso(p.id_passo)}>
+            ❌
+          </button>
             </div>
 
           </li>
@@ -379,22 +365,24 @@ function Frases(idCategoria ) {
               ))}
     
             </div>
-    
+            
             <Passos
               passos={atual?.passos || []}
               idCategoria={atual?.id_categoria}
+              
             />
-    
+
             <h3
               style={{
                 marginTop: "20px",
                 color: "white"
               }}
             >
-              Frases
+          Frases
             </h3>
 
             {atual?.frases?.map((f, i) => (
+              console.log(atual.frases),
               <div
                 key={f.id_frase || i}
                 style={{ display: "flex", gap: "10px" }}
@@ -403,17 +391,13 @@ function Frases(idCategoria ) {
                   pt={f.pt} 
                   en={f.es} />
 
-                <button
-                  onClick={() => editarFrase(f.id_frase, f.es)}
-                >
+              <button onClick={() => editarFrase(f.id_frase, f.es)}>
                   ✏️
-                </button>
+              </button>
 
-                <button
-                  onClick={() => excluirFrase(f.id_frase)}
-                >
+              <button onClick={() => excluirFrase(f.id_frase)}>
                   ❌
-                </button>
+              </button>
               </div>
             ))}
           <button
