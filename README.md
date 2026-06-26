@@ -3,7 +3,7 @@
 Passo a Passo para executar o programa em cada máquina:
 * Para esse programa foram utilizado ferramentas como Vite, MySQL Workbench e VSCODE, é fundamental que esses estejam presentes na máquina para o funcionamento do programa.
 
-*1* - No GitHub, clone o URL do projeto para sua área de transferência;
+1* - No GitHub, clone o URL do projeto para sua área de transferência;
 2 - Também no GitHub, salve o arquivo "guiaTuristico.sql";
 3 - Abra o MySQL Workbench;
 4 - Entre em uma conexão;
