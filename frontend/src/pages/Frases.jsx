@@ -1,4 +1,5 @@
 
+
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
@@ -181,21 +182,16 @@ function Passos({ passos = [], idCategoria }) {
               {p.descricao}
             </div>
 
-            <div
-              style={{
-                display: "flex",
-                gap: "10px"
-              }}
-            >
+            
 
-          <button onClick={() => editarPasso(p.id_passo, p.descricao)}>
+          <button className="btn-passo" onClick={() => editarPasso(p.id_passo, p.descricao)}>
             ✏️
           </button>
 
-          <button onClick={() => excluirPasso(p.id_passo)}>
+          <button className="btn-passo" onClick={() => excluirPasso(p.id_passo)}>
             ❌
           </button>
-            </div>
+
 
           </li>
 
@@ -248,50 +244,67 @@ function Frases(idCategoria ) {
 
   }, []);
 
-  async function adicionarFrase() {
+ async function adicionarFrase() {
 
-    if (!idCategoria) {
-      alert("Categoria inválida");
-      return;
+    if (!atual?.id_categoria) {
+        alert("Categoria inválida");
+        return;
     }
 
-    const pt = prompt("Digite o nova frase em português:");
-    const es = prompt("Digite o nova frase em espanhol:");
+    const pt = prompt("Digite a frase em português:");
+    const es = prompt("Digite a frase em espanhol:");
 
     if (!pt || !es) return;
 
     try {
-
-      const resposta = await fetch(
-        "http://localhost:5000/adicionarFrase",
-        {
+      const resposta = await fetch("http://localhost:5000/adicionarFrase", {
           method: "POST",
-
           headers: {
-            "Content-Type": "application/json"
+              "Content-Type": "application/json"
           },
-
           body: JSON.stringify({
-            id_categoria: idCategoria,
-            pt,
-            es
+              id_categoria: atual.id_categoria,
+              pt,
+              es
           })
-        }
-      );
+      });
 
       const dados = await resposta.json();
 
       alert(dados.mensagem || dados.erro);
-
       window.location.reload();
+    }catch (erro) {
 
-    } catch (erro) {
+        console.log(erro);
 
-      console.log(erro);
+        alert("Erro ao adicionar frase");
 
-      alert("Erro ao adicionar frase");
-
+      }
     }
+
+async function editarFrase(id, ptAtual, esAtual) {
+
+    const novoPt = prompt("Português:", ptAtual);
+    if (novoPt === null) return;
+
+    const novoEs = prompt("Espanhol:", esAtual);
+    if (novoEs === null) return;
+
+    const resposta = await fetch(`http://localhost:5000/frase/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            pt: novoPt,
+            es: novoEs
+        })
+    });
+
+    const dados = await resposta.json();
+    alert(dados.mensagem || dados.erro);
+
+     
   }
 
   async function excluirFrase(id) {
@@ -332,6 +345,8 @@ function Frases(idCategoria ) {
 
   const categorias = Object.keys(dados);
   const atual = dados[categoriaAtiva];
+
+  
 
 
   return (
@@ -380,9 +395,9 @@ function Frases(idCategoria ) {
             >
           Frases
             </h3>
-
+            
             {atual?.frases?.map((f, i) => (
-              console.log(atual.frases),
+              
               <div
                 key={f.id_frase || i}
                 style={{ display: "flex", gap: "10px" }}
@@ -391,7 +406,7 @@ function Frases(idCategoria ) {
                   pt={f.pt} 
                   en={f.es} />
 
-              <button onClick={() => editarFrase(f.id_frase, f.es)}>
+              <button onClick={() => editarFrase(f.id_frase, f.es, f.pt)}>
                   ✏️
               </button>
 
@@ -408,7 +423,23 @@ function Frases(idCategoria ) {
             </button>
   
 
-          <BancoPalavras palavras={atual?.palavras || []} />
+            <h3>Banco de Palavras</h3>
+         <div>
+          {atual?.palavras?.map((p, i) => (
+              <div className="banco"
+                key={p.id_palavra || i}
+                style={{ display: "flex"}}
+              >
+                <ul >
+                  <li>  {p.pt}  - {p.es} 
+                  </li>
+                </ul>
+  
+
+             
+              </div>
+            ))}
+         </div>
 
           <hr style={{ margin: "20px 0" }} />
 
@@ -425,4 +456,5 @@ function Frases(idCategoria ) {
 }
 
 export default Frases;
+
 
