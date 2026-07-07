@@ -7,6 +7,8 @@ function Cadastro() {
   const [nomeUsuario, setNomeUsuario] = useState("");
   const [senha, setSenha] = useState("");
   const [email, setEmail] = useState("");
+  const[telefone, setTelefone] = useState("");
+  const [paisOrigem, setPaisOrigem] = useState("");
   const navigate = useNavigate(); 
 
   const handleSubmit = async (e) => {
@@ -20,7 +22,9 @@ function Cadastro() {
         },
         body: JSON.stringify({
           nome_usuario: nomeUsuario,
+          telefone: telefone,
           email: email,
+          paisOrigem: paisOrigem,
           senha: senha
         })
       });
@@ -64,14 +68,29 @@ function Cadastro() {
               onChange={(e) => setNomeUsuario(e.target.value)}
               required
             />
+            <input
+              type="text"
+              placeholder="teléfono"
+              value={telefone}
+              onChange={(e) => setTelefone(e.target.value)}
+              required
+            />
   
             <input
-              type="email"
+              type="text"
+              placeholder="País natal"
+              value={paisOrigem}
+              onChange={(e) => setPaisOrigem(e.target.value)}
+              required
+            />
+            <input
+              type="text"
               placeholder="Correo electrónico"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+            
   
             <input
               type="password"
@@ -112,3 +131,4 @@ function Cadastro() {
 }
 
 export default Cadastro;
+
