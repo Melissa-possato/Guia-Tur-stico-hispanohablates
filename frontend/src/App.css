@@ -522,7 +522,11 @@ a:hover {
   background: #f9fafb;
   border-color: #d1d5db;
 }
-
+.btn-passo{
+  width: 5px;
+  height: 5px;
+  background: #f9fafb;
+}
 .numero-passo {
   min-width: 28px;
   height: 28px;
@@ -554,6 +558,8 @@ a:hover {
   margin-bottom: 8px;
   font-size: 14px;
   transition: 0.2s;
+  color: #122e16;
+  font-weight: bold;
 }
 
 .banco li:hover {
