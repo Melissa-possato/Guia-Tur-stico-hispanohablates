@@ -17,12 +17,12 @@ app.use(express.json());
  */
 
 app.post("/cadastro", (req, res) => {
-    const { nome_usuario, email, senha } = req.body;
+    const { nome_usuario, telefone, email, origem, senha } = req.body;
 
     console.log(`Tentativa de cadastro: ${nome_usuario} - ${email}`);
-    const sql = "INSERT INTO cadastro (nome_usuario, email, senha) VALUES (?, ?, ?)";
+    const sql = "INSERT INTO cadastro (nome_usuario, telefone, email, origem, senha) VALUES (?, ?, ?, ?, ?)";
 
-    db.query(sql, [nome_usuario, email, senha], (err, result) => {
+    db.query(sql, [nome_usuario, telefone, email, origem, senha], (err, result) => {
         if (err) {
             console.error("ERRO NO BANCO:", err.sqlMessage);
             
@@ -78,30 +78,52 @@ app.post("/login", (req, res) => {
 });
 
 app.put("/update/:id", (req, res) => {
-    const { id } = req.params;
-    const { email, nome_usuario, senha } = req.body;
-  
-    console.log("Dados recebidos:", req.body);
-  
-    const sql = `
-      UPDATE cadastro 
-      SET email = ?, nome_usuario = ?, senha = ?
-      WHERE id_cadastro = ?
-    `;
-  
-    conexao.query(
-      sql,
-      [email, nome_usuario, senha, id],
-      (err, result) => {
-        if (err) {
-          console.error("Erro MySQL:", err);
-          return res.status(500).json({ error: err.message });
-        }
-  
-        res.json({ message: "Dados atualizados com sucesso!" });
+  const { id } = req.params;
+
+  const {
+    nome_usuario,
+    telefone,
+    email,
+    origem,
+    senha,
+  } = req.body;
+
+  console.log("Dados recebidos:", req.body);
+
+  const sql = `
+    UPDATE cadastro
+      nome_usuario = ?,
+      telefone = ?,
+      email = ?,
+      origem = ?,
+      senha = ?
+    WHERE id_cadastro = ?
+  `;
+
+  conexao.query(
+    sql,
+    [
+      nome_usuario,
+      telefone,
+      email,
+      origem,
+      senha,
+      id,
+    ],
+    (err, result) => {
+      if (err) {
+        console.error("Erro MySQL:", err);
+        return res.status(500).json({ error: err.message });
       }
-    );
-  });
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: "Usuário não encontrado." });
+      }
+
+      res.json({ message: "Dados atualizados com sucesso!" });
+    }
+  );
+});
 
 /* 
    MAPA
@@ -232,6 +254,8 @@ app.delete("/roteiro/:id", authMiddleware, (req, res) => {
 
 });
 
+
+//FRASES
 app.get("/frases", async (req, res) => {
 
     try {
@@ -495,8 +519,41 @@ app.post("/adicionarFrase", (req, res) => {
     );
 
 });
+app.put("/frase/:id", (req, res) => {
 
+    const { id } = req.params;
+    const { pt, es } = req.body;
 
+    console.log("ID:", id);
+    console.log("BODY:", req.body);
+
+    const sql = `
+        UPDATE frase
+        SET pt = ?, es = ?
+        WHERE id_frase = ?
+    `;
+
+    db.query(sql, [pt, es, id], (erro) => {
+
+        if (erro) {
+
+            console.log("ERRO MYSQL:", erro);
+
+            return res.status(500).json({
+                erro: erro.sqlMessage,
+                codigo: erro.code,
+                errno: erro.errno
+        });
+        
+
+}
+
+        res.json({
+            mensagem: "Frase atualizada"
+        });
+    });
+
+});
 
 app.delete("/frase/:id", (req, res) => {
 
