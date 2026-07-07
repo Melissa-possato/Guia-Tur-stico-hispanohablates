@@ -8,7 +8,9 @@ CREATE TABLE cadastro (
     id_cadastro INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(100) UNIQUE,
     nome_usuario VARCHAR(50) NOT NULL UNIQUE,
-    senha VARCHAR(255) NOT NULL
+    senha VARCHAR(255) NOT NULL,
+    telefone varchar (20),
+    origem varchar (50)
 );
 
 
@@ -407,5 +409,5 @@ VALUES
 show tables;
 SELECT * FROM categoria_frase;
 select * from palavra;
-insert into cadastro (nome_usuario, senha) values ("teste", "123");
+insert into cadastro (nome_usuario, senha, telefone, origem) values ("teste", "123", "55 16 997618004", "Brasil");
 select * from cadastro;
