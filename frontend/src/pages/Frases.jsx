@@ -282,29 +282,29 @@ function Frases(idCategoria ) {
       }
     }
 
-async function editarFrase(id, ptAtual, esAtual) {
+    async function editarFrase(id, ptAtual, esAtual) {
 
-    const novoPt = prompt("Português:", ptAtual);
-    if (novoPt === null) return;
-
-    const novoEs = prompt("Espanhol:", esAtual);
-    if (novoEs === null) return;
-
-    const resposta = await fetch(`http://localhost:5000/frase/${id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            pt: novoPt,
-            es: novoEs
-        })
-    });
-
-    const dados = await resposta.json();
-    alert(dados.mensagem || dados.erro);
-
-     
+      const novoPt = prompt("Português:", ptAtual);
+      if (novoPt === null) return;
+  
+      const novoEs = prompt("Espanhol:", esAtual);
+      if (novoEs === null) return;
+  
+      const resposta = await fetch(`http://localhost:5000/frase/${id}`, {
+          method: "PUT",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+              pt: novoPt,
+              es: novoEs
+          })
+      });
+  
+      const dados = await resposta.json();
+      alert(dados.mensagem || dados.erro);
+  
+      window.location.reload(); 
   }
 
   async function excluirFrase(id) {
@@ -406,7 +406,7 @@ async function editarFrase(id, ptAtual, esAtual) {
                   pt={f.pt} 
                   en={f.es} />
 
-              <button onClick={() => editarFrase(f.id_frase, f.es, f.pt)}>
+              <button onClick={() => editarFrase(f.id_frase, f.pt, f.es)}>
                   ✏️
               </button>
 

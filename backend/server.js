@@ -311,6 +311,73 @@ app.post("/roteiro/:id/curtir", authMiddleware, (req, res) => {
     res.status(500).json({ error: "Erro interno ao processar curtida." });
   });
 });
+
+app.get("/roteiro/:id/curtidas", authMiddleware, async (req, res) => {
+    const roteiroId = req.params.id;
+    const usuarioId = req.userId;
+  
+    try {
+      const [[{ total }]] = await db.promise().query(
+        "SELECT COUNT(*) AS total FROM curtidas WHERE roteiro_id = ?",
+        [roteiroId]
+      );
+      const [jaCurtiu] = await db.promise().query(
+        "SELECT 1 FROM curtidas WHERE roteiro_id = ? AND usuario_id = ?",
+        [roteiroId, usuarioId]
+      );
+      res.json({ total, curtiu: jaCurtiu.length > 0 });
+    } catch (error) {
+      console.error("Erro ao buscar curtidas:", error);
+      res.status(500).json({ erro: "Erro ao buscar curtidas." });
+    }
+  });
+
+app.post("/roteiro/:id/favoritar", authMiddleware, async (req, res) => {
+    const roteiroId = req.params.id;
+    const usuarioId = req.userId;
+  
+    try {
+      const [jaFavoritou] = await db.promise().query(
+        "SELECT 1 FROM favoritos WHERE roteiro_id = ? AND usuario_id = ?",
+        [roteiroId, usuarioId]
+      );
+  
+      if (jaFavoritou.length > 0) {
+        await db.promise().query(
+          "DELETE FROM favoritos WHERE roteiro_id = ? AND usuario_id = ?",
+          [roteiroId, usuarioId]
+        );
+        return res.json({ favoritou: false });
+      } else {
+        await db.promise().query(
+          "INSERT INTO favoritos (roteiro_id, usuario_id) VALUES (?, ?)",
+          [roteiroId, usuarioId]
+        );
+        return res.json({ favoritou: true });
+      }
+    } catch (error) {
+      console.error("Erro ao favoritar:", error);
+      res.status(500).json({ erro: "Erro ao favoritar roteiro." });
+    }
+  });
+  
+  // Status de favorito
+  app.get("/roteiro/:id/favorito", authMiddleware, async (req, res) => {
+    const roteiroId = req.params.id;
+    const usuarioId = req.userId;
+  
+    try {
+      const [rows] = await db.promise().query(
+        "SELECT 1 FROM favoritos WHERE roteiro_id = ? AND usuario_id = ?",
+        [roteiroId, usuarioId]
+      );
+      res.json({ favoritou: rows.length > 0 });
+    } catch (error) {
+      console.error("Erro ao verificar favorito:", error);
+      res.status(500).json({ erro: "Erro ao verificar favorito." });
+    }
+  });
+
 app.post("/roteiro/:id/avaliar", authMiddleware, (req, res) => {
 console.log("DEBUG BACKEND:");
   console.log("ID da URL:", req.params.id);
@@ -338,6 +405,29 @@ console.log("DEBUG BACKEND:");
     res.status(500).json({ error: "Erro ao salvar avaliação." });
   });
 });
+app.get("/roteiro/:id/avaliacoes", authMiddleware, async (req, res) => {
+    const roteiroId = req.params.id;
+    const usuarioId = req.userId;
+  
+    try {
+      const [[{ media, total }]] = await db.promise().query(
+        "SELECT AVG(nota) AS media, COUNT(*) AS total FROM avaliacoes WHERE roteiro_id = ?",
+        [roteiroId]
+      );
+      const [minhaNota] = await db.promise().query(
+        "SELECT nota FROM avaliacoes WHERE roteiro_id = ? AND usuario_id = ?",
+        [roteiroId, usuarioId]
+      );
+      res.json({
+        media: media ? Number(media).toFixed(1) : null,
+        total,
+        notaUsuario: minhaNota.length > 0 ? minhaNota[0].nota : null
+      });
+    } catch (error) {
+      console.error("Erro ao buscar avaliações:", error);
+      res.status(500).json({ erro: "Erro ao buscar avaliações." });
+    }
+  });
 
 app.get('/roteiro/:id/comentarios', async (req, res) => {
     const roteiroId = req.params.id;
@@ -407,30 +497,30 @@ app.get("/frases", async (req, res) => {
         });
     }
 });
+
 app.put("/frase/:id", (req, res) => {
 
     const { id } = req.params;
 
-    const { descricao } = req.body;
+    const { pt, es } = req.body;
 
     const sql = `
         UPDATE frase
-        SET descricao = ?
+        SET pt = ?, es = ?
         WHERE id_frase = ?
     `;
 
-    db.query(sql, [descricao, id], (erro) => {
+    db.query(sql, [pt, es, id], (erro) => {
 
         if (erro) {
-
+            console.error("Erro ao editar frase:", erro);
             return res.status(500).json({
-                erro: "Erro ao editar passo"
+                erro: "Erro ao editar frase"
             });
-
         }
 
         res.json({
-            mensagem: "Frase atualizado"
+            mensagem: "Frase atualizada"
         });
 
     });
