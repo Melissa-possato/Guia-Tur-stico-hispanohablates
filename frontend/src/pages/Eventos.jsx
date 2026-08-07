@@ -59,7 +59,12 @@ function Eventos() {
               <p>📍 {evento.local_evento}</p>
               <p>🗓️ {evento.mes}</p>
 
-              <button>Ver Detalhes</button>
+              <a rel="stylesheet" href="https://saocarlos.sp.gov.br/index.php/component/content/article/866-eventos-2011/158581-calendario-de-eventos-da-prefeitura-municipal-de-sao-carlos.html"
+                  target="_blank"
+                  className="eventos-info"
+                >
+                  Ver Detalhes
+                </a>
             </div>
           </div>
         ))}

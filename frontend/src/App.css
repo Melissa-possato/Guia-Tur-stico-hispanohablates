@@ -2476,7 +2476,7 @@ a:hover {
   line-height: 1.7;
 }
 
-.evento-info button {
+.evento-info a {
   margin-top: 20px;
 
   width: 100%;

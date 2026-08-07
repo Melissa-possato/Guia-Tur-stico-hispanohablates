@@ -81,20 +81,6 @@ function Mapa() {
       posicao: [-21.983, -47.88],
       type: "university"
     },
-    {
-      nome: "SESC São Carlos",
-      categoria: "Cultura",
-      descricao: "Espaço com shows, exposições e eventos.",
-      posicao: [-22.01668311212401, -47.905964218650375],
-      type: "lounge",
-    },
-    {
-      nome: "Praça Coronel Salles",
-      categoria: "Parque",
-      descricao: "Praça central muito visitada.",
-      posicao: [-22.015936410918915, -47.890597043787615],
-      type: "plaza",
-    }
   ];
 
 
