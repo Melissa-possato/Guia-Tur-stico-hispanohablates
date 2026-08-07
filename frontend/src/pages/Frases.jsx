@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
@@ -18,8 +16,8 @@ function BotaoCategoria({ nome, ativo, onClick }) {
 function CardFrase({ pt, en }) {
   return (
     <div className="card-frase">
-      <h3>{pt}</h3>
-      <p>{en}</p>
+      <span className="frase-pt">{pt}</span>
+      <span className="frase-es">{en}</span>
     </div>
   );
 }
@@ -87,7 +85,7 @@ function Passos({ passos = [], idCategoria }) {
 
     }
   }
-  
+
   async function excluirPasso(index) {
     if (index === undefined || index === null) {
       console.error("Index inválido:", index);
@@ -96,7 +94,7 @@ function Passos({ passos = [], idCategoria }) {
     }
 
     console.log("INDEX PARA EXCLUIR:", index);
-  
+
     try {
       const resposta = await fetch(
         `http://localhost:5000/passo/${index}`,
@@ -104,18 +102,18 @@ function Passos({ passos = [], idCategoria }) {
           method: "DELETE",
         }
       );
-  
+
       const dados = await resposta.json();
-  
+
       if (!resposta.ok) {
         alert(dados.erro || "Erro ao excluir passo");
         return;
       }
-  
+
       alert(dados.mensagem || "Passo excluído com sucesso");
-  
+
       window.location.reload();
-  
+
     } catch (erro) {
       console.error("Erro na requisição DELETE:", erro);
       alert("Erro ao excluir passo");
@@ -171,26 +169,26 @@ function Passos({ passos = [], idCategoria }) {
 
       <ul className="lista-passos">
 
-      {passos.map((p, i) => (
-        <li key={p.id_passo} className="item-passo">
+        {passos.map((p, i) => (
+          <li key={p.id_passo} className="item-passo">
 
 
             <div className="numero-passo">
-              {i+1}
+              {i + 1}
             </div>
             <div className="texto-passo">
               {p.descricao}
             </div>
 
-            
 
-          <button className="btn-passo" onClick={() => editarPasso(p.id_passo, p.descricao)}>
-            ✏️
-          </button>
 
-          <button className="btn-passo" onClick={() => excluirPasso(p.id_passo)}>
-            ❌
-          </button>
+            <button className="btn-passo" onClick={() => editarPasso(p.id_passo, p.descricao)}>
+              ✏️
+            </button>
+
+            <button className="btn-passo" onClick={() => excluirPasso(p.id_passo)}>
+              ❌
+            </button>
 
 
           </li>
@@ -211,7 +209,7 @@ function Passos({ passos = [], idCategoria }) {
   );
 }
 
-function Frases(idCategoria ) {
+function Frases(idCategoria) {
 
   const [dados, setDados] = useState({});
   const [categoriaAtiva, setCategoriaAtiva] = useState("");
@@ -244,11 +242,11 @@ function Frases(idCategoria ) {
 
   }, []);
 
- async function adicionarFrase() {
+  async function adicionarFrase() {
 
     if (!atual?.id_categoria) {
-        alert("Categoria inválida");
-        return;
+      alert("Categoria inválida");
+      return;
     }
 
     const pt = prompt("Digite a frase em português:");
@@ -258,80 +256,80 @@ function Frases(idCategoria ) {
 
     try {
       const resposta = await fetch("http://localhost:5000/adicionarFrase", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-              id_categoria: atual.id_categoria,
-              pt,
-              es
-          })
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          id_categoria: atual.id_categoria,
+          pt,
+          es
+        })
       });
 
       const dados = await resposta.json();
 
       alert(dados.mensagem || dados.erro);
       window.location.reload();
-    }catch (erro) {
+    } catch (erro) {
 
-        console.log(erro);
+      console.log(erro);
 
-        alert("Erro ao adicionar frase");
+      alert("Erro ao adicionar frase");
 
-      }
     }
+  }
 
-    async function editarFrase(id, ptAtual, esAtual) {
+  async function editarFrase(id, ptAtual, esAtual) {
 
-      const novoPt = prompt("Português:", ptAtual);
-      if (novoPt === null) return;
-  
-      const novoEs = prompt("Espanhol:", esAtual);
-      if (novoEs === null) return;
-  
-      const resposta = await fetch(`http://localhost:5000/frase/${id}`, {
-          method: "PUT",
-          headers: {
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-              pt: novoPt,
-              es: novoEs
-          })
-      });
-  
-      const dados = await resposta.json();
-      alert(dados.mensagem || dados.erro);
-  
-      window.location.reload(); 
+    const novoPt = prompt("Português:", ptAtual);
+    if (novoPt === null) return;
+
+    const novoEs = prompt("Espanhol:", esAtual);
+    if (novoEs === null) return;
+
+    const resposta = await fetch(`http://localhost:5000/frase/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        pt: novoPt,
+        es: novoEs
+      })
+    });
+
+    const dados = await resposta.json();
+    alert(dados.mensagem || dados.erro);
+
+    window.location.reload();
   }
 
   async function excluirFrase(id) {
 
     console.log("ID PARA EXCLUIR:", id);
-  
+
     try {
-  
+
       const resposta = await fetch(
         `http://localhost:5000/frase/${id}`,
         {
           method: "DELETE"
         }
       );
-  
+
       const dados = await resposta.json();
-  
+
       alert(dados.mensagem || dados.erro);
-  
+
       window.location.reload();
-  
+
     } catch (erro) {
-  
+
       console.log(erro);
-  
+
       alert("Erro ao excluir Frase");
-  
+
     }
   }
 
@@ -346,100 +344,112 @@ function Frases(idCategoria ) {
   const categorias = Object.keys(dados);
   const atual = dados[categoriaAtiva];
 
-  
+
 
 
   return (
 
 
-      <section className="secao-frases">
-    
-        <div className="overlay">
-    
-          <div className="container">
-    
-            <h1 className="titulo">
-              Frases Úteis
-            </h1>
-    
-            <p className="subtitulo">
-              Aprenda expressões essenciais para se comunicar durante sua viagem
-            </p>
-    
-            <div className="botoes">
-    
-              {categorias.map((cat) => (
-    
-                <BotaoCategoria
-                  key={cat}
-                  nome={cat}
-                  ativo={categoriaAtiva === cat}
-                  onClick={() => setCategoriaAtiva(cat)}
-                />
-    
-              ))}
-    
-            </div>
-            
-            <Passos
-              passos={atual?.passos || []}
-              idCategoria={atual?.id_categoria}
-              
-            />
+    <section className="secao-frases">
 
-            <h3
-              style={{
-                marginTop: "20px",
-                color: "white"
-              }}
-            >
-          Frases
-            </h3>
-            
+      <div className="overlay">
+
+        <div className="container">
+
+          <h1 className="titulo">
+            Frases Úteis
+          </h1>
+
+          <p className="subtitulo">
+            Aprenda expressões essenciais para se comunicar durante sua viagem
+          </p>
+
+          <div className="botoes">
+
+            {categorias.map((cat) => (
+
+              <BotaoCategoria
+                key={cat}
+                nome={cat}
+                ativo={categoriaAtiva === cat}
+                onClick={() => setCategoriaAtiva(cat)}
+              />
+
+            ))}
+
+          </div>
+
+          <Passos
+            passos={atual?.passos || []}
+            idCategoria={atual?.id_categoria}
+
+          />
+
+          <h3>
+            Frases
+          </h3>
+
+          <div className="grid-frases">
             {atual?.frases?.map((f, i) => (
-              
               <div
+                className="frase-item"
                 key={f.id_frase || i}
-                style={{ display: "flex", gap: "10px" }}
               >
-                <CardFrase 
-                  pt={f.pt} 
-                  en={f.es} />
+                <CardFrase
+                  pt={f.pt}
+                  en={f.es}
+                />
 
-              <button onClick={() => editarFrase(f.id_frase, f.pt, f.es)}>
-                  ✏️
-              </button>
+                <div className="acoes-frase">
+                  <button
+                    className="btn-editar"
+                    onClick={() => editarFrase(f.id_frase, f.pt, f.es)}
+                    title="Editar frase"
+                  >
+                    ✏️
+                  </button>
 
-              <button onClick={() => excluirFrase(f.id_frase)}>
-                  ❌
-              </button>
+                  <button
+                    className="btn-excluir"
+                    onClick={() => excluirFrase(f.id_frase)}
+                    title="Excluir frase"
+                  >
+                    ❌
+                  </button>
+                </div>
               </div>
             ))}
+          </div>
           <button
-              onClick={adicionarFrase}
-              className="botao-votar"
-            >
-              Adicionar Frase
-            </button>
-  
+            onClick={adicionarFrase}
+            className="botao-votar"
+          >
+            Adicionar Frase
+          </button>
 
-            <h3>Banco de Palavras</h3>
-         <div>
-          {atual?.palavras?.map((p, i) => (
-              <div className="banco"
+
+          <h3>Banco de Palavras</h3>
+          
+          <div className="grid-palavras">
+            {atual?.palavras?.map((p, i) => (
+              <div
+                className="card-palavra"
                 key={p.id_palavra || i}
-                style={{ display: "flex"}}
               >
-                <ul >
-                  <li>  {p.pt}  - {p.es} 
-                  </li>
-                </ul>
-  
+                <div className="icone-palavra">
+                  💬
+                </div>
 
-             
+                <div className="palavra-pt">
+                  {p.pt}
+                </div>
+
+                <div className="palavra-es">
+                  {p.es}
+                </div>
               </div>
             ))}
-         </div>
+          </div>
 
           <hr style={{ margin: "20px 0" }} />
 
@@ -456,5 +466,7 @@ function Frases(idCategoria ) {
 }
 
 export default Frases;
+
+
 
 
