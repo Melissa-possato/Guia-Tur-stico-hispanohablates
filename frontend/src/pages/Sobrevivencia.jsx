@@ -44,9 +44,11 @@ function Sobrevivencia() {
         <div className="cultural-header">
           <h1>Modo Supervivência</h1>
           <p>
-            Informações essenciais para sua segurança e bem-estar          </p>
+            Informações essenciais para sua segurança e bem-estar          
+          </p>
+          
         </div>
-        <div className="container"></div>
+        
 
           <div className="section-title">
             ⚠️ Em caso de emergência
