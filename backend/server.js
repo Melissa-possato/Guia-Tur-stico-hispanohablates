@@ -773,6 +773,140 @@ app.delete("/frase/:id", (req, res) => {
 
 });
 
+
+
+/* --------- GET /vivencias -> lista tudo, já organizado em árvore --------- */
+app.get("/vivencias", (req, res) => {
+  const sql = `
+      SELECT
+          v.id_vivencia,
+          v.usuario_id,
+          v.parent_id,
+          v.tipo,
+          v.texto,
+          v.criado_em,
+          c.nome_usuario
+      FROM vivencias v
+      JOIN cadastro c ON c.id_cadastro = v.usuario_id
+      ORDER BY v.criado_em ASC
+  `;
+
+  db.query(sql, (err, result) => {
+      if (err) {
+          console.error("ERRO NO BANCO:", err.sqlMessage);
+          return res.status(500).json({ erro: "Erro ao buscar vivências." });
+      }
+
+      res.json(montarArvoreVivencias(result));
+  });
+});
+
+/* --------- POST /vivencias -> cria um comentário/sugestão raiz --------- */
+app.post("/vivencias", authMiddleware, (req, res) => {
+  const { texto, tipo } = req.body;
+  const usuario_id = req.userId;
+
+  if (!texto || !texto.trim()) {
+      return res.status(400).json({ erro: "O texto não pode ser vazio." });
+  }
+
+  const tipoFinal = tipo === "sugestao" ? "sugestao" : "experiencia";
+
+  const sql = `
+      INSERT INTO vivencias (usuario_id, parent_id, tipo, texto)
+      VALUES (?, NULL, ?, ?)
+  `;
+
+  db.query(sql, [usuario_id, tipoFinal, texto.trim()], (err, result) => {
+      if (err) {
+          console.error("ERRO NO BANCO:", err.sqlMessage);
+          return res.status(500).json({ erro: "Erro ao salvar vivência." });
+      }
+
+      res.status(201).json({
+          mensagem: "Vivência publicada com sucesso!",
+          id_vivencia: result.insertId
+      });
+  });
+});
+
+/* --------- POST /vivencias/:id/responder -> cria uma resposta --------- */
+app.post("/vivencias/:id/responder", authMiddleware, (req, res) => {
+  const parentId = req.params.id;
+  const { texto } = req.body;
+  const usuario_id = req.userId;
+
+  if (!texto || !texto.trim()) {
+      return res.status(400).json({ erro: "O texto não pode ser vazio." });
+  }
+
+  // confirma que o comentário-pai existe antes de responder
+  db.query(
+      "SELECT id_vivencia, tipo FROM vivencias WHERE id_vivencia = ?",
+      [parentId],
+      (err, result) => {
+          if (err) {
+              console.error("ERRO NO BANCO:", err.sqlMessage);
+              return res.status(500).json({ erro: "Erro ao verificar comentário." });
+          }
+
+          if (result.length === 0) {
+              return res.status(404).json({ erro: "Comentário não encontrado." });
+          }
+
+          const tipoHerdado = result[0].tipo;
+
+          const sql = `
+              INSERT INTO vivencias (usuario_id, parent_id, tipo, texto)
+              VALUES (?, ?, ?, ?)
+          `;
+
+          db.query(
+              sql,
+              [usuario_id, parentId, tipoHerdado, texto.trim()],
+              (err, result) => {
+                  if (err) {
+                      console.error("ERRO NO BANCO:", err.sqlMessage);
+                      return res.status(500).json({ erro: "Erro ao salvar resposta." });
+                  }
+
+                  res.status(201).json({
+                      mensagem: "Resposta publicada com sucesso!",
+                      id_vivencia: result.insertId
+                  });
+              }
+          );
+      }
+  );
+});
+
+
+app.delete("/vivencias/:id", authMiddleware, (req, res) => {
+  const { id } = req.params;
+  const usuario_id = req.userId;
+
+  const sql = `
+      DELETE FROM vivencias
+      WHERE id_vivencia = ?
+      AND usuario_id = ?
+  `;
+
+  db.query(sql, [id, usuario_id], (err, result) => {
+      if (err) {
+          console.error("ERRO NO BANCO:", err.sqlMessage);
+          return res.status(500).json({ erro: "Erro ao excluir." });
+      }
+
+      if (result.affectedRows === 0) {
+          return res.status(404).json({
+              erro: "Vivência não encontrada ou sem permissão para excluir."
+          });
+      }
+
+      res.json({ mensagem: "Vivência excluída com sucesso!" });
+  });
+});
+
 app.get("/eventos", (req, res) => {
 
     const sql = "SELECT * FROM evento";

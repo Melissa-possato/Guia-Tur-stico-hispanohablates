@@ -61,6 +61,9 @@ function Layout() {
             Eventos
           </Link>
 
+          
+          <Link to="/vivencias">Vivências</Link>
+
           {usuario ? (
 
             <button
