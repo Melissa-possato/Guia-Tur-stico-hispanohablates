@@ -18,12 +18,30 @@ function Eventos() {
   }, []);
 
 
-  const imagensEventos = [
-    "https://images.unsplash.com/photo-1492684223066-81342ee5ff30",
-    "https://images.unsplash.com/photo-1506157786151-b8491531f063",
-    "https://images.unsplash.com/photo-1511578314322-379afb476865",
-    "https://images.unsplash.com/photo-1521334884684-d80222895322"
+ const imagensEventos = [
+    "/carnaval.jpg",
+    "/desfile.jpg",
+    "/mesDaMulher.jpg",
+    "/festaDoMilho.jpg",
+    "/festDoClima.jpg",
+    "/matsuri.jpg",
+    "/casaDoPinhal.jpg",
+    "/violaTodosOsCantos.jpg",
+    "/arraiaSantaFelicia.jpg",
+    "/festaDaSucata.jpg",
+    "/rockNaEstacao.jpg",
+    "/paraOrgulhoLGBT.jpg",
+    "/festaDaLaranja.jpg",
+    "/ferromodelismo.jpg",
+    "/aparecidinha.jpg",
+    "/tusca.jpg",
+    "/tecnologia.jpg",
+    "/aniversario.webp",
+    "/audiovisual.jpg",
+    "/decoracaoNatalina.jpg",
+    "/chorando-sem-parar.jpg"
   ];
+
 
 
   return (
