@@ -117,6 +117,19 @@ CREATE TABLE passo (
     FOREIGN KEY (id_categoria)
     REFERENCES categoria_frase(id_categoria)
 );
+CREATE TABLE vivencias (
+    id_vivencia INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    parent_id INT DEFAULT NULL,
+    tipo ENUM('experiencia', 'sugestao') NOT NULL DEFAULT 'experiencia',
+    texto VARCHAR(500) NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ 
+    FOREIGN KEY (usuario_id) REFERENCES cadastro(id_cadastro) ON DELETE CASCADE,
+    FOREIGN KEY (parent_id) REFERENCES vivencias(id_vivencia) ON DELETE CASCADE
+);
+ 
+CREATE INDEX idx_vivencias_parent ON vivencias(parent_id);
 
 INSERT INTO categoria_frase (nome)
 VALUES ('Compras'), ('Banco'), ('Escola'), ('Saúde'), ('Moradia');
@@ -437,6 +450,7 @@ VALUES
 INSERT INTO evento 
 (titulo, data_evento, horario, local_evento, categoria, mes)
 VALUES
+('Cantatas de Natal', 'Dezembro', '19:00:00', 'Centro', 'Natal', 'Dezembro'),
 
 ('Decoração Natalina', 'Dezembro', '18:00:00', 'Praças da Cidade', 'Natal', 'Dezembro'),
 
