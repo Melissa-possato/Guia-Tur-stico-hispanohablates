@@ -437,7 +437,6 @@ VALUES
 INSERT INTO evento 
 (titulo, data_evento, horario, local_evento, categoria, mes)
 VALUES
-('Cantatas de Natal', 'Dezembro', '19:00:00', 'Centro', 'Natal', 'Dezembro'),
 
 ('Decoração Natalina', 'Dezembro', '18:00:00', 'Praças da Cidade', 'Natal', 'Dezembro'),
 
