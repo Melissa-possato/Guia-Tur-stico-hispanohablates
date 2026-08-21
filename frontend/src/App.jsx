@@ -27,9 +27,9 @@ function App() {
             frases útiles y mucho más.
           </p>
 
-          <button>
-            Empezar a Explorar →
-          </button>
+          <Link to="/mapa" className="btn-explorar">
+            Começar a Explorar →
+          </Link>
 
         </div>
 
