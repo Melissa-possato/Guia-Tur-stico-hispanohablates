@@ -121,7 +121,18 @@ CREATE TABLE passo (
 INSERT INTO categoria_frase (nome)
 VALUES ('Compras'), ('Banco'), ('Escola'), ('Saúde'), ('Moradia');
 
-
+CREATE TABLE comunidade (
+    id_comunidade INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    parent_id INT DEFAULT NULL,
+    tipo ENUM('experiencia', 'sugestao') NOT NULL DEFAULT 'experiencia',
+    texto VARCHAR(500) NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ 
+    FOREIGN KEY (usuario_id) REFERENCES cadastro(id_cadastro) ON DELETE CASCADE,
+    FOREIGN KEY (parent_id) REFERENCES comunidade(id_comunidade) ON DELETE CASCADE
+);
+ 
 /*MERCADO*/
 INSERT INTO palavra (id_categoria, pt, es) VALUES
 (1, 'supermercado', 'supermercado'),
@@ -330,7 +341,6 @@ INSERT INTO evento
 (titulo, data_evento, horario, local_evento, categoria, mes)
 VALUES
 
-
 ('8ª Festa do Milho de Água Vermelha', '9 e 10 de Abril', '18:00:00', 'Água Vermelha', 'Gastronomia', 'Abril'),
 
 ('45ª Festa do Clima', '29 Abril a 1 Maio', '17:00:00', 'Centro', 'Cultura', 'Abril');
@@ -343,7 +353,6 @@ VALUES
 INSERT INTO evento 
 (titulo, data_evento, horario, local_evento, categoria, mes)
 VALUES
-
 
 ('4º Matsuri', '7 e 8 de Maio', '16:00:00', 'São Carlos', 'Cultura', 'Maio'),
 
@@ -402,7 +411,6 @@ VALUES
 ('TUSCA', '15 a 18 de Setembro', '10:00:00', 'USP e UFSCar', 'Universitário', 'Setembro');
 
 
-
 /* =========================
    OUTUBRO
 ========================= */
@@ -410,7 +418,6 @@ VALUES
 INSERT INTO evento 
 (titulo, data_evento, horario, local_evento, categoria, mes)
 VALUES
-
 
 
 ('Mostra de Ciência e Tecnologia', '25 a 29 de Outubro', '14:00:00', 'São Carlos', 'Tecnologia', 'Outubro');
@@ -428,8 +435,6 @@ VALUES
 ('Festival Audiovisual', '9 de Novembro', '18:00:00', 'SESC', 'Cinema', 'Novembro');
 
 
-
-
 /* =========================
    DEZEMBRO
 ========================= */
@@ -437,6 +442,7 @@ VALUES
 INSERT INTO evento 
 (titulo, data_evento, horario, local_evento, categoria, mes)
 VALUES
+
 
 ('Decoração Natalina', 'Dezembro', '18:00:00', 'Praças da Cidade', 'Natal', 'Dezembro'),
 

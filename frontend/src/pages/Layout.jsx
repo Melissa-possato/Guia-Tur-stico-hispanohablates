@@ -42,7 +42,7 @@ function Layout() {
           <Link to="/mapa">Mapa</Link>
 
           <Link to="/sobrevivencia">
-            Sobrevivência
+            Supervivencia
           </Link>
 
           <Link to="/frases">
@@ -50,11 +50,11 @@ function Layout() {
           </Link>
 
           <Link to="/guiacultural">
-            Guia Cultural
+            Guía Cultural
           </Link>
 
           <Link to="/roteiros">
-            Roteiros
+            Itinerarios
           </Link>
 
           <Link to="/eventos">
@@ -62,7 +62,11 @@ function Layout() {
           </Link>
 
           
+<<<<<<< HEAD
           <Link to="/comunidade">Comunidade</Link>
+=======
+          <Link to="/vivencias">Comunidad</Link>
+>>>>>>> b5c27528977a82fdc7099528f25307c2bec7b3e1
 
           {usuario ? (
 
