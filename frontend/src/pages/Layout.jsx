@@ -29,13 +29,12 @@ function Layout() {
       {/* NAVBAR */}
       <header className="navbar">
 
-        <h2 className="icon green">
-
-          <FaMapMarkedAlt />
-
-          Guia Turístico
-
-        </h2>
+     <Link to="/" className="logo-link">
+          <h2 className="icon green">
+            <FaMapMarkedAlt />
+            Guia Turístico
+          </h2>
+        </Link>
 
         <nav>
 
