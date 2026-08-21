@@ -20,7 +20,7 @@ import CadastrarUsuario from "./componentes/CadastrarUsuario.jsx";
 import CadastrarRoteiro from "./componentes/CadastrarRoteiro.jsx";
 import UpdateUsuario from "./componentes/UpdateUsuario.jsx";
 import Layout from "./pages/Layout.jsx";
-import Vivencias from "./pages/Vivencias.jsx"
+import Comunidade from "./pages/Comunidade.jsx"
 
 import {
   createBrowserRouter,
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
       { path: "cadastrarU", element: <CadastrarUsuario /> },
       { path: "cadastrarRoteiro", element: <CadastrarRoteiro /> },
       { path: "update", element: <UpdateUsuario /> },
-      { path: "vivencias", element: <Vivencias /> },
+      { path: "comunidade", element: <Comunidade /> },
     ]
   }
 ]);

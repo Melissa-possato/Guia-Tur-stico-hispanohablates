@@ -775,34 +775,66 @@ app.delete("/frase/:id", (req, res) => {
 
 
 
-/* --------- GET /vivencias -> lista tudo, já organizado em árvore --------- */
-app.get("/vivencias", (req, res) => {
+/* --------- GET /comunidade -> lista tudo, já organizado em árvore --------- */
+app.get("/comunidade", (req, res) => {
   const sql = `
       SELECT
-          v.id_vivencia,
-          v.usuario_id,
-          v.parent_id,
-          v.tipo,
-          v.texto,
-          v.criado_em,
-          c.nome_usuario
-      FROM vivencias v
-      JOIN cadastro c ON c.id_cadastro = v.usuario_id
-      ORDER BY v.criado_em ASC
+          c.id_comunidade,
+          c.usuario_id,
+          c.parent_id,
+          c.tipo,
+          c.texto,
+          c.criado_em,
+          u.nome_usuario
+      FROM comunidade c
+      JOIN cadastro u ON u.id_cadastro = c.usuario_id
+      ORDER BY c.criado_em ASC
   `;
 
   db.query(sql, (err, result) => {
       if (err) {
           console.error("ERRO NO BANCO:", err.sqlMessage);
-          return res.status(500).json({ erro: "Erro ao buscar vivências." });
+          return res.status(500).json({ erro: "Erro ao buscar comunidade." });
+      }
+      function montarArvoreComunidade(linhas) {
+        const mapa = {};
+        const raizes = [];
+      
+        // cria um nó pra cada linha, com array de respostas vazio
+        linhas.forEach((item) => {
+          mapa[item.id_comunidade] = { ...item, respostas: [] };
+        });
+      
+        // encaixa cada item dentro do pai, ou na raiz se não tiver parent_id
+        linhas.forEach((item) => {
+          if (item.parent_id) {
+            const pai = mapa[item.parent_id];
+            if (pai) {
+              pai.respostas.push(mapa[item.id_comunidade]);
+            } else {
+              // pai não encontrado (não deveria acontecer, mas por segurança)
+              raizes.push(mapa[item.id_comunidade]);
+            }
+          } else {
+            raizes.push(mapa[item.id_comunidade]);
+          }
+        });
+      
+        return raizes;
       }
 
-      res.json(montarArvoreVivencias(result));
-  });
+      try {
+        res.json(montarArvoreComunidade(result));
+      } catch (e) {
+        console.error("ERRO AO MONTAR ÁRVORE:", e);
+        res.status(500).json({ erro: "Erro ao processar comunidade." });
+      }
+    });
 });
 
-/* --------- POST /vivencias -> cria um comentário/sugestão raiz --------- */
-app.post("/vivencias", authMiddleware, (req, res) => {
+
+/* --------- POST /comunidade -> cria um comentário/sugestão raiz --------- */
+app.post("/comunidade", authMiddleware, (req, res) => {
   const { texto, tipo } = req.body;
   const usuario_id = req.userId;
 
@@ -813,25 +845,25 @@ app.post("/vivencias", authMiddleware, (req, res) => {
   const tipoFinal = tipo === "sugestao" ? "sugestao" : "experiencia";
 
   const sql = `
-      INSERT INTO vivencias (usuario_id, parent_id, tipo, texto)
+      INSERT INTO comunidade (usuario_id, parent_id, tipo, texto)
       VALUES (?, NULL, ?, ?)
   `;
 
   db.query(sql, [usuario_id, tipoFinal, texto.trim()], (err, result) => {
       if (err) {
           console.error("ERRO NO BANCO:", err.sqlMessage);
-          return res.status(500).json({ erro: "Erro ao salvar vivência." });
+          return res.status(500).json({ erro: "Erro ao salvar comunidade." });
       }
 
       res.status(201).json({
-          mensagem: "Vivência publicada com sucesso!",
-          id_vivencia: result.insertId
+          mensagem: "comunidade publicada com sucesso!",
+          id_comunidade: result.insertId
       });
   });
 });
 
-/* --------- POST /vivencias/:id/responder -> cria uma resposta --------- */
-app.post("/vivencias/:id/responder", authMiddleware, (req, res) => {
+/* --------- POST /comunidade/:id/responder -> cria uma resposta --------- */
+app.post("/comunidade/:id/responder", authMiddleware, (req, res) => {
   const parentId = req.params.id;
   const { texto } = req.body;
   const usuario_id = req.userId;
@@ -842,7 +874,7 @@ app.post("/vivencias/:id/responder", authMiddleware, (req, res) => {
 
   // confirma que o comentário-pai existe antes de responder
   db.query(
-      "SELECT id_vivencia, tipo FROM vivencias WHERE id_vivencia = ?",
+      "SELECT id_comunidade, tipo FROM comunidade WHERE id_comunidade = ?",
       [parentId],
       (err, result) => {
           if (err) {
@@ -857,7 +889,7 @@ app.post("/vivencias/:id/responder", authMiddleware, (req, res) => {
           const tipoHerdado = result[0].tipo;
 
           const sql = `
-              INSERT INTO vivencias (usuario_id, parent_id, tipo, texto)
+              INSERT INTO comunidade (usuario_id, parent_id, tipo, texto)
               VALUES (?, ?, ?, ?)
           `;
 
@@ -872,7 +904,7 @@ app.post("/vivencias/:id/responder", authMiddleware, (req, res) => {
 
                   res.status(201).json({
                       mensagem: "Resposta publicada com sucesso!",
-                      id_vivencia: result.insertId
+                      id_comunidade: result.insertId
                   });
               }
           );
@@ -881,13 +913,13 @@ app.post("/vivencias/:id/responder", authMiddleware, (req, res) => {
 });
 
 
-app.delete("/vivencias/:id", authMiddleware, (req, res) => {
+app.delete("/comunidade/:id", authMiddleware, (req, res) => {
   const { id } = req.params;
   const usuario_id = req.userId;
 
   const sql = `
-      DELETE FROM vivencias
-      WHERE id_vivencia = ?
+      DELETE FROM comunidade
+      WHERE id_comunidade = ?
       AND usuario_id = ?
   `;
 
@@ -899,11 +931,11 @@ app.delete("/vivencias/:id", authMiddleware, (req, res) => {
 
       if (result.affectedRows === 0) {
           return res.status(404).json({
-              erro: "Vivência não encontrada ou sem permissão para excluir."
+              erro: "Comunidade não encontrada ou sem permissão para excluir."
           });
       }
 
-      res.json({ mensagem: "Vivência excluída com sucesso!" });
+      res.json({ mensagem: "Comunidade excluída com sucesso!" });
   });
 });
 

@@ -3022,6 +3022,309 @@ a:hover {
   color: white;
 }
 
+
+/* =========================
+   ABAS - TODAS / FAVORITOS
+========================= */
+
+.abas-filtro {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-bottom: 18px;
+
+  background: rgba(255, 255, 255, 0.08);
+  padding: 5px;
+
+  width: fit-content;
+
+  border-radius: 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  backdrop-filter: blur(10px);
+}
+
+.aba-btn {
+  border: none;
+
+  padding: 11px 20px;
+
+  border-radius: 10px;
+
+  background: transparent;
+
+  color: #d1d5db;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+.aba-btn:hover {
+  background: rgba(255, 255, 255, 0.10);
+
+  color: white;
+}
+
+.aba-btn.ativa {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+
+  color: white;
+
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.25);
+}
+
+.aba-btn.ativa:hover {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================
+   INTERAÇÕES DO ROTEIRO
+========================= */
+
+.interacoes-roteiro {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin-top: 18px;
+
+  flex-wrap: wrap;
+}
+
+
+/* BOTÃO CURTIR */
+
+.btn-curtir,
+.btn-favoritar,
+.btn-comentarios {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 6px;
+
+  min-height: 40px;
+
+  padding: 9px 14px;
+
+  border-radius: 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: #f3f4f6;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+
+  backdrop-filter: blur(8px);
+}
+
+
+/* HOVER GERAL */
+
+.btn-curtir:hover,
+.btn-favoritar:hover,
+.btn-comentarios:hover {
+  transform: translateY(-2px);
+
+  background: rgba(255, 255, 255, 0.15);
+
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+
+/* CURTIDO */
+
+.btn-curtir.ativo {
+  background: rgba(239, 68, 68, 0.16);
+
+  border-color: rgba(239, 68, 68, 0.35);
+
+  color: #fca5a5;
+}
+
+.btn-curtir.ativo:hover {
+  background: rgba(239, 68, 68, 0.23);
+}
+
+
+/* FAVORITADO */
+
+.btn-favoritar.ativo {
+  background: rgba(250, 204, 21, 0.16);
+
+  border-color: rgba(250, 204, 21, 0.35);
+
+  color: #fde68a;
+}
+
+.btn-favoritar.ativo:hover {
+  background: rgba(250, 204, 21, 0.23);
+}
+
+
+/* COMENTÁRIOS */
+
+.btn-comentarios {
+  background: rgba(34, 197, 94, 0.10);
+
+  border-color: rgba(34, 197, 94, 0.25);
+}
+
+.btn-comentarios:hover {
+  background: rgba(34, 197, 94, 0.20);
+
+  border-color: rgba(34, 197, 94, 0.40);
+}
+
+
+/* =========================
+   ÁREA DE COMENTÁRIOS
+========================= */
+
+.comentarios-area {
+  margin-top: 14px;
+
+  padding-top: 14px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.lista-comentarios {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-bottom: 12px;
+}
+
+.comentario-item {
+  padding: 10px 12px;
+
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.comentario-item strong {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #86efac;
+
+  font-size: 13px;
+}
+
+.comentario-item p {
+  margin: 0;
+
+  color: #e5e7eb;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+.sem-comentarios {
+  margin: 0 0 12px;
+
+  color: #9ca3af;
+
+  font-size: 13px;
+}
+
+
+/* =========================
+   NOVO COMENTÁRIO
+========================= */
+
+.novo-comentario {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.novo-comentario input {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 10px 12px;
+
+  border-radius: 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  outline: none;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: white;
+
+  font-size: 13px;
+}
+
+.novo-comentario input::placeholder {
+  color: #9ca3af;
+}
+
+.novo-comentario input:focus {
+  border-color: #22c55e;
+
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.20);
+}
+
+.novo-comentario button {
+  padding: 10px 14px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #16a34a;
+
+  color: white;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.novo-comentario button:hover {
+  background: #22c55e;
+
+  transform: translateY(-1px);
+}
+
 /* =========================
    RESPONSIVO
 ========================= */
@@ -3078,67 +3381,524 @@ a:hover {
   box-shadow: 0 10px 24px rgba(34,197,94,0.45);
 }
 
+/* =========================================
+   PÁGINA DE VIVÊNCIAS
+   Estilo inspirado na tela de "Rotas Turísticas"
+   ========================================= */
 
-/* ===== Layout geral ===== */
-.vivencias-pagina {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 48px 24px 80px;
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  color: white;
-}
-
-.vivencias-cabecalho {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.vivencias-eyebrow {
-  display: inline-block;
-  font-size: 13px;
-  font-weight: 600;
-  color: #16a34a;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 8px;
-}
-
-.vivencias-cabecalho h1 {
-  font-size: 32px;
-  font-weight: 700;
-  color: #111827;
-  margin: 0 0 12px;
-}
-
-.vivencias-cabecalho p {
-  font-size: 15px;
-  color: #6b7280;
-  max-width: 520px;
-  margin: 0 auto;
-  line-height: 1.5;
-}
-
-/* ===== Composer (novo registro) ===== */
-.vivencias-composer {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-  margin-bottom: 32px;
-}
-
-.vivencias-tipo-toggle {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
-.vivencias-tipo-toggle button {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: 999px;
-  border: 1px
-}
+   .comunidade-pagina {
+    position: relative;
+    max-width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 50px 8%;
+    box-sizing: border-box;
+    font-family: inherit;
+    color: #fff;
+  
+    /* Troque pelo caminho da sua imagem */
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.82)),
+      url("/images/sao-carlos.jpg") center center / cover no-repeat;
+  
+    background-attachment: fixed;
+  }
+  
+  
+  /* =========================================
+     CABEÇALHO
+     ========================================= */
+  
+  .comunidade-cabecalho {
+    max-width: 900px;
+    margin: 0 auto 45px;
+    text-align: center;
+  }
+  
+  .comunidade-eyebrow {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #16c768;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+  }
+  
+  .comunidade-cabecalho h1 {
+    margin: 0 0 10px;
+    color: #fff;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    text-shadow: 0 3px 15px rgba(0, 0, 0, 0.5);
+  }
+  
+  .comunidade-cabecalho p {
+    margin: 0 auto;
+    max-width: 650px;
+    color: #d8d8d8;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  
+  /* =========================================
+     COMPOSER
+     ========================================= */
+  
+  .comunidade-composer,
+  .comunidade-resposta-form {
+    max-width: 800px;
+    margin: 0 auto 35px;
+    padding: 24px;
+    box-sizing: border-box;
+  
+    background: rgba(15, 15, 15, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+  
+    box-shadow:
+      0 15px 40px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  
+    backdrop-filter: blur(8px);
+  }
+  
+  .comunidade-resposta-form {
+    margin-top: 18px;
+    margin-bottom: 0;
+    background: rgba(10, 10, 10, 0.65);
+  }
+  
+  
+  /* =========================================
+     TOGGLE
+     ========================================= */
+  
+  .comunidade-tipo-toggle {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  
+  .comunidade-tipo-toggle button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  
+    padding: 9px 16px;
+  
+    background: rgba(255, 255, 255, 0.06);
+    color: #cfcfcf;
+  
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+  
+    font-size: 0.85rem;
+    font-weight: 600;
+  
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  
+  .comunidade-tipo-toggle button:hover {
+    background: rgba(22, 199, 104, 0.12);
+    border-color: #16c768;
+    color: #fff;
+  }
+  
+  .comunidade-tipo-toggle button.ativo {
+    background: #16c768;
+    border-color: #16c768;
+    color: #fff;
+  
+    box-shadow: 0 5px 15px rgba(22, 199, 104, 0.25);
+  }
+  
+  
+  /* Pontinhos */
+  
+  .ponto {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  .ponto-experiencia {
+    background-color: #16c768;
+    box-shadow: 0 0 8px rgba(22, 199, 104, 0.6);
+  }
+  
+  .ponto-sugestao {
+    background-color: #ffc107;
+  }
+  
+  
+  /* =========================================
+     TEXTAREA
+     ========================================= */
+  
+  .comunidade-composer textarea,
+  .comunidade-resposta-form textarea {
+    width: 100%;
+    min-height: 120px;
+    box-sizing: border-box;
+  
+    padding: 14px 16px;
+  
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+  
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+  
+    font-size: 0.95rem;
+    line-height: 1.5;
+    font-family: inherit;
+  
+    resize: vertical;
+    outline: none;
+  
+    transition: all 0.25s ease;
+  }
+  
+  .comunidade-composer textarea::placeholder,
+  .comunidade-resposta-form textarea::placeholder {
+    color: #888;
+  }
+  
+  .comunidade-composer textarea:focus,
+  .comunidade-resposta-form textarea:focus {
+    border-color: #16c768;
+  
+    box-shadow:
+      0 0 0 2px rgba(22, 199, 104, 0.15),
+      0 0 20px rgba(22, 199, 104, 0.08);
+  
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  
+  /* =========================================
+     RODAPÉ DO COMPOSER
+     ========================================= */
+  
+  .comunidade-composer-rodape {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-top: 12px;
+  }
+  
+  .comunidade-contador {
+    color: #858585;
+    font-size: 0.8rem;
+  }
+  
+  
+  /* =========================================
+     BOTÕES VERDES
+     ========================================= */
+  
+  .comunidade-composer-rodape button,
+  .comunidade-resposta-form button {
+    padding: 10px 20px;
+  
+    background: #16c768;
+    color: #fff;
+  
+    border: none;
+    border-radius: 20px;
+  
+    font-size: 0.85rem;
+    font-weight: 700;
+  
+    cursor: pointer;
+  
+    box-shadow: 0 6px 18px rgba(22, 199, 104, 0.2);
+  
+    transition:
+      background 0.25s ease,
+      transform 0.2s ease,
+      box-shadow 0.25s ease;
+  }
+  
+  .comunidade-composer-rodape button:hover:not(:disabled),
+  .comunidade-resposta-form button:hover:not(:disabled) {
+    background: #12ad59;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(22, 199, 104, 0.3);
+  }
+  
+  .comunidade-composer-rodape button:disabled,
+  .comunidade-resposta-form button:disabled {
+    background: #444;
+    color: #888;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  
+  
+  /* =========================================
+     AVISOS
+     ========================================= */
+  
+  .comunidade-login-aviso {
+    max-width: 800px;
+    margin: 0 auto 25px;
+    padding: 14px 18px;
+  
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffd666;
+  
+    border: 1px solid rgba(255, 193, 7, 0.25);
+    border-radius: 10px;
+  
+    backdrop-filter: blur(5px);
+  }
+  
+  .comunidade-erro {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin: 10px 0;
+  }
+  
+  .comunidade-status {
+    color: #999;
+    font-style: italic;
+  }
+  
+  
+  /* =========================================
+     ESTRUTURA DE GALHOS / RESPOSTAS
+     ========================================= */
+  
+  .comunidade-galho {
+    position: relative;
+    max-width: 800px;
+    margin-left: calc(var(--profundidade) * 22px);
+    margin-right: auto;
+    margin-bottom: 20px;
+  }
+  
+  .comunidade-marcador {
+    position: absolute;
+    left: -18px;
+    top: 18px;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .linha-trilha {
+    width: 2px;
+  
+    background: rgba(255, 255, 255, 0.12);
+  
+    flex-grow: 1;
+  
+    position: absolute;
+    top: 15px;
+    bottom: -20px;
+  }
+  
+  
+  /* =========================================
+     CARTÃO DA VIVÊNCIA
+     ========================================= */
+  
+  .comunidade-cartao {
+    padding: 18px;
+  
+    background: rgba(15, 15, 15, 0.78);
+  
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+  
+    box-shadow:
+      0 8px 25px rgba(0, 0, 0, 0.3);
+  
+    backdrop-filter: blur(8px);
+  
+    transition:
+      transform 0.25s ease,
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+  
+  .comunidade-cartao:hover {
+    transform: translateY(-2px);
+  
+    border-color: rgba(22, 199, 104, 0.35);
+  
+    box-shadow:
+      0 12px 30px rgba(0, 0, 0, 0.4),
+      0 0 20px rgba(22, 199, 104, 0.05);
+  }
+  
+  
+  /* =========================================
+     TOPO DO CARTÃO
+     ========================================= */
+  
+  .comunidade-cartao-topo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  
+    margin-bottom: 12px;
+  
+    font-size: 0.8rem;
+  }
+  
+  .comunidade-autor {
+    color: #fff;
+    font-weight: 700;
+  }
+  
+  .comunidade-tag {
+    padding: 3px 9px;
+  
+    background: rgba(22, 199, 104, 0.12);
+    color: #16c768;
+  
+    border: 1px solid rgba(22, 199, 104, 0.2);
+    border-radius: 12px;
+  
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  
+  .comunidade-data {
+    margin-left: auto;
+    color: #777;
+  }
+  
+  
+  /* =========================================
+     TEXTO
+     ========================================= */
+  
+  .comunidade-texto {
+    margin: 0 0 14px;
+  
+    color: #e5e5e5;
+  
+    font-size: 0.95rem;
+    line-height: 1.6;
+  
+    word-break: break-word;
+  }
+  
+  
+  /* =========================================
+     AÇÕES
+     ========================================= */
+  
+  .comunidade-cartao-rodape {
+    display: flex;
+    gap: 18px;
+  }
+  
+  .comunidade-acao {
+    padding: 0;
+  
+    background: none;
+    border: none;
+  
+    color: #16c768;
+  
+    font-size: 0.8rem;
+    font-weight: 600;
+  
+    cursor: pointer;
+  
+    transition: color 0.2s ease;
+  }
+  
+  .comunidade-acao:hover {
+    color: #5be99b;
+    text-decoration: none;
+  }
+  
+  .comunidade-acao-excluir {
+    color: #ff6262;
+  }
+  
+  .comunidade-acao-excluir:hover {
+    color: #ff8585;
+  }
+  
+  
+  /* =========================================
+     RESPOSTAS
+     ========================================= */
+  
+  .comunidade-respostas {
+    margin-top: 15px;
+    padding-left: 18px;
+  
+    border-left: 2px solid rgba(22, 199, 104, 0.2);
+  }
+  
+  
+  /* =========================================
+     RESPONSIVO
+     ========================================= */
+  
+  @media (max-width: 768px) {
+    .comunidade-pagina {
+      padding: 35px 20px;
+    }
+  
+    .comunidade-cabecalho h1 {
+      font-size: 2.2rem;
+    }
+  
+    .comunidade-cabecalho {
+      margin-bottom: 30px;
+    }
+  
+    .comunidade-composer,
+    .comunidade-resposta-form {
+      padding: 18px;
+    }
+  
+    .comunidade-galho {
+      margin-left: calc(var(--profundidade) * 12px);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .comunidade-pagina {
+      padding: 30px 14px;
+    }
+  
+    .comunidade-cabecalho h1 {
+      font-size: 1.9rem;
+    }
+  
+    .comunidade-composer-rodape {
+      align-items: flex-end;
+    }
+  
+    .comunidade-composer-rodape button,
+    .comunidade-resposta-form button {
+      padding: 9px 15px;
+    }
+  
+    .comunidade-cartao-topo {
+      flex-wrap: wrap;
+    }
+  
+    .comunidade-data {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+  

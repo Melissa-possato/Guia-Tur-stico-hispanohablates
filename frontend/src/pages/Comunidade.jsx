@@ -1,5 +1,4 @@
 
-
 import { useState, useEffect, useCallback } from "react";
 import "../App.css";
 import { Link } from "react-router-dom"
@@ -29,8 +28,8 @@ export const API_URL = "http://localhost:5000";
 
 const RESPOSTA_MAX = 500;
 
- function Vivencias() {
-  const [vivencias, setVivencias] = useState([]);
+ function Comunidade() {
+  const [comunidade, setComunidade] = useState([]);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState(null);
 
@@ -41,24 +40,24 @@ const RESPOSTA_MAX = 500;
   const token = localStorage.getItem("token");
   const usuarioAtual = token ? decodificarToken(token) : null;
 
-  const carregarVivencias = useCallback(() => {
+  const carregarComunidade = useCallback(() => {
     setCarregando(true);
-    fetch(`${API_URL}/vivencias`)
+    fetch(`${API_URL}/comunidade`)
       .then((res) => {
-        if (!res.ok) throw new Error("Falha ao carregar vivências.");
+        if (!res.ok) throw new Error("Falha ao carregar comunidade.");
         return res.json();
       })
       .then((dados) => {
-        setVivencias(dados);
+        setComunidade(dados);
         setErro(null);
       })
-      .catch(() => setErro("Não foi possível carregar as vivências agora."))
+      .catch(() => setErro("Não foi possível carregar as comunidade agora."))
       .finally(() => setCarregando(false));
   }, []);
 
   useEffect(() => {
-    carregarVivencias();
-  }, [carregarVivencias]);
+    carregarComunidade();
+  }, [carregarComunidade]);
 
   async function handlePublicar(e) {
     e.preventDefault();
@@ -66,7 +65,7 @@ const RESPOSTA_MAX = 500;
 
     setEnviando(true);
     try {
-      const res = await fetch(`${API_URL}/vivencias`, {
+      const res = await fetch(`${API_URL}/comunidade`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,7 +77,7 @@ const RESPOSTA_MAX = 500;
       if (!res.ok) throw new Error();
 
       setNovoTexto("");
-      carregarVivencias();
+      carregarComunidade();
     } catch {
       setErro("Não foi possível publicar. Tente novamente.");
     } finally {
@@ -86,8 +85,9 @@ const RESPOSTA_MAX = 500;
     }
   }
 
+
   async function handleResponder(parentId, texto) {
-    const res = await fetch(`${API_URL}/vivencias/${parentId}/responder`, {
+    const res = await fetch(`${API_URL}/comunidade/${parentId}/responder`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -97,23 +97,23 @@ const RESPOSTA_MAX = 500;
     });
 
     if (!res.ok) throw new Error("Falha ao responder");
-    carregarVivencias();
+    carregarComunidade();
   }
 
   async function handleExcluir(id) {
-    const res = await fetch(`${API_URL}/vivencias/${id}`, {
+    const res = await fetch(`${API_URL}/comunidade/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` }
     });
 
-    if (res.ok) carregarVivencias();
+    if (res.ok) carregarComunidade();
   }
 
   return (
-    <div className="vivencias-pagina">
-      <header className="vivencias-cabecalho">
-        <span className="vivencias-eyebrow">Diário da comunidade</span>
-        <h1>Vivências</h1>
+    <div className="comunidade-pagina">
+      <header className="comunidade-cabecalho">
+        <span className="comunidade-eyebrow">Diário da comunidade</span>
+        <h1>Comunidade</h1>
         <p>
           Um relato de quem já passou por aqui. Conte sua experiência, deixe
           uma sugestão, ou responda a quem já registrou a sua.
@@ -121,8 +121,8 @@ const RESPOSTA_MAX = 500;
       </header>
 
       {token ? (
-        <form className="vivencias-composer" onSubmit={handlePublicar}>
-          <div className="vivencias-tipo-toggle" role="radiogroup" aria-label="Tipo de registro">
+        <form className="comunidade-composer" onSubmit={handlePublicar}>
+          <div className="comunidade-tipo-toggle" role="radiogroup" aria-label="Tipo de registro">
             <button
               type="button"
               className={novoTipo === "experiencia" ? "ativo" : ""}
@@ -154,8 +154,8 @@ const RESPOSTA_MAX = 500;
             rows={3}
           />
 
-          <div className="vivencias-composer-rodape">
-            <span className="vivencias-contador">
+          <div className="comunidade-composer-rodape">
+            <span className="comunidade-contador">
               {novoTexto.length}/{RESPOSTA_MAX}
             </span>
             <button type="submit" disabled={!novoTexto.trim() || enviando}>
@@ -164,25 +164,25 @@ const RESPOSTA_MAX = 500;
           </div>
         </form>
       ) : (
-        <div className="vivencias-login-aviso">
+        <div className="comunidade-login-aviso">
           Faça login para compartilhar sua vivência ou responder a alguém.
         </div>
       )}
 
-      {erro && <p className="vivencias-erro">{erro}</p>}
+      {erro && <p className="comunidade-erro">{erro}</p>}
 
-      <section className="vivencias-trilha" aria-label="Lista de vivências">
-        {carregando && <p className="vivencias-status">Carregando vivências...</p>}
+      <section className="comunidade-trilha" aria-label="Lista de comunidade">
+        {carregando && <p className="comunidade-status">Carregando comunidade...</p>}
 
-        {!carregando && vivencias.length === 0 && !erro && (
-          <p className="vivencias-status">
+        {!carregando && comunidade.length === 0 && !erro && (
+          <p className="comunidade-status">
             Ainda não há nenhum registro. Seja a primeira pessoa a contar algo.
           </p>
         )}
 
-        {vivencias.map((item) => (
+        {comunidade.map((item) => (
           <ComentarioNode
-            key={item.id_vivencia}
+            key={item.id_comunidade}
             item={item}
             profundidade={0}
             usuarioAtual={usuarioAtual}
@@ -211,7 +211,7 @@ function ComentarioNode({ item, profundidade, usuarioAtual, token, onResponder, 
     setEnviandoResposta(true);
     setErroResposta(null);
     try {
-      await onResponder(item.id_vivencia, textoResposta.trim());
+      await onResponder(item.id_comunidade, textoResposta.trim());
       setTextoResposta("");
       setRespondendo(false);
     } catch {
@@ -222,32 +222,32 @@ function ComentarioNode({ item, profundidade, usuarioAtual, token, onResponder, 
   }
 
   return (
-    <div className="vivencia-galho" style={{ "--profundidade": profundidade }}>
-      <div className="vivencia-marcador">
+    <div className="comunidade-galho" style={{ "--profundidade": profundidade }}>
+      <div className="comunidade-marcador">
         <span className={`ponto ponto-${item.tipo}`} />
         {(item.respostas.length > 0 || profundidade > 0) && (
           <span className="linha-trilha" aria-hidden="true" />
         )}
       </div>
 
-      <article className="vivencia-cartao">
-        <header className="vivencia-cartao-topo">
-          <span className="vivencia-autor">{item.nome_usuario}</span>
-          <span className="vivencia-tag">
+      <article className="comunidade-cartao">
+        <header className="comunidade-cartao-topo">
+          <span className="comunidade-autor">{item.nome_usuario}</span>
+          <span className="comunidade-tag">
             {item.tipo === "sugestao" ? "sugestão" : "experiência"}
           </span>
-          <time className="vivencia-data" dateTime={item.criado_em}>
+          <time className="comunidade-data" dateTime={item.criado_em}>
             {formatarData(item.criado_em)}
           </time>
         </header>
 
-        <p className="vivencia-texto">{item.texto}</p>
+        <p className="comunidade-texto">{item.texto}</p>
 
-        <footer className="vivencia-cartao-rodape">
+        <footer className="comunidade-cartao-rodape">
           {token && (
             <button
               type="button"
-              className="vivencia-acao"
+              className="comunidade-acao"
               onClick={() => setRespondendo((v) => !v)}
             >
               {respondendo ? "cancelar" : "responder"}
@@ -256,8 +256,8 @@ function ComentarioNode({ item, profundidade, usuarioAtual, token, onResponder, 
           {ehDono && (
             <button
               type="button"
-              className="vivencia-acao vivencia-acao-excluir"
-              onClick={() => onExcluir(item.id_vivencia)}
+              className="comunidade-acao comunidade-acao-excluir"
+              onClick={() => onExcluir(item.id_comunidade)}
             >
               excluir
             </button>
@@ -265,7 +265,7 @@ function ComentarioNode({ item, profundidade, usuarioAtual, token, onResponder, 
         </footer>
 
         {respondendo && (
-          <form className="vivencia-resposta-form" onSubmit={enviarResposta}>
+          <form className="comunidade-resposta-form" onSubmit={enviarResposta}>
             <textarea
               autoFocus
               rows={2}
@@ -273,9 +273,9 @@ function ComentarioNode({ item, profundidade, usuarioAtual, token, onResponder, 
               onChange={(e) => setTextoResposta(e.target.value.slice(0, RESPOSTA_MAX))}
               placeholder={`Responder a ${item.nome_usuario}...`}
             />
-            {erroResposta && <p className="vivencias-erro">{erroResposta}</p>}
-            <div className="vivencias-composer-rodape">
-              <span className="vivencias-contador">
+            {erroResposta && <p className="comunidade-erro">{erroResposta}</p>}
+            <div className="comunidade-composer-rodape">
+              <span className="comunidade-contador">
                 {textoResposta.length}/{RESPOSTA_MAX}
               </span>
               <button type="submit" disabled={!textoResposta.trim() || enviandoResposta}>
@@ -287,10 +287,10 @@ function ComentarioNode({ item, profundidade, usuarioAtual, token, onResponder, 
       </article>
 
       {item.respostas.length > 0 && (
-        <div className="vivencia-respostas">
+        <div className="comunidade-respostas">
           {item.respostas.map((filho) => (
             <ComentarioNode
-              key={filho.id_vivencia}
+              key={filho.id_comunidade}
               item={filho}
               profundidade={profundidade + 1}
               usuarioAtual={usuarioAtual}
@@ -304,4 +304,4 @@ function ComentarioNode({ item, profundidade, usuarioAtual, token, onResponder, 
     </div>
   );
 }
-export default Vivencias
+export default Comunidade

@@ -62,7 +62,7 @@ function Layout() {
           </Link>
 
           
-          <Link to="/vivencias">Vivências</Link>
+          <Link to="/comunidade">Comunidade</Link>
 
           {usuario ? (
 

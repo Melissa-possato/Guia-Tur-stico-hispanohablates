@@ -13,6 +13,7 @@ module.exports = (req, res, next) => {
 
     jwt.verify(token, SECRET, (err, decoded) => {
         if (err) {
+            console.error("ERRO JWT:", err.message); // <-- adicione isso
             return res.status(403).json({ auth: false, message: 'Token inválido.' });
         }
 
