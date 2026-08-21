@@ -61,12 +61,9 @@ function Layout() {
             Eventos
           </Link>
 
-          
-<<<<<<< HEAD
-          <Link to="/comunidade">Comunidade</Link>
-=======
-          <Link to="/vivencias">Comunidad</Link>
->>>>>>> b5c27528977a82fdc7099528f25307c2bec7b3e1
+          <Link to="/comunidade">
+            Comunidade
+          </Link>
 
           {usuario ? (
 
