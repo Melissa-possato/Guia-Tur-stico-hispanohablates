@@ -3380,3 +3380,525 @@ a:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 24px rgba(34,197,94,0.45);
 }
+
+/* =========================================
+   PÁGINA DE VIVÊNCIAS
+   Estilo inspirado na tela de "Rotas Turísticas"
+   ========================================= */
+
+   .vivencias-pagina {
+    position: relative;
+    max-width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 50px 8%;
+    box-sizing: border-box;
+    font-family: inherit;
+    color: #fff;
+  
+    /* Troque pelo caminho da sua imagem */
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.82)),
+      url("/images/sao-carlos.jpg") center center / cover no-repeat;
+  
+    background-attachment: fixed;
+  }
+  
+  
+  /* =========================================
+     CABEÇALHO
+     ========================================= */
+  
+  .vivencias-cabecalho {
+    max-width: 900px;
+    margin: 0 auto 45px;
+    text-align: center;
+  }
+  
+  .vivencias-eyebrow {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #16c768;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+  }
+  
+  .vivencias-cabecalho h1 {
+    margin: 0 0 10px;
+    color: #fff;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    text-shadow: 0 3px 15px rgba(0, 0, 0, 0.5);
+  }
+  
+  .vivencias-cabecalho p {
+    margin: 0 auto;
+    max-width: 650px;
+    color: #d8d8d8;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  
+  /* =========================================
+     COMPOSER
+     ========================================= */
+  
+  .vivencias-composer,
+  .vivencia-resposta-form {
+    max-width: 800px;
+    margin: 0 auto 35px;
+    padding: 24px;
+    box-sizing: border-box;
+  
+    background: rgba(15, 15, 15, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+  
+    box-shadow:
+      0 15px 40px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  
+    backdrop-filter: blur(8px);
+  }
+  
+  .vivencia-resposta-form {
+    margin-top: 18px;
+    margin-bottom: 0;
+    background: rgba(10, 10, 10, 0.65);
+  }
+  
+  
+  /* =========================================
+     TOGGLE
+     ========================================= */
+  
+  .vivencias-tipo-toggle {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  
+  .vivencias-tipo-toggle button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  
+    padding: 9px 16px;
+  
+    background: rgba(255, 255, 255, 0.06);
+    color: #cfcfcf;
+  
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+  
+    font-size: 0.85rem;
+    font-weight: 600;
+  
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  
+  .vivencias-tipo-toggle button:hover {
+    background: rgba(22, 199, 104, 0.12);
+    border-color: #16c768;
+    color: #fff;
+  }
+  
+  .vivencias-tipo-toggle button.ativo {
+    background: #16c768;
+    border-color: #16c768;
+    color: #fff;
+  
+    box-shadow: 0 5px 15px rgba(22, 199, 104, 0.25);
+  }
+  
+  
+  /* Pontinhos */
+  
+  .ponto {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  .ponto-experiencia {
+    background-color: #16c768;
+    box-shadow: 0 0 8px rgba(22, 199, 104, 0.6);
+  }
+  
+  .ponto-sugestao {
+    background-color: #ffc107;
+  }
+  
+  
+  /* =========================================
+     TEXTAREA
+     ========================================= */
+  
+  .vivencias-composer textarea,
+  .vivencia-resposta-form textarea {
+    width: 100%;
+    min-height: 120px;
+    box-sizing: border-box;
+  
+    padding: 14px 16px;
+  
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+  
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+  
+    font-size: 0.95rem;
+    line-height: 1.5;
+    font-family: inherit;
+  
+    resize: vertical;
+    outline: none;
+  
+    transition: all 0.25s ease;
+  }
+  
+  .vivencias-composer textarea::placeholder,
+  .vivencia-resposta-form textarea::placeholder {
+    color: #888;
+  }
+  
+  .vivencias-composer textarea:focus,
+  .vivencia-resposta-form textarea:focus {
+    border-color: #16c768;
+  
+    box-shadow:
+      0 0 0 2px rgba(22, 199, 104, 0.15),
+      0 0 20px rgba(22, 199, 104, 0.08);
+  
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  
+  /* =========================================
+     RODAPÉ DO COMPOSER
+     ========================================= */
+  
+  .vivencias-composer-rodape {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-top: 12px;
+  }
+  
+  .vivencias-contador {
+    color: #858585;
+    font-size: 0.8rem;
+  }
+  
+  
+  /* =========================================
+     BOTÕES VERDES
+     ========================================= */
+  
+  .vivencias-composer-rodape button,
+  .vivencia-resposta-form button {
+    padding: 10px 20px;
+  
+    background: #16c768;
+    color: #fff;
+  
+    border: none;
+    border-radius: 20px;
+  
+    font-size: 0.85rem;
+    font-weight: 700;
+  
+    cursor: pointer;
+  
+    box-shadow: 0 6px 18px rgba(22, 199, 104, 0.2);
+  
+    transition:
+      background 0.25s ease,
+      transform 0.2s ease,
+      box-shadow 0.25s ease;
+  }
+  
+  .vivencias-composer-rodape button:hover:not(:disabled),
+  .vivencia-resposta-form button:hover:not(:disabled) {
+    background: #12ad59;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(22, 199, 104, 0.3);
+  }
+  
+  .vivencias-composer-rodape button:disabled,
+  .vivencia-resposta-form button:disabled {
+    background: #444;
+    color: #888;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  
+  
+  /* =========================================
+     AVISOS
+     ========================================= */
+  
+  .vivencias-login-aviso {
+    max-width: 800px;
+    margin: 0 auto 25px;
+    padding: 14px 18px;
+  
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffd666;
+  
+    border: 1px solid rgba(255, 193, 7, 0.25);
+    border-radius: 10px;
+  
+    backdrop-filter: blur(5px);
+  }
+  
+  .vivencias-erro {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin: 10px 0;
+  }
+  
+  .vivencias-status {
+    color: #999;
+    font-style: italic;
+  }
+  
+  
+  /* =========================================
+     ESTRUTURA DE GALHOS / RESPOSTAS
+     ========================================= */
+  
+  .vivencia-galho {
+    position: relative;
+    max-width: 800px;
+    margin-left: calc(var(--profundidade) * 22px);
+    margin-right: auto;
+    margin-bottom: 20px;
+  }
+  
+  .vivencia-marcador {
+    position: absolute;
+    left: -18px;
+    top: 18px;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .linha-trilha {
+    width: 2px;
+  
+    background: rgba(255, 255, 255, 0.12);
+  
+    flex-grow: 1;
+  
+    position: absolute;
+    top: 15px;
+    bottom: -20px;
+  }
+  
+  
+  /* =========================================
+     CARTÃO DA VIVÊNCIA
+     ========================================= */
+  
+  .vivencia-cartao {
+    padding: 18px;
+  
+    background: rgba(15, 15, 15, 0.78);
+  
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+  
+    box-shadow:
+      0 8px 25px rgba(0, 0, 0, 0.3);
+  
+    backdrop-filter: blur(8px);
+  
+    transition:
+      transform 0.25s ease,
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+  
+  .vivencia-cartao:hover {
+    transform: translateY(-2px);
+  
+    border-color: rgba(22, 199, 104, 0.35);
+  
+    box-shadow:
+      0 12px 30px rgba(0, 0, 0, 0.4),
+      0 0 20px rgba(22, 199, 104, 0.05);
+  }
+  
+  
+  /* =========================================
+     TOPO DO CARTÃO
+     ========================================= */
+  
+  .vivencia-cartao-topo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  
+    margin-bottom: 12px;
+  
+    font-size: 0.8rem;
+  }
+  
+  .vivencia-autor {
+    color: #fff;
+    font-weight: 700;
+  }
+  
+  .vivencia-tag {
+    padding: 3px 9px;
+  
+    background: rgba(22, 199, 104, 0.12);
+    color: #16c768;
+  
+    border: 1px solid rgba(22, 199, 104, 0.2);
+    border-radius: 12px;
+  
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  
+  .vivencia-data {
+    margin-left: auto;
+    color: #777;
+  }
+  
+  
+  /* =========================================
+     TEXTO
+     ========================================= */
+  
+  .vivencia-texto {
+    margin: 0 0 14px;
+  
+    color: #e5e5e5;
+  
+    font-size: 0.95rem;
+    line-height: 1.6;
+  
+    word-break: break-word;
+  }
+  
+  
+  /* =========================================
+     AÇÕES
+     ========================================= */
+  
+  .vivencia-cartao-rodape {
+    display: flex;
+    gap: 18px;
+  }
+  
+  .vivencia-acao {
+    padding: 0;
+  
+    background: none;
+    border: none;
+  
+    color: #16c768;
+  
+    font-size: 0.8rem;
+    font-weight: 600;
+  
+    cursor: pointer;
+  
+    transition: color 0.2s ease;
+  }
+  
+  .vivencia-acao:hover {
+    color: #5be99b;
+    text-decoration: none;
+  }
+  
+  .vivencia-acao-excluir {
+    color: #ff6262;
+  }
+  
+  .vivencia-acao-excluir:hover {
+    color: #ff8585;
+  }
+  
+  
+  /* =========================================
+     RESPOSTAS
+     ========================================= */
+  
+  .vivencia-respostas {
+    margin-top: 15px;
+    padding-left: 18px;
+  
+    border-left: 2px solid rgba(22, 199, 104, 0.2);
+  }
+  
+  
+  /* =========================================
+     RESPONSIVO
+     ========================================= */
+  
+  @media (max-width: 768px) {
+    .vivencias-pagina {
+      padding: 35px 20px;
+    }
+  
+    .vivencias-cabecalho h1 {
+      font-size: 2.2rem;
+    }
+  
+    .vivencias-cabecalho {
+      margin-bottom: 30px;
+    }
+  
+    .vivencias-composer,
+    .vivencia-resposta-form {
+      padding: 18px;
+    }
+  
+    .vivencia-galho {
+      margin-left: calc(var(--profundidade) * 12px);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .vivencias-pagina {
+      padding: 30px 14px;
+    }
+  
+    .vivencias-cabecalho h1 {
+      font-size: 1.9rem;
+    }
+  
+    .vivencias-composer-rodape {
+      align-items: flex-end;
+    }
+  
+    .vivencias-composer-rodape button,
+    .vivencia-resposta-form button {
+      padding: 9px 15px;
+    }
+  
+    .vivencia-cartao-topo {
+      flex-wrap: wrap;
+    }
+  
+    .vivencia-data {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+  

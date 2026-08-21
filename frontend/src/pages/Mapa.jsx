@@ -77,7 +77,7 @@ function Mapa() {
     {
       nome: "UFSCar",
       categoria: "Universidade",
-      descricao: "Uma das universidades mais importantes do Brasil.",
+      descricao: "Una de las universidades más importantes de Brasil.",
       posicao: [-21.983, -47.88],
       type: "university"
     },
