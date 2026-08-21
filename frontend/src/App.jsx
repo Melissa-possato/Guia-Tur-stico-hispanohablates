@@ -186,7 +186,7 @@ function App() {
       <p>
         Sábado: 9:00 - 12:00
         <br />
-        Domingo: mayoría cerrado
+        Domingo: cerrado
       </p>
 
       </div>
