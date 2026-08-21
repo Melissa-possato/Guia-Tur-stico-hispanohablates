@@ -121,7 +121,18 @@ CREATE TABLE passo (
 INSERT INTO categoria_frase (nome)
 VALUES ('Compras'), ('Banco'), ('Escola'), ('Saúde'), ('Moradia');
 
-
+CREATE TABLE comunidade (
+    id_comunidade INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    parent_id INT DEFAULT NULL,
+    tipo ENUM('experiencia', 'sugestao') NOT NULL DEFAULT 'experiencia',
+    texto VARCHAR(500) NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ 
+    FOREIGN KEY (usuario_id) REFERENCES cadastro(id_cadastro) ON DELETE CASCADE,
+    FOREIGN KEY (parent_id) REFERENCES comunidade(id_comunidade) ON DELETE CASCADE
+);
+ 
 /*MERCADO*/
 INSERT INTO palavra (id_categoria, pt, es) VALUES
 (1, 'supermercado', 'supermercado'),
