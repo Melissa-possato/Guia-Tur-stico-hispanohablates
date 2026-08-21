@@ -39,7 +39,8 @@
   margin-bottom: 20px;
 }
 
-.hero button {
+
+.btn-explorar{
   background: #22c55e;
   border: none;
   padding: 12px 20px;
@@ -47,10 +48,6 @@
   cursor: pointer;
   color: white;
   font-weight: bold;
-}
-
-.hero button:hover {
-  background: #16a34a;
 }
 
 /* SEÇÃO */
