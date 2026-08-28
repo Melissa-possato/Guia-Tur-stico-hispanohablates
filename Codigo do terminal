@@ -1,0 +1,6 @@
+cd backend
+npm i
+cd frontend
+npm i
+npm install react@19.2.8 react-dom@19.2.8
+npm i react-icons
