@@ -82,7 +82,7 @@ node server.js
 Se tudo estiver configurado corretamente, deverá aparecer uma mensagem semelhante a:
 Servidor rodando na porta 5000, Conectado ao MySQL!
 
-⚠️ Caso apareça algum erro
+ Caso apareça algum erro
 
 Verifique novamente as informações presentes no arquivo db.js, principalmente:
 
