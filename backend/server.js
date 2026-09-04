@@ -92,6 +92,7 @@ app.put("/update/:id", (req, res) => {
 
   const sql = `
     UPDATE cadastro
+    SET
       nome_usuario = ?,
       telefone = ?,
       email = ?,
