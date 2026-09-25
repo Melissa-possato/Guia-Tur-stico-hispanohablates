@@ -74,11 +74,11 @@ Certifique-se de que o terminal não esteja utilizando PowerShell.
 É recomendado utilizar CMD, Git Bash ou outro terminal compatível com Node.js.
 
 No terminal, entre na pasta backend:
-cd backend
+cd backend;
+Digite:
+npm i
 
-Em seguida, execute o servidor:
-node server.js
-
+Em seguida, execute o servidor: node.js
 Se tudo estiver configurado corretamente, deverá aparecer uma mensagem semelhante a:
 Servidor rodando na porta 5000, Conectado ao MySQL!
 
@@ -92,8 +92,6 @@ Porta do MySQL (port).
 
 Corrija as informações, salve o arquivo e execute novamente:
 
-node server.js
-
 5. Instalar as dependências do Frontend
 Abra uma nova aba do terminal no VS Code.
 Entre na pasta frontend:
@@ -101,6 +99,8 @@ cd frontend
 
 Instale as dependências do projeto utilizando:
 npm i
+npm install react@19.2.8 react-dom@19.2.8
+npm i react-icons
 
 
 Aguarde a conclusão da instalação.
